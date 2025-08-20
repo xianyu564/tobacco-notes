@@ -1,7 +1,7 @@
 # Style Guide | 写作格式指引
 
 > 目标：让笔记结构清晰、可搜索、可复用；保持个人风格同时便于他人阅读与索引。
-> 参考：Tobacco Appreciation 101 — 烟草赏析入门（Wiki）[链接](https://github.com/xianyu564/tobacco-notes/wiki/Tobacco-Appreciation-101-%E2%80%94-%E7%83%9F%E8%8D%89%E8%B5%8F%E6%9E%90%E5%85%A5%E9%97%A8#%E7%83%9F%E8%8D%89%E5%93%81%E7%B1%BB%E5%AF%BC%E8%A7%88)
+> 参考：[Tobacco Appreciation 101 — 烟草赏析入门](../wiki/Tobacco-Appreciation-101.md)（完整 Wiki 指南）与 [烟草品类导览](../wiki/Tobacco-Category-Guide.md)
 
 ## 1) 元数据（前言区）| Front matter
 - 必填：`date`、`category`、标题字段（随品类不同，如 cigars 用 `product`，cigarettes 用 `brand` 等）
@@ -55,7 +55,7 @@ tags: [cigar, woody, spicy]
 - ecig（电子烟）
   - 设备/线圈/烟油、入口/稳定期风味、喉感与余味
 
-> 更多入门框架与对照思路，见 Wiki 入门指南与“品类导览”章节：[链接](https://github.com/xianyu564/tobacco-notes/wiki/Tobacco-Appreciation-101-%E2%80%94-%E7%83%9F%E8%8D%89%E8%B5%8F%E6%9E%90%E5%85%A5%E9%97%A8#%E7%83%9F%E8%8D%89%E5%93%81%E7%B1%BB%E5%AF%BC%E8%A7%88)
+> 更多入门框架与对照思路，见完整 Wiki 指南：[烟草赏析入门](../wiki/Tobacco-Appreciation-101.md) 与 [烟草品类导览](../wiki/Tobacco-Category-Guide.md)
 
 ## 5) 评分与标签 | Ratings & tags
 - 评分：
@@ -84,4 +84,4 @@ tags: [cigar, woody, spicy]
 - 模板：`notes/*/TEMPLATE_*.md`
 - 术语表：`docs/glossary.md`
 - 参与指南：`docs/contribute.md`
-- 入门与方法论（Wiki）：[Tobacco Appreciation 101](https://github.com/xianyu564/tobacco-notes/wiki/Tobacco-Appreciation-101-%E2%80%94-%E7%83%9F%E8%8D%89%E8%B5%8F%E6%9E%90%E5%85%A5%E9%97%A8#%E7%83%9F%E8%8D%89%E5%93%81%E7%B1%BB%E5%AF%BC%E8%A7%88)
+- 入门与方法论（Wiki）：[Tobacco Appreciation 101](../wiki/Tobacco-Appreciation-101.md) | [品类导览](../wiki/Tobacco-Category-Guide.md) | [术语词典](../wiki/Terminology-Descriptors.md)
