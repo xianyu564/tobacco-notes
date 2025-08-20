@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tobacco Notes｜烟草笔记</title>
+  <meta property="og:title" content="Tobacco Notes｜烟草笔记" />
+  <meta property="og:description" content="一句话投稿、轻量浏览、友好索引；为爱发电的烟草品鉴记录与分享。" />
+  <meta property="og:type" content="website" />
   <link rel="stylesheet" href="./styles.css" />
   <meta name="description" content="轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记；支持赞助。" />
 </head>
@@ -29,7 +32,23 @@
 
     <section>
       <h2>按分类浏览</h2>
+      <div id="cat-summary" class="cat-summary"></div>
       <div id="by-category" class="categories"></div>
+    </section>
+
+    <section>
+      <h2>模板与指引</h2>
+      <ul class="links">
+        <li><a href="../notes/cigars/TEMPLATE_cigars_bilingual.md">cigars 模板</a></li>
+        <li><a href="../notes/cigarettes/TEMPLATE_cigarettes_bilingual.md">cigarettes 模板</a></li>
+        <li><a href="../notes/pipe/TEMPLATE_pipe_bilingual.md">pipe 模板</a></li>
+        <li><a href="../notes/ryo/TEMPLATE_ryo_bilingual.md">ryo 模板</a></li>
+        <li><a href="../notes/snus/TEMPLATE_snus_bilingual.md">snus 模板</a></li>
+        <li><a href="../notes/ecig/TEMPLATE_ecig_bilingual.md">ecig 模板</a></li>
+      </ul>
+      <p>
+        更多：<a href="./contribute.md">如何参与</a> · <a href="../README.md#how-to-use--使用方式">README 使用方式</a>
+      </p>
     </section>
 
     <section>
@@ -83,10 +102,16 @@
     }
     function noteItem(n) {
       const a = el('a', { href: `../${n.path}`, target: '_blank', rel: 'noopener' }, [n.title]);
+      const copyBtn = el('button', { class: 'copy' }, ['复制链接']);
+      copyBtn.addEventListener('click', async () => {
+        const url = location.origin + '/' + location.pathname.split('/').filter(Boolean).slice(0,2).join('/') + '/' + n.path;
+        try { await navigator.clipboard.writeText(url); copyBtn.textContent = '已复制'; setTimeout(()=> copyBtn.textContent='复制链接', 1200);} catch(e){}
+      });
       return el('li', {}, [
         el('span', { class: 'date' }, [n.date + ' ']),
         el('span', { class: 'cat' }, ['['+n.category+'] ']),
-        a
+        a,
+        copyBtn
       ]);
     }
     (async () => {
@@ -123,6 +148,17 @@
           (n.category || '').toLowerCase().includes(v)
         );
         renderLatest(filtered);
+      });
+
+      // Category summary counts
+      const catOrder = ['cigars','cigarettes','pipe','ryo','snus','ecig'];
+      const counts = Object.fromEntries(catOrder.map(c=>[c,0]));
+      all.forEach(n => { if (counts[n.category] !== undefined) counts[n.category]++; });
+      const catSummary = document.getElementById('cat-summary');
+      catSummary.innerHTML = '';
+      catOrder.forEach(c => {
+        const badge = el('span', { class: 'badge' }, [`${c}: ${counts[c]}`]);
+        catSummary.appendChild(badge);
       });
 
       const byCat = {};

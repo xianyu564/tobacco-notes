@@ -51,6 +51,10 @@ CLI：
 ```bash
 python tools/new_note.py cigarettes "Marlboro Red" --date 2025-08-21
 ```
+Windows PowerShell：
+```powershell
+scripts\new_note.ps1 -category cigarettes -title "Marlboro Red" -date 2025-08-21
+```
 
 ## Sponsor
 If this helps, consider sponsoring ❤️  

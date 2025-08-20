@@ -17,8 +17,13 @@ h3{ margin:8px 0; font-size:16px; color:var(--muted); }
 .note-list .cat{ width:110px; color:#a7b; }
 .note-list a{ color:#cfe3ff; text-decoration:none; }
 .note-list a:hover{ text-decoration:underline; }
+.note-list .copy{ margin-left:auto; background:#1f2a3a; color:#d6e1f0; border:1px solid #2a3b55; padding:6px 8px; border-radius:6px; cursor:pointer; }
+.note-list .copy:hover{ background:#2a3b55; }
 .categories{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:12px; }
 .category-block{ padding:8px; background:#0e121b; border-radius:8px; border:1px solid #1e2635; }
+.cat-summary{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+.badge{ background:#1a2230; color:#b9c7d9; border:1px solid #283449; border-radius:999px; padding:4px 8px; font-size:12px; }
+.links{ list-style: square; padding-left: 20px; }
 .sponsors{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
 .sponsors img{ width:200px; height:auto; border-radius:8px; border:1px solid #233; background:#000; }
 .site-footer{ text-align:center; padding:16px; color:var(--muted); }
