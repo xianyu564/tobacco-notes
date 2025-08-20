@@ -1,0 +1,96 @@
+﻿name: "投稿一条品鉴 / Submit a Tasting"
+description: "提交一条英中双语的烟草品鉴记录 | Submit a bilingual tasting note"
+title: "[Tasting] 品牌/Brand - 产品/Product - 日期/Date"
+labels: ["tasting"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: "分类 / Category"
+      options:
+        - cigars (雪茄)
+        - cigarettes (纸烟)
+        - pipe (烟斗草)
+        - ryo (手卷)
+        - snus (唇烟/口含烟)
+        - ecig (电子烟)
+      description: "选择产品类别 | Choose category"
+    validations:
+      required: true
+
+  - type: input
+    id: brand
+    attributes:
+      label: "品牌 / Brand"
+      placeholder: "例: Cohiba / Marlboro / Dunhill ..."
+    validations:
+      required: true
+
+  - type: input
+    id: product
+    attributes:
+      label: "产品 / Product"
+      placeholder: "例: Siglo VI / Red / Nightcap ..."
+    validations:
+      required: true
+
+  - type: input
+    id: origin
+    attributes:
+      label: "产地 / Origin"
+      placeholder: "例: Cuba / USA / UK / EU / CN ..."
+
+  - type: input
+    id: date
+    attributes:
+      label: "日期 / Date"
+      placeholder: "YYYY-MM-DD"
+
+  - type: textarea
+    id: aroma
+    attributes:
+      label: "香气 / Aroma"
+      placeholder: "冷香、点燃后香气、变化 | Pre-light, lit aroma, transitions"
+      render: bash
+
+  - type: textarea
+    id: flavor
+    attributes:
+      label: "风味笔记 / Flavor Notes"
+      placeholder: "甜/酸/苦/咸/鲜、坚果、木质、香料、奶油、果香等 | sweetness, acidity, bitterness, umami, nutty, woody, spicy, creamy, fruity..."
+      render: bash
+
+  - type: textarea
+    id: body_strength
+    attributes:
+      label: "力度与厚度 / Strength & Body"
+      placeholder: "轻/中/重，口感厚薄，尼古丁感受 | light/medium/full, nicotine hit"
+      render: bash
+
+  - type: textarea
+    id: construction
+    attributes:
+      label: "做工 / 燃烧与通风 / Construction"
+      placeholder: "燃烧是否均匀、灰、通风、复燃情况 | burn evenness, ash, draw"
+      render: bash
+
+  - type: input
+    id: pairing
+    attributes:
+      label: "配餐/配饮 / Pairing"
+      placeholder: "例: Espresso, Whisky, Tea, Water ..."
+
+  - type: input
+    id: rating
+    attributes:
+      label: "总体评分(0-10) / Overall Rating (0-10)"
+      placeholder: "0-10"
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "补充说明 / Notes"
+      placeholder: "存储、环境、器具、抽吸节奏等 | storage, environment, gear, cadence"
+      render: bash
