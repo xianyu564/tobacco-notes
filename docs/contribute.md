@@ -8,6 +8,12 @@
 - 标准表单投稿（结构化更完整）
   - 使用 Tasting 表单，按字段填写：品牌/产品/香气/风味/评分等。
 
+不访问网站首页也能投稿（直达链接）：
+- 一句话投稿（One-liner）：`issues/new?template=quick.yml`
+- 标准表单（Tasting）：`issues/new?template=tasting.yml`
+把以上两个链接替换成仓库地址前缀即可，例如：
+`https://github.com/<owner>/<repo>/issues/new?template=quick.yml`
+
 提交后，机器人会：
 - 自动把 Issue 转成 `notes/<category>/YYYY-MM-DD-*.md`；
 - 更新索引与网站数据；

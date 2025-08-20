@@ -45,6 +45,10 @@ Website | 网站浏览（适配手机）：[`docs/`](./docs/)
 - 或使用标准表单发布：[Tasting 表单](../../issues/new?template=tasting.yml)。  
 - PRs welcome（新模板、术语表、格式修正等）。
 
+无需打开网站首页也可投稿（直达链接）：
+- 一句话投稿：`https://github.com/<owner>/<repo>/issues/new?template=quick.yml`
+- 标准表单：`https://github.com/<owner>/<repo>/issues/new?template=tasting.yml`
+
 更多信息：[`CONTRIBUTING.md`](./CONTRIBUTING.md) · [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) · [`Sustainability`](./docs/sustainability.md)
 
 CLI：
