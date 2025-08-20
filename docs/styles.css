@@ -1,160 +1,205 @@
 /* 原有样式保持不变... */
 
-/* 动画相关样式 */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes scaleIn {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-@keyframes slideIn {
-  from { transform: translateX(-20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* 页面过渡 */
-.page-enter {
-  animation: fadeIn 0.5s ease-out;
-}
-
-.page-exit {
-  animation: fadeOut 0.3s ease-in forwards;
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; }
-}
-
-/* 可动画元素 */
-.animate {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-}
-
-.animate-in {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 按钮动画 */
-.btn {
-  position: relative;
-  overflow: hidden;
-}
-
-.btn::after {
-  content: "";
-  position: absolute;
-  top: var(--mouse-y, 50%);
-  left: var(--mouse-x, 50%);
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle closest-side, rgba(255,255,255,0.1), transparent);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.btn:hover::after {
-  opacity: 1;
-}
-
-/* 卡片动画 */
-.category-block,
-.template-card {
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
-
-.category-block:hover,
-.template-card:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-}
-
-/* 加载动画 */
-.loader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  animation: scaleIn 0.3s ease-out;
-}
-
-.loader-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid var(--card);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.loader-text {
-  margin-top: 12px;
-  color: var(--muted);
-}
-
-.loader.fade-out {
-  animation: fadeOut 0.3s ease-in forwards;
-}
-
-/* 列表项动画 */
-.note-list li {
-  animation: slideIn 0.3s ease-out backwards;
-}
-
-.note-list li:nth-child(1) { animation-delay: 0.1s; }
-.note-list li:nth-child(2) { animation-delay: 0.2s; }
-.note-list li:nth-child(3) { animation-delay: 0.3s; }
-.note-list li:nth-child(4) { animation-delay: 0.4s; }
-.note-list li:nth-child(5) { animation-delay: 0.5s; }
-
-/* 导航链接动画 */
-.nav-links a {
-  position: relative;
-}
-
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: var(--primary);
-  transition: width 0.3s ease-out, left 0.3s ease-out;
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-  width: 100%;
-  left: 0;
-}
-
-/* 滚动动画 */
-html {
-  scroll-behavior: smooth;
-}
-
 /* 移动端优化 */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 50px;
+    --header-height: 200px;
+  }
+
+  body {
+    font-size: 15px;
+  }
+
+  .nav {
+    padding: 0 12px;
+  }
+
+  .nav-logo {
+    font-size: 16px;
+  }
+
+  .nav-links {
+    gap: 8px;
+  }
+
+  .nav-links .btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .site-header {
+    padding: 24px 16px;
+  }
+
+  .site-header h1 {
+    font-size: 24px;
+  }
+
+  .site-header p {
+    font-size: 16px;
+  }
+
+  .container {
+    padding: 12px;
+  }
+
+  section {
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .search input {
+    font-size: 15px;
+    padding: 10px 14px;
+  }
+
+  .note-list li {
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 10px 0;
+  }
+
+  .note-list .date,
+  .note-list .cat {
+    width: auto;
+    font-size: 13px;
+  }
+
+  .note-list a {
+    width: 100%;
+    order: -1;
+    font-size: 15px;
+  }
+
+  .note-list .author {
+    font-size: 13px;
+  }
+
+  .note-list .copy {
+    margin-left: auto;
+    padding: 4px 8px;
+    font-size: 13px;
+  }
+
+  .categories {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .category-block {
+    padding: 12px;
+  }
+
+  .template-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .template-card {
+    padding: 12px;
+  }
+
+  .template-card h3 {
+    font-size: 16px;
+  }
+
+  .template-card p {
+    font-size: 14px;
+  }
+
+  .sponsors img {
+    width: 160px;
+  }
+
+  .footer-feeds {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  
+  .footer-feeds > span {
+    display: none;
+  }
+
+  .footer-meta {
+    font-size: 12px;
+  }
+
+  /* 触摸优化 */
+  .btn,
+  .badge,
+  .note-list .copy {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 下拉刷新 */
+  .pull-to-refresh {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card);
+    transform: translateY(-100%);
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: 90;
+    pointer-events: none;
+  }
+
+  .pull-to-refresh.refreshing::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  /* 手势提示 */
+  .swipe-hint {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--muted);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .swipe-hint.show {
+    opacity: 1;
+  }
+
+  /* 性能优化 */
+  .reduce-motion * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  img[data-defer] {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  img[data-defer][src] {
+    opacity: 1;
   }
 }
