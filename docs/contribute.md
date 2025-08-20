@@ -27,14 +27,8 @@
 - snus: `notes/snus/TEMPLATE_snus_bilingual.md`
 - ecig: `notes/ecig/TEMPLATE_ecig_bilingual.md`
 
-## 命令行脚本｜CLI Script
-可用脚本快速生成笔记骨架（文件名含日期和 slug）：
-
-```bash
-python tools/new_note.py <category> "<title>" --date YYYY-MM-DD
-# 例：
-python tools/new_note.py cigarettes "Marlboro Red" --date 2025-08-21
-```
+## 当前阶段说明｜No CLI for now
+为保证门槛最低、流程统一，当前仅接受通过 Issue 表单投稿；命令行脚本暂不开放。
 
 ## 写作建议｜Writing Tips
 - 以要点为主，短句更清晰；

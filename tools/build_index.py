@@ -114,7 +114,10 @@ def write_index(root: Path, entries: list[NoteEntry]) -> None:
         lines.append("")
         for e in group:
             # [YYYY-MM-DD] Title (relative path)
-            lines.append(f"- [{e.date}] [{e.title}]({e.path.as_posix()})")
+            # Try to show author if present in front matter
+            author = read_front_matter(root / e.path).get("author", "")
+            author_str = f" — @{author}" if author else ""
+            lines.append(f"- [{e.date}] [{e.title}]({e.path.as_posix()}){author_str}")
         lines.append("")
 
     notes_dir = root / "notes"
@@ -123,15 +126,16 @@ def write_index(root: Path, entries: list[NoteEntry]) -> None:
     out_path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
     # JSON indices
-    json_entries = [
-        {
+    json_entries = []
+    for e in entries:
+        fm = read_front_matter(root / e.path)
+        json_entries.append({
             "category": e.category,
             "date": e.date,
             "path": e.path.as_posix(),
             "title": e.title,
-        }
-        for e in entries
-    ]
+            "author": fm.get("author", "")
+        })
     (notes_dir / "index.json").write_text(json.dumps(json_entries, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # Also write to docs/data for GitHub Pages

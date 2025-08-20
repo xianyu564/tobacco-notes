@@ -107,10 +107,12 @@
         const url = location.origin + '/' + location.pathname.split('/').filter(Boolean).slice(0,2).join('/') + '/' + n.path;
         try { await navigator.clipboard.writeText(url); copyBtn.textContent = '已复制'; setTimeout(()=> copyBtn.textContent='复制链接', 1200);} catch(e){}
       });
+      const author = n.author ? ` @${n.author}` : '';
       return el('li', {}, [
         el('span', { class: 'date' }, [n.date + ' ']),
         el('span', { class: 'cat' }, ['['+n.category+'] ']),
         a,
+        el('span', { class: 'author'}, [author]),
         copyBtn
       ]);
     }
