@@ -612,7 +612,7 @@
 ### Numerical Scales | 数字量表
 
 #### 100-Point Scale | 100分制
-**English**: Detailed evaluation system commonly used for premium cigars.
+**English**: A detailed evaluation system preferred for premium cigars because it allows for nuanced and precise differentiation between products. The 100-point scale is widely recognized in the industry and enables connoisseurs and reviewers to express subtle distinctions in quality, construction, and flavor that simpler rating systems may not capture.
 **中文**: 常用于高级雪茄的详细评估系统。
 
 **Scale breakdown | 评分细分**:
