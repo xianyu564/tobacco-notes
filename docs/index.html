@@ -40,12 +40,14 @@
   <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="./feed.xml" />
   <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="./feed.atom" />
   <link rel="alternate" type="application/json" title="JSON Feed" href="./feed.json" />
+  
   <!-- 核心功能支持 -->
   <script defer src="./js/shortcuts.js"></script>
   <script defer src="./js/theme.js"></script>
   <script defer src="./js/search.js"></script>
   <script defer src="./js/notes.js"></script>
   <script defer src="./js/share.js"></script>
+  <script defer src="./js/animations.js"></script>
 </head>
 <body>
   <!-- 固定导航栏 -->
@@ -60,7 +62,7 @@
     </div>
   </nav>
 
-  <header class="site-header">
+  <header class="site-header animate">
     <h1>Tobacco Notes｜烟草笔记</h1>
     <p>记录每一次品鉴，分享独特体验</p>
     <div class="cta">
@@ -71,7 +73,7 @@
   </header>
 
   <main class="container">
-    <section id="latest">
+    <section id="latest" class="animate">
       <h2>
         <span>最新笔记</span>
         <span class="shortcut-hint">⌘K 搜索</span>
@@ -86,13 +88,13 @@
       </div>
     </section>
 
-    <section id="categories">
+    <section id="categories" class="animate">
       <h2>按分类浏览</h2>
       <div id="cat-summary" class="cat-summary"></div>
       <div id="by-category" class="categories"></div>
     </section>
 
-    <section id="templates">
+    <section id="templates" class="animate">
       <h2>模板与指引</h2>
       <div class="template-grid">
         <div class="template-card">
@@ -135,7 +137,7 @@
       </div>
     </section>
 
-    <section id="sponsor">
+    <section id="sponsor" class="animate">
       <h2>赞助支持</h2>
       <p>如果你觉得这个项目有用，欢迎赞助支持。你的支持将用于：</p>
       <ul class="sponsor-uses">
@@ -333,12 +335,12 @@
       const container = document.getElementById('by-category');
       Object.keys(byCat).forEach(cat => {
         const section = el('div', {
-          class: 'category-block',
+          class: 'category-block animate',
           id: cat
         }, [
           el('h3', {}, [
             cat,
-            el('span', { class: 'count' }, [` (${byCat[cat].length}))`])
+            el('span', { class: 'count' }, [` (${byCat[cat].length})`])
           ])
         ]);
         
