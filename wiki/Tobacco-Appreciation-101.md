@@ -293,7 +293,6 @@
 
 ### Documentation Template | 记录模板
 
-```markdown
 ## [Product Name] - [Date]
 
 ### Basic Information | 基本信息
