@@ -4,12 +4,39 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tobacco Notes｜烟草笔记</title>
+  
+  <!-- SEO Meta -->
+  <meta name="description" content="轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记；支持赞助。" />
+  <meta name="keywords" content="烟草,品鉴,笔记,雪茄,纸烟,烟斗,手卷,唇烟,电子烟" />
+  <meta name="author" content="Contributors" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph -->
   <meta property="og:title" content="Tobacco Notes｜烟草笔记" />
   <meta property="og:description" content="一句话投稿、轻量浏览、友好索引；为爱发电的烟草品鉴记录与分享。" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://xianyu564.github.io/tobacco-notes/" />
+  <meta property="og:image" content="./assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content="Tobacco Notes" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tobacco Notes｜烟草笔记" />
+  <meta name="twitter:description" content="一句话投稿、轻量浏览、友好索引；为爱发电的烟草品鉴记录与分享。" />
+  <meta name="twitter:image" content="./assets/og-image.png" />
+  
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png" />
+  <link rel="manifest" href="./assets/site.webmanifest" />
+  <meta name="theme-color" content="#ff4d6d" />
+  
+  <!-- Styles & Feeds -->
   <link rel="stylesheet" href="./styles.css" />
-  <meta name="description" content="轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记；支持赞助。" />
-  <!-- Feed 链接 -->
   <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="./feed.xml" />
   <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="./feed.atom" />
   <link rel="alternate" type="application/json" title="JSON Feed" href="./feed.json" />
@@ -18,6 +45,7 @@
   <script defer src="./js/theme.js"></script>
   <script defer src="./js/search.js"></script>
   <script defer src="./js/notes.js"></script>
+  <script defer src="./js/share.js"></script>
 </head>
 <body>
   <!-- 固定导航栏 -->
@@ -27,6 +55,7 @@
       <button class="btn theme-toggle" aria-label="切换主题">🌓</button>
       <a href="#latest" class="btn">最新笔记</a>
       <a href="#categories" class="btn">分类浏览</a>
+      <button class="btn share-button" data-platform="native" aria-label="分享">分享</button>
       <a id="link-one" class="btn primary" href="#">一句话投稿</a>
     </div>
   </nav>

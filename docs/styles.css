@@ -37,6 +37,71 @@
   transform: translateY(-1px);
 }
 
+/* 分享按钮 */
+.share-button {
+  position: relative;
+}
+
+.share-button:hover::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--card);
+}
+
+/* 分享菜单 */
+.share-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: var(--card);
+  border: 1px solid #233;
+  border-radius: 8px;
+  padding: 8px 0;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  z-index: 100;
+  animation: fadeIn .2s ease-out;
+}
+
+.share-menu button {
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: background .2s;
+}
+
+.share-menu button:hover {
+  background: #1f2a3a;
+}
+
+/* Toast 提示 */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  background: var(--card);
+  color: var(--text);
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  z-index: 1000;
+  transition: transform .3s ease-out;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
 /* 移动端优化 */
 @media (max-width: 768px) {
   .footer-feeds {
@@ -48,5 +113,30 @@
   
   .footer-feeds > span {
     display: none;
+  }
+  
+  .share-menu {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 16px 16px 0 0;
+    padding: 16px;
+  }
+  
+  .share-menu::before {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 4px;
+    background: #233;
+    border-radius: 2px;
+    margin: 0 auto 16px;
+  }
+  
+  .share-menu button {
+    padding: 12px 16px;
+    font-size: 16px;
   }
 }
