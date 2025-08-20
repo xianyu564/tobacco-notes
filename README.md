@@ -30,3 +30,9 @@ If this helps, consider sponsoring ❤️
 ## License
 - Code: MIT (`LICENSE`)  
 - Content: CC BY 4.0 (`CONTENT-LICENSE`)
+
+## Sponsor Codes | 赞助码
+
+| WeChat 赞助码 | SG PayNow 赞助码 |
+| --- | --- |
+| <img src=".github/WeChat%20Sponsor%20Code.jpg" width="240" alt="WeChat Sponsor Code" /> | <img src=".github/SG%20PayNow%20Sponsor%20Code.jpg" width="240" alt="SG PayNow Sponsor Code" /> |
