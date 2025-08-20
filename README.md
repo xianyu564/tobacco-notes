@@ -37,7 +37,7 @@ Website | 网站浏览（适配手机）：[`docs/`](./docs/)
 - 或使用标准表单发布：[Tasting 表单](../../issues/new?template=tasting.yml)。  
 - PRs welcome（新模板、术语表、格式修正等）。
 
-更多信息：[`CONTRIBUTING.md`](./CONTRIBUTING.md) · [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
+更多信息：[`CONTRIBUTING.md`](./CONTRIBUTING.md) · [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) · [`Sustainability`](./docs/sustainability.md)
 
 ## Sponsor
 If this helps, consider sponsoring ❤️  
