@@ -9,6 +9,7 @@ Markdown index for quick browsing.
 """
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass
 from datetime import datetime
@@ -113,8 +114,31 @@ def write_index(root: Path, entries: list[NoteEntry]) -> None:
             lines.append(f"- [{e.date}] [{e.title}]({e.path.as_posix()})")
         lines.append("")
 
-    out_path = root / "notes" / "README.md"
+    notes_dir = root / "notes"
+    notes_dir.mkdir(parents=True, exist_ok=True)
+    out_path = notes_dir / "README.md"
     out_path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+
+    # JSON indices
+    json_entries = [
+        {
+            "category": e.category,
+            "date": e.date,
+            "path": e.path.as_posix(),
+            "title": e.title,
+        }
+        for e in entries
+    ]
+    (notes_dir / "index.json").write_text(json.dumps(json_entries, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # Also write to docs/data for GitHub Pages
+    docs_data = root / "docs" / "data"
+    docs_data.mkdir(parents=True, exist_ok=True)
+    (docs_data / "index.json").write_text(json.dumps(json_entries, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    latest = json_entries[:20]
+    (docs_data / "latest.json").write_text(json.dumps(latest, ensure_ascii=False, indent=2), encoding="utf-8")
+
     print(out_path)
 
 

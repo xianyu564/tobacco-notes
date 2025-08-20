@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tobacco Notes｜烟草笔记</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <meta name="description" content="轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记；支持赞助。" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Tobacco Notes｜烟草笔记</h1>
+    <p>一句话投稿，轻松浏览。</p>
+    <div class="cta">
+      <a id="link-one" class="btn primary" href="#">一句话投稿</a>
+      <a id="link-form" class="btn" href="#">标准表单</a>
+      <a id="link-repo" class="btn" href="#" target="_blank" rel="noopener">在 GitHub 查看</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section>
+      <h2>最新笔记</h2>
+      <ul id="latest-list" class="note-list"></ul>
+    </section>
+
+    <section>
+      <h2>按分类浏览</h2>
+      <div id="by-category" class="categories"></div>
+    </section>
+
+    <section>
+      <h2>赞助支持</h2>
+      <p>如果你觉得有用，欢迎赞助支持，让更多人受益。</p>
+      <div class="sponsors">
+        <img src="../.github/WeChat%20Sponsor%20Code.jpg" alt="WeChat 赞助码" />
+        <img src="../.github/SG%20PayNow%20Sponsor%20Code.jpg" alt="SG PayNow 赞助码" />
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>内容 CC BY 4.0；代码 MIT。健康提示：所有烟草使用均有害。</small>
+  </footer>
+
+  <script>
+    async function loadJSON(path) {
+      const res = await fetch(path);
+      if (!res.ok) return [];
+      return await res.json();
+    }
+    function computeRepoUrls() {
+      // Try to infer owner/repo from Pages path: /<owner>/<repo>/
+      const parts = (location.pathname || '/').split('/').filter(Boolean);
+      let owner = '';
+      let repo = '';
+      if (parts.length >= 2) {
+        owner = parts[0];
+        repo = parts[1];
+      }
+      // Fallback: read from meta tag data-repo if provided (not set here)
+      if (!owner || !repo) return null;
+      const base = `https://github.com/${owner}/${repo}`;
+      return {
+        repo: base,
+        one: `${base}/issues/new?template=quick.yml`,
+        form: `${base}/issues/new?template=tasting.yml`
+      };
+    }
+    function el(tag, attrs={}, children=[]) {
+      const e = document.createElement(tag);
+      Object.entries(attrs).forEach(([k,v])=> e.setAttribute(k, v));
+      children.forEach(c=> e.appendChild(typeof c === 'string'? document.createTextNode(c): c));
+      return e;
+    }
+    function noteItem(n) {
+      const a = el('a', { href: `../${n.path}`, target: '_blank', rel: 'noopener' }, [n.title]);
+      return el('li', {}, [
+        el('span', { class: 'date' }, [n.date + ' ']),
+        el('span', { class: 'cat' }, ['['+n.category+'] ']),
+        a
+      ]);
+    }
+    (async () => {
+      const urls = computeRepoUrls();
+      const aOne = document.getElementById('link-one');
+      const aForm = document.getElementById('link-form');
+      const aRepo = document.getElementById('link-repo');
+      if (urls) {
+        aOne.href = urls.one;
+        aForm.href = urls.form;
+        aRepo.href = urls.repo;
+      } else {
+        // Fallback for local preview on GitHub: relative links work in repo view
+        aOne.href = '../issues/new?template=quick.yml';
+        aForm.href = '../issues/new?template=tasting.yml';
+        aRepo.href = '../../';
+      }
+      const latest = await loadJSON('./data/latest.json');
+      const all = await loadJSON('./data/index.json');
+      const latestList = document.getElementById('latest-list');
+      latest.forEach(n => latestList.appendChild(noteItem(n)));
+
+      const byCat = {};
+      all.forEach(n => (byCat[n.category] = byCat[n.category] || []).push(n));
+      const container = document.getElementById('by-category');
+      Object.keys(byCat).forEach(cat => {
+        const section = el('div', { class: 'category-block' }, [
+          el('h3', {}, [cat])
+        ]);
+        const ul = el('ul', { class: 'note-list' });
+        byCat[cat].slice(0, 50).forEach(n => ul.appendChild(noteItem(n)));
+        section.appendChild(ul);
+        container.appendChild(section);
+      });
+    })();
+  </script>
+</body>
+<style>
+</style>
+</html>
+
+

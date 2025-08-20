@@ -22,11 +22,17 @@ CDC: https://www.cdc.gov/tobacco/hcp/patient-care/quitlines-and-other-resources.
 
 Browse all notes | 浏览全部笔记：[`notes/README.md`](./notes/README.md)
 
+Website | 网站浏览（适配手机）：[`docs/`](./docs/) 
+>（启用 Pages 后可在公开地址访问）待建站
+> tbc
+
 ## Contribute | 参与
 - Open a **Discussion** for Q&A / sharing / corrections. 开贴讨论/分享/勘误。  
 - **极速一句话投稿**：点此一键发布 [One-liner](../../issues/new?template=quick.yml)。  
 - 或使用标准表单发布：[Tasting 表单](../../issues/new?template=tasting.yml)。  
 - PRs welcome（新模板、术语表、格式修正等）。
+
+更多信息：[`CONTRIBUTING.md`](./CONTRIBUTING.md) · [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)
 
 ## Sponsor
 If this helps, consider sponsoring ❤️  
