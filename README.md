@@ -1,30 +1,32 @@
-﻿# Tobacco Notes | 烟草品鉴记录
+﻿# Tobacco Notes（烟草品鉴笔记）
 
-个人英中双语的烟草品鉴记录，便于参考与交流。
+> Lightweight, open tasting notebook for **cigars, cigarettes, pipe, roll-your-own, snus, e-cigarettes**.  
+> 轻量、开放的品鉴笔记库：雪茄、纸烟、烟斗、手卷、唇烟、电子烟。
 
-## 目录结构
-```
-tobacco-notes/
- notes/
-   cigars/           # 雪茄
-   cigarettes/       # 纸烟
-   pipe/             # 烟斗草
-   ryo/              # 手卷
-   snus/             # 唇烟/口含烟
-   ecig/             # 电子烟(e-liquids/设备)
- README.md
- .github/
-   FUNDING.yml       # Sponsor 按钮
-   ISSUE_TEMPLATE/
-      tasting.yml    # 投稿一条品鉴表单
- LICENSE              # 代码许可（MIT）
- CONTENT-LICENSE      # 内容许可（CC BY-NC 4.0）
-```
+[![Sponsor](https://img.shields.io/badge/Sponsor-❤-ff4d6d?style=for-the-badge)](#sponsor)
+[![Discussions](https://img.shields.io/badge/Discussions-join-blue?style=for-the-badge)](../../discussions)
 
-## 如何投稿 / Contribute
-- 通过 Issues 提交一条品鉴：使用仓库的 投稿一条品鉴 Issue 模板，按表单提示填写。
-- 或者提交 PR：在相应分类目录下新增 Markdown 文件。
+⚠️ **Health note | 健康提示**：All forms of tobacco use are harmful; there is **no safe level** of exposure. For quitting support (US): **1-800-QUIT-NOW**. 本仓库仅用于记录与交流，不鼓励使用。  
+WHO: https://www.who.int/news-room/fact-sheets/detail/tobacco | CDC: https://www.cdc.gov/tobacco/hcp/patient-care/quitlines-and-other-resources.html
 
-## 许可 / License
-- 代码与配置文件：MIT（见 `LICENSE`）
-- 品鉴内容（文字/图片）：CC BY-NC 4.0（见 `CONTENT-LICENSE`）
+## How to use | 使用方式
+- Put each note under `/notes/<category>/YYYY-MM-DD-<slug>.md`.  
+  将每条笔记保存到对应子目录，命名如：`2025-08-21-partagas-d4.md`。
+- Use the **templates** below (copy & fill). 可复制下方模板直接填写。
+- Prefer short, concrete bullets over long prose. 用短句要点描述，更易读。
+
+## Categories | 分类
+`/notes/cigars` · `/notes/cigarettes` · `/notes/pipe` · `/notes/ryo` · `/notes/snus` · `/notes/ecig`
+
+## Contribute | 参与
+- Open a **Discussion** for Q&A / sharing / corrections. 开贴讨论/分享/勘误。  
+- Or file a **“tasting” issue**（用表单快速投稿）。  
+- PRs welcome（新模板、术语表、格式修正等）。
+
+## Sponsor
+If this helps, consider sponsoring ❤️  
+若本仓库对你有用，欢迎赞助支持。点击右上角 **Sponsor** 或阅读 `/docs/sponsor.md`（如有）。
+
+## License
+- Code: MIT (`LICENSE`)  
+- Content: CC BY 4.0 (`CONTENT-LICENSE`)
