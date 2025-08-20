@@ -41,7 +41,7 @@
 **Popular Vitolas | 常见尺寸**:
 - **Robusto | 罗布图**: 5" × 50 ring gauge
 - **Churchill | 丘吉尔**: 7" × 47 ring gauge  
-- **Corona | 科罗娜**: 5.5" × 42 ring gauge
+- **Corona | 科罗娜（雪茄尺寸）**: 5.5" × 42 ring gauge
 - **Toro | 托罗**: 6" × 50 ring gauge
 - **Torpedo | 鱼雷**: 6.125" × 52 ring gauge (tapered head)
 
