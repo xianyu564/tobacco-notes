@@ -49,7 +49,7 @@ Website | 网站浏览（适配手机）：[`docs/`](./docs/)
 - 一句话投稿：`https://github.com/<owner>/<repo>/issues/new?template=quick.yml`
 - 标准表单：`https://github.com/<owner>/<repo>/issues/new?template=tasting.yml`
 
-更多信息：[`CONTRIBUTING.md`](./CONTRIBUTING.md) · [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) · [`Sustainability`](./docs/sustainability.md) · [`Open Tasks`](./docs/tasks.md) · [`Glossary`](./docs/glossary.md) · [`Contributors`](./docs/contributors.md)
+更多信息：[`CONTRIBUTING.md`](./CONTRIBUTING.md) · [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) · [`Style Guide`](./docs/style-guide.md) · [`Sustainability`](./docs/sustainability.md) · [`Open Tasks`](./docs/tasks.md) · [`Glossary`](./docs/glossary.md) · [`Contributors`](./docs/contributors.md)
 
 当前阶段：为保证门槛最低，本项目只接受通过 Issue 表单投稿；命令行脚本暂不开放。
 
