@@ -92,6 +92,18 @@ def main() -> None:
     note_date = extract_date(body)
     message = extract_message(body) or title
 
+    # Try to capture additional structured fields from standard form
+    brand = parse_field(body, r"品牌\s*/\s*Brand|Brand|品牌")
+    product = parse_field(body, r"产品\s*/\s*Product|Product|产品")
+    origin = parse_field(body, r"产地\s*/\s*Origin|Origin|产地")
+    pairing = parse_field(body, r"配餐/配饮\s*/\s*Pairing|Pairing")
+    rating = parse_field(body, r"总体评分\(0-10\)\s*/\s*Overall Rating\s*\(0-10\)|Overall Rating|评分")
+    aroma = parse_field(body, r"香气\s*/\s*Aroma|Aroma|香气")
+    flavor = parse_field(body, r"风味笔记\s*/\s*Flavor Notes|Flavor Notes|风味")
+    body_strength = parse_field(body, r"力度与厚度\s*/\s*Strength\s*&\s*Body|Strength|力度")
+    construction = parse_field(body, r"做工\s*/\s*燃烧与通风\s*/\s*Construction|Construction|做工")
+    notes_field = parse_field(body, r"补充说明\s*/\s*Notes|Notes|补充")
+
     # Build filename
     slug_source = title if title and title.strip() else message
     filename = f"{note_date}-{slugify(slug_source)}.md"
@@ -114,8 +126,18 @@ def main() -> None:
     content_lines.append(f"source_issue: #{number}")
     content_lines.append("type: quick")
     content_lines.append("tags: []")
+    if brand: content_lines.append(f"brand: {brand}")
+    if product: content_lines.append(f"product: {product}")
+    if origin: content_lines.append(f"origin: {origin}")
+    if pairing: content_lines.append(f"pairing: {pairing}")
+    if rating: content_lines.append(f"rating: {rating}")
     content_lines.append("---\n")
     content_lines.append(f"- One-liner｜一句话：{message}\n")
+    if aroma: content_lines.append(f"- Aroma｜香气：{aroma}\n")
+    if flavor: content_lines.append(f"- Flavor｜风味：{flavor}\n")
+    if body_strength: content_lines.append(f"- Strength & Body｜力度与厚度：{body_strength}\n")
+    if construction: content_lines.append(f"- Construction｜做工/燃烧：{construction}\n")
+    if notes_field: content_lines.append(f"- Notes｜补充：{notes_field}\n")
 
     filepath.write_text("\n".join(content_lines), encoding="utf-8")
     # Print path relative to repo root for downstream steps

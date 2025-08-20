@@ -21,6 +21,9 @@
   <main class="container">
     <section>
       <h2>最新笔记</h2>
+      <div class="search">
+        <input id="q" type="search" placeholder="搜索标题/分类（本地过滤）…" />
+      </div>
       <ul id="latest-list" class="note-list"></ul>
     </section>
 
@@ -99,7 +102,23 @@
       const latest = await loadJSON('./data/latest.json');
       const all = await loadJSON('./data/index.json');
       const latestList = document.getElementById('latest-list');
-      latest.forEach(n => latestList.appendChild(noteItem(n)));
+      let current = latest.slice();
+      function renderLatest(list){
+        latestList.innerHTML = '';
+        list.forEach(n => latestList.appendChild(noteItem(n)));
+      }
+      renderLatest(current);
+
+      const input = document.getElementById('q');
+      input.addEventListener('input', () => {
+        const v = input.value.trim().toLowerCase();
+        if (!v) { renderLatest(latest); return; }
+        const filtered = latest.filter(n =>
+          (n.title || '').toLowerCase().includes(v) ||
+          (n.category || '').toLowerCase().includes(v)
+        );
+        renderLatest(filtered);
+      });
 
       const byCat = {};
       all.forEach(n => (byCat[n.category] = byCat[n.category] || []).push(n));
