@@ -75,7 +75,10 @@ def collect_notes(root: Path) -> list[NoteEntry]:
         if not cat_dir.exists():
             continue
         for fp in sorted(cat_dir.glob("*.md")):
-            date = parse_date_from_filename(fp.name) or "1970-01-01"
+            # Only index notes whose filename starts with YYYY-MM-DD-
+            date = parse_date_from_filename(fp.name)
+            if not date:
+                continue
             meta = read_front_matter(fp)
             title = infer_title(meta, fallback=fp.stem)
             entries.append(NoteEntry(category=category, date=date, path=fp.relative_to(root), title=title))

@@ -22,6 +22,14 @@ CDC: https://www.cdc.gov/tobacco/hcp/patient-care/quitlines-and-other-resources.
 - Use the **templates** below (copy & fill). 可复制下方模板直接填写。
 - Prefer short, concrete bullets over long prose. 用短句要点描述，更易读。
 
+Templates | 模板：
+- cigars: `notes/cigars/TEMPLATE_cigars_bilingual.md`
+- cigarettes: `notes/cigarettes/TEMPLATE_cigarettes_bilingual.md`
+- pipe: `notes/pipe/TEMPLATE_pipe_bilingual.md`
+- ryo: `notes/ryo/TEMPLATE_ryo_bilingual.md`
+- snus: `notes/snus/TEMPLATE_snus_bilingual.md`
+- ecig: `notes/ecig/TEMPLATE_ecig_bilingual.md`
+
 ## Categories | 分类
 `/notes/cigars` · `/notes/cigarettes` · `/notes/pipe` · `/notes/ryo` · `/notes/snus` · `/notes/ecig`
 
