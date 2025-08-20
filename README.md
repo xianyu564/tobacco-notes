@@ -47,6 +47,11 @@ Website | 网站浏览（适配手机）：[`docs/`](./docs/)
 
 更多信息：[`CONTRIBUTING.md`](./CONTRIBUTING.md) · [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) · [`Sustainability`](./docs/sustainability.md)
 
+CLI：
+```bash
+python tools/new_note.py cigarettes "Marlboro Red" --date 2025-08-21
+```
+
 ## Sponsor
 If this helps, consider sponsoring ❤️  
 若本仓库对你有用，欢迎赞助支持。点击右上角 **Sponsor** 或扫下方二维码。
