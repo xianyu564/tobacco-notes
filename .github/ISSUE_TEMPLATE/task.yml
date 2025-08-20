@@ -1,0 +1,33 @@
+name: "任务 / Task"
+description: "提出或认领一个任务（站点/内容/脚本）"
+title: "[Task] 简述 / Summary"
+labels: ["task"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: "范围 / Area"
+      options:
+        - site (站点)
+        - content (内容)
+        - script (脚本)
+        - contrib (贡献流程)
+      description: "选择任务类型"
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: "目标 / Goal"
+      placeholder: "想实现什么？完成标准是什么？"
+  - type: textarea
+    id: steps
+    attributes:
+      label: "步骤 / Steps"
+      placeholder: "可选：分解步骤或可行方案"
+  - type: textarea
+    id: notes
+    attributes:
+      label: "补充 / Notes"
+      placeholder: "参考链接、截图、相关 Issue/PR"
+
