@@ -1,0 +1,78 @@
+name: Ingest tasting issues into notes
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect target labels
+        id: detect
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = (context.payload.issue?.labels || []).map(l => l.name);
+            const triggered = context.payload.label?.name;
+            const set = new Set(labels);
+            if (triggered) set.add(triggered);
+            const targeted = [...set].some(l => ['tasting','one-liner'].includes(l));
+            core.setOutput('targeted', targeted ? 'true' : 'false');
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Create note from issue
+        id: create_note
+        if: steps.detect.outputs.targeted == 'true'
+        run: |
+          NOTE_PATH=$(python tools/issue_to_note.py)
+          echo "NOTE_PATH=$NOTE_PATH" >> $GITHUB_ENV
+          echo "note_path=$NOTE_PATH" >> $GITHUB_OUTPUT
+
+      - name: Build notes index
+        if: steps.detect.outputs.targeted == 'true'
+        run: |
+          python tools/build_index.py
+
+      - name: Commit and push changes
+        if: steps.detect.outputs.targeted == 'true'
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "Ingest issue #${{ github.event.issue.number }} into notes"
+            git push
+          else
+            echo "No changes to commit."
+
+      - name: Comment with note link and close
+        if: steps.detect.outputs.targeted == 'true' && env.NOTE_PATH != ''
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.payload.issue.number;
+            const notePath = process.env.NOTE_PATH;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const url = `https://github.com/${owner}/${repo}/blob/HEAD/${notePath}`;
+            const indexUrl = `https://github.com/${owner}/${repo}/blob/HEAD/notes/README.md`;
+            const body = `已生成笔记：${url}\n\n浏览全部笔记索引：${indexUrl}`;
+            await github.rest.issues.createComment({ owner, repo, issue_number, body });
+            await github.rest.issues.addLabels({ owner, repo, issue_number, labels: ['ingested'] });
+            await github.rest.issues.update({ owner, repo, issue_number, state: 'closed' });
+

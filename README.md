@@ -7,7 +7,9 @@
 [![Discussions](https://img.shields.io/badge/Discussions-join-blue?style=for-the-badge)](../../discussions)
 
 ⚠️ **Health note | 健康提示**：All forms of tobacco use are harmful; there is **no safe level** of exposure. For quitting support (US): **1-800-QUIT-NOW**. 本仓库仅用于记录与交流，不鼓励使用。  
-WHO: https://www.who.int/news-room/fact-sheets/detail/tobacco | CDC: https://www.cdc.gov/tobacco/hcp/patient-care/quitlines-and-other-resources.html
+
+WHO: https://www.who.int/news-room/fact-sheets/detail/tobacco 
+CDC: https://www.cdc.gov/tobacco/hcp/patient-care/quitlines-and-other-resources.html
 
 ## How to use | 使用方式
 - Put each note under `/notes/<category>/YYYY-MM-DD-<slug>.md`.  
@@ -18,14 +20,17 @@ WHO: https://www.who.int/news-room/fact-sheets/detail/tobacco | CDC: https://www
 ## Categories | 分类
 `/notes/cigars` · `/notes/cigarettes` · `/notes/pipe` · `/notes/ryo` · `/notes/snus` · `/notes/ecig`
 
+Browse all notes | 浏览全部笔记：[`notes/README.md`](./notes/README.md)
+
 ## Contribute | 参与
 - Open a **Discussion** for Q&A / sharing / corrections. 开贴讨论/分享/勘误。  
-- Or file a **“tasting” issue**（用表单快速投稿）。  
+- **极速一句话投稿**：点此一键发布 [One-liner](../../issues/new?template=quick.yml)。  
+- 或使用标准表单发布：[Tasting 表单](../../issues/new?template=tasting.yml)。  
 - PRs welcome（新模板、术语表、格式修正等）。
 
 ## Sponsor
 If this helps, consider sponsoring ❤️  
-若本仓库对你有用，欢迎赞助支持。点击右上角 **Sponsor** 或阅读 `/docs/sponsor.md`（如有）。
+若本仓库对你有用，欢迎赞助支持。点击右上角 **Sponsor** 或扫下方二维码。
 
 ## License
 - Code: MIT (`LICENSE`)  

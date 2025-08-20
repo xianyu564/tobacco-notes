@@ -1,0 +1,28 @@
+name: "一句话想法 / One-line Thought"
+description: "最简单的一句话提交（只需一栏）| Submit a one-line thought"
+title: "[One-liner] 品牌/Brand - 产品/Product - 简述/Blurb"
+labels: ["one-liner", "tasting"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: "分类 / Category"
+      options:
+        - cigars (雪茄)
+        - cigarettes (纸烟)
+        - pipe (烟斗草)
+        - ryo (手卷)
+        - snus (唇烟/口含烟)
+        - ecig (电子烟)
+      description: "选择产品类别 | Choose category"
+    validations:
+      required: true
+
+  - type: textarea
+    id: message
+    attributes:
+      label: "一句话 / One sentence"
+      placeholder: "例：Marlboro Red 今天抽起来更甜，余味干净。| e.g., Marlboro Red tasted sweeter than usual; clean finish."
+    validations:
+      required: true
+
