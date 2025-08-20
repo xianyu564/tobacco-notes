@@ -9,6 +9,10 @@
   <meta property="og:type" content="website" />
   <link rel="stylesheet" href="./styles.css" />
   <meta name="description" content="轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记；支持赞助。" />
+  <!-- Feed 链接 -->
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="./feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="./feed.atom" />
+  <link rel="alternate" type="application/json" title="JSON Feed" href="./feed.json" />
   <!-- 核心功能支持 -->
   <script defer src="./js/shortcuts.js"></script>
   <script defer src="./js/theme.js"></script>
@@ -133,6 +137,14 @@
       <a href="./contributors.md">贡献者</a>
       <span>·</span>
       <a href="./tasks.md">开放任务</a>
+    </div>
+    <div class="footer-feeds">
+      订阅更新：
+      <a href="./feed.xml">RSS</a>
+      <span>·</span>
+      <a href="./feed.atom">Atom</a>
+      <span>·</span>
+      <a href="./feed.json">JSON Feed</a>
     </div>
     <small class="footer-meta">
       内容采用 CC BY 4.0 授权；代码采用 MIT 许可证
