@@ -11,6 +11,11 @@
 WHO: https://www.who.int/news-room/fact-sheets/detail/tobacco 
 CDC: https://www.cdc.gov/tobacco/hcp/patient-care/quitlines-and-other-resources.html
 
+## Rationale | 初衷
+- 先是个人的长期记录：把自己抽过的烟按日整理，保留风味、状态与当下的感受；
+- 其后才是建站与分享：把记录公开成一个对他人也易读、易搜索、易投稿的空间；
+- 风格是有趣的部分：相比“纯评论”，更重视单人的体验轨迹与审美偏好，这能让内容更鲜活。
+
 ## How to use | 使用方式
 - Put each note under `/notes/<category>/YYYY-MM-DD-<slug>.md`.  
   将每条笔记保存到对应子目录，命名如：`2025-08-21-partagas-d4.md`。
