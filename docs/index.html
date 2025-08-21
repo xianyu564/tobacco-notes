@@ -42,10 +42,24 @@
   <link rel="alternate" type="application/json" title="JSON Feed" href="./feed.json" />
   
   <!-- 核心功能支持 -->
-  <script defer src="./js/shortcuts.js"></script>
+  <!-- 预加载关键资源 -->
+  <link rel="preload" href="./styles.css" as="style">
+  <link rel="preload" href="./js/theme.js" as="script">
+  <link rel="preload" href="./js/search.js" as="script">
+  <link rel="preload" href="./assets/favicon-32x32.png" as="image">
+  
+  <!-- DNS 预解析 -->
+  <link rel="preconnect" href="https://api.github.com">
+  <link rel="preconnect" href="https://raw.githubusercontent.com">
+  
+  <!-- 核心脚本 -->
+  <script defer src="./js/performance.js"></script>
   <script defer src="./js/theme.js"></script>
   <script defer src="./js/search.js"></script>
   <script defer src="./js/notes.js"></script>
+  
+  <!-- 非关键脚本 -->
+  <script defer src="./js/shortcuts.js"></script>
   <script defer src="./js/share.js"></script>
   <script defer src="./js/animations.js"></script>
   <script defer src="./js/mobile.js"></script>
@@ -75,7 +89,12 @@
   </header>
 
   <main class="container" role="main" aria-label="主要内容">
-    <section id="latest" class="animate" aria-labelledby="latest-title">
+    <section 
+      id="latest" 
+      class="animate" 
+      aria-labelledby="latest-title"
+      data-lazy-scripts="./js/shortcuts.js,./js/share.js"
+    >
       <h2 id="latest-title">
         <span>最新笔记</span>
         <span class="shortcut-hint" aria-label="使用快捷键 Command+K 打开搜索">⌘K 搜索</span>
@@ -114,7 +133,12 @@
       </div>
     </section>
 
-    <section id="categories" class="animate" aria-labelledby="categories-title">
+    <section 
+      id="categories" 
+      class="animate" 
+      aria-labelledby="categories-title"
+      data-lazy-scripts="./js/animations.js"
+    >
       <h2 id="categories-title">按分类浏览</h2>
       <div 
         id="cat-summary" 
@@ -130,7 +154,12 @@
       ></div>
     </section>
 
-    <section id="templates" class="animate" aria-labelledby="templates-title">
+    <section 
+      id="templates" 
+      class="animate" 
+      aria-labelledby="templates-title"
+      data-lazy-scripts="./js/mobile.js"
+    >
       <h2 id="templates-title">模板与指引</h2>
       <div 
         class="template-grid"
@@ -205,7 +234,12 @@
       </div>
     </section>
 
-    <section id="sponsor" class="animate" aria-labelledby="sponsor-title">
+    <section 
+      id="sponsor" 
+      class="animate" 
+      aria-labelledby="sponsor-title"
+      data-lazy-scripts="./js/a11y.js"
+    >
       <h2 id="sponsor-title">赞助支持</h2>
       <p>如果你觉得这个项目有用，欢迎赞助支持。你的支持将用于：</p>
       <ul 
