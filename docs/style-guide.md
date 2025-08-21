@@ -4,19 +4,39 @@
 > 参考：Tobacco Appreciation 101 — 烟草赏析入门（Wiki）[链接](https://github.com/xianyu564/tobacco-notes/wiki/Tobacco-Appreciation-101-%E2%80%94-%E7%83%9F%E8%8D%89%E8%B5%8F%E6%9E%90%E5%85%A5%E9%97%A8#%E7%83%9F%E8%8D%89%E5%93%81%E7%B1%BB%E5%AF%BC%E8%A7%88)
 
 ## 1) 元数据（前言区）| Front matter
-- 必填：`date`、`category`、标题字段（随品类不同，如 cigars 用 `product`，cigarettes 用 `brand` 等）
-- 建议：`rating`、`pairing`、`tags`、`origin/price`（如适用）
+- 必填：
+  - `date`：品鉴日期（YYYY-MM-DD格式）
+  - `category`：品类
+  - 标题字段（随品类不同，如 cigars 用 `product`，cigarettes 用 `brand` 等）
+- 建议：
+  - `rating`：评分
+  - `pairing`：搭配建议
+  - `tags`：标签
+  - `origin/price`：产地/价格（如适用）
+  - `images`：图片（可多张，需包含路径和说明）
+  - `references`：参考链接（标题和URL）
 - 作者与来源：系统会自动加入 `author` 与 `source_issue`（无需手填）
 
 示例（cigars）：
 ```yaml
 ---
+date: 2024-03-21
 product: Partagas Serie D No.4
 vitola: Robusto
 origin: Cuba
 price: 15 USD
 rating: 88/100
 pairing: Espresso
+images:
+  - path: images/cigars/partagas-d4-wrapper.jpg
+    caption: 包装细节
+  - path: images/cigars/partagas-d4-lighting.jpg
+    caption: 点燃瞬间
+references:
+  - title: Partagas Official Site
+    url: https://www.habanos.com/en/productos/partagas/
+  - title: Serie D No.4 Review
+    url: https://halfwheel.com/partagas-serie-d-no-4-2/
 tags: [cigar, woody, spicy]
 ---
 ```
