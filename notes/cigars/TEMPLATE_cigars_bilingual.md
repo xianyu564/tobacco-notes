@@ -10,13 +10,19 @@ origin: <Origin / 产地>
 price: <Price>
 rating: <score>/100
 pairing: <Pairing>
-images: 
-  - path: <image_path>
-    caption: <image_caption>
+images:
+  - path: images/cigars/<brand>-<product>-wrapper.jpg
+    caption: Wrapper detail | 包装细节
+  - path: images/cigars/<brand>-<product>-lighting.jpg
+    caption: First light | 点燃瞬间
+  - path: images/cigars/<brand>-<product>-ash.jpg
+    caption: Ash at halfway | 中段烟灰
 references:
-  - title: <reference_title>
-    url: <reference_url>
-tags: [cigar]
+  - title: Official Site | 官网
+    url: <official_url>
+  - title: Review | 评测
+    url: <review_url>
+tags: [cigar, <flavor_tags>]
 ---
 
 - Appearance/Draw｜外观/通风：

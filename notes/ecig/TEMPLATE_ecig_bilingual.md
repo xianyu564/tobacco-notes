@@ -8,13 +8,17 @@ device: <Device / 设备>
 coil: <Coil / 雾化芯>
 liquid: <Liquid / 烟油>
 rating: <score>/5
-images: 
-  - path: <image_path>
-    caption: <image_caption>
+images:
+  - path: images/ecig/<brand>-<liquid>-bottle.jpg
+    caption: Bottle detail | 瓶装细节
+  - path: images/ecig/<device>-setup.jpg
+    caption: Device setup | 设备装配
 references:
-  - title: <reference_title>
-    url: <reference_url>
-tags: [ecig]
+  - title: Official Site | 官网
+    url: <official_url>
+  - title: Review | 评测
+    url: <review_url>
+tags: [ecig, <flavor_tags>]
 ---
 
 - 闻香：

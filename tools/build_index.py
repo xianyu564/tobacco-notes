@@ -11,10 +11,13 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, List, Any
+
+from process_images import process_image
 
 CATEGORIES = ["cigars", "cigarettes", "pipe", "ryo", "snus", "ecig"]
 
@@ -27,26 +30,66 @@ class NoteEntry:
     date: str
     path: Path
     title: str
+    images: List[Dict[str, str]]
 
 
-def read_front_matter(filepath: Path) -> Dict[str, str]:
+def read_front_matter(filepath: Path) -> Dict[str, Any]:
     content = filepath.read_text(encoding="utf-8", errors="ignore")
     if not content.startswith("---\n"):
         return {}
     end = content.find("\n---", 4)
     if end == -1:
         return {}
-    block = content[4 : end].strip()
-    meta: Dict[str, str] = {}
+    block = content[4:end].strip()
+    meta: Dict[str, Any] = {}
+    current_key = None
+    current_list = []
+    
     for line in block.splitlines():
-        if ":" not in line:
+        if not line.strip():
             continue
-        key, value = line.split(":", 1)
-        meta[key.strip()] = value.strip()
+        if not line.startswith(" "):  # New key
+            if current_key and current_list:
+                meta[current_key] = current_list
+                current_list = []
+            if ":" not in line:
+                continue
+            key, value = line.split(":", 1)
+            key = key.strip()
+            value = value.strip()
+            if value:  # Single value
+                meta[key] = value
+            else:  # Start of a list
+                current_key = key
+                current_list = []
+        elif line.startswith("  - "):  # List item
+            if current_key:
+                item_dict = {}
+                item_content = line[4:].strip()
+                if ":" in item_content:
+                    item_key, item_value = item_content.split(":", 1)
+                    item_dict[item_key.strip()] = item_value.strip()
+                    while True:
+                        next_line_idx = block.find("\n", block.find(line) + len(line))
+                        if next_line_idx == -1:
+                            break
+                        next_line = block[next_line_idx + 1:block.find("\n", next_line_idx + 1)].strip()
+                        if not next_line.startswith(" ") or next_line.startswith("  - "):
+                            break
+                        if ":" in next_line:
+                            sub_key, sub_value = next_line.split(":", 1)
+                            item_dict[sub_key.strip()] = sub_value.strip()
+                    current_list.append(item_dict)
+                else:
+                    current_list.append(item_content)
+    
+    if current_key and current_list:
+        meta[current_key] = current_list
+    
     return meta
 
 
-def infer_title(meta: Dict[str, str], fallback: str) -> str:
+def infer_title(meta: Dict[str, Any], fallback: str) -> str:
     for key in [
         "title",
         "product",
@@ -68,6 +111,47 @@ def parse_date_from_filename(name: str) -> Optional[str]:
     return None
 
 
+def process_note_images(root: Path, meta: Dict[str, Any]) -> List[Dict[str, str]]:
+    """处理笔记中的图片，返回处理后的图片信息"""
+    processed_images = []
+    if "images" not in meta:
+        return processed_images
+    
+    for img in meta["images"]:
+        if not isinstance(img, dict) or "path" not in img:
+            continue
+        
+        img_path = root / img["path"]
+        if not img_path.exists():
+            continue
+        
+        # 处理图片
+        process_image(img_path)
+        
+        # 生成缩略图路径
+        thumb_path = img_path.parent / f"{img_path.stem}_thumb{img_path.suffix}"
+        
+        # 复制图片到静态网站目录
+        static_img_dir = root / "docs" / "images" / img_path.parent.name
+        static_img_dir.mkdir(parents=True, exist_ok=True)
+        
+        static_img_path = static_img_dir / img_path.name
+        static_thumb_path = static_img_dir / thumb_path.name
+        
+        shutil.copy2(img_path, static_img_path)
+        if thumb_path.exists():
+            shutil.copy2(thumb_path, static_thumb_path)
+        
+        processed_images.append({
+            "path": img["path"],
+            "thumb": f"images/{img_path.parent.name}/{thumb_path.name}",
+            "caption": img.get("caption", ""),
+            "url": f"images/{img_path.parent.name}/{img_path.name}"
+        })
+    
+    return processed_images
+
+
 def collect_notes(root: Path) -> list[NoteEntry]:
     entries: list[NoteEntry] = []
     for category in CATEGORIES:
@@ -81,7 +165,16 @@ def collect_notes(root: Path) -> list[NoteEntry]:
                 continue
             meta = read_front_matter(fp)
             title = infer_title(meta, fallback=fp.stem)
-            entries.append(NoteEntry(category=category, date=date, path=fp.relative_to(root), title=title))
+            # 处理图片
+            images = process_note_images(root, meta)
+            entries.append(NoteEntry(
+                category=category,
+                date=date,
+                path=fp.relative_to(root),
+                title=title,
+                images=images
+            ))
+    
     # Sort by date desc, then title
     def sort_key(e: NoteEntry) -> Tuple[datetime, str]:
         try:
@@ -89,7 +182,7 @@ def collect_notes(root: Path) -> list[NoteEntry]:
         except Exception:
             dt = datetime(1970, 1, 1)
         return (dt, e.title.lower())
-
+    
     entries.sort(key=sort_key, reverse=True)
     return entries
 
@@ -115,9 +208,18 @@ def write_index(root: Path, entries: list[NoteEntry]) -> None:
         for e in group:
             # [YYYY-MM-DD] Title (relative path)
             # Try to show author if present in front matter
-            author = read_front_matter(root / e.path).get("author", "")
+            meta = read_front_matter(root / e.path)
+            author = meta.get("author", "")
             author_str = f" — @{author}" if author else ""
-            lines.append(f"- [{e.date}] [{e.title}]({e.path.as_posix()}){author_str}")
+            
+            # Add thumbnail if available
+            thumb_str = ""
+            if e.images:
+                first_image = e.images[0]
+                if "thumb" in first_image:
+                    thumb_str = f" ![{first_image.get('caption', '')}]({first_image['thumb']})"
+            
+            lines.append(f"- [{e.date}] [{e.title}]({e.path.as_posix()}){thumb_str}{author_str}")
         lines.append("")
 
     notes_dir = root / "notes"
@@ -134,7 +236,8 @@ def write_index(root: Path, entries: list[NoteEntry]) -> None:
             "date": e.date,
             "path": e.path.as_posix(),
             "title": e.title,
-            "author": fm.get("author", "")
+            "author": fm.get("author", ""),
+            "images": e.images
         })
     (notes_dir / "index.json").write_text(json.dumps(json_entries, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -157,5 +260,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-

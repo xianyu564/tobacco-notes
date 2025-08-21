@@ -29,15 +29,17 @@ rating: 88/100
 pairing: Espresso
 images:
   - path: images/cigars/partagas-d4-wrapper.jpg
-    caption: 包装细节
+    caption: Wrapper detail | 包装细节
   - path: images/cigars/partagas-d4-lighting.jpg
-    caption: 点燃瞬间
+    caption: First light | 点燃瞬间
+  - path: images/cigars/partagas-d4-ash.jpg
+    caption: Ash at halfway | 中段烟灰
 references:
-  - title: Partagas Official Site
+  - title: Official Site | 官网
     url: https://www.habanos.com/en/productos/partagas/
-  - title: Serie D No.4 Review
+  - title: Review | 评测
     url: https://halfwheel.com/partagas-serie-d-no-4-2/
-tags: [cigar, woody, spicy]
+tags: [cigar, woody, spicy, medium-full]
 ---
 ```
 

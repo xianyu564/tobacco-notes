@@ -8,13 +8,17 @@ brand: <Brand / 品牌>
 type: <Type / 类型>
 nicotine: <mg/g>
 rating: <score>/5
-images: 
-  - path: <image_path>
-    caption: <image_caption>
+images:
+  - path: images/snus/<brand>-<type>-can.jpg
+    caption: Can detail | 罐装细节
+  - path: images/snus/<brand>-<type>-portion.jpg
+    caption: Portion detail | 小包细节
 references:
-  - title: <reference_title>
-    url: <reference_url>
-tags: [snus]
+  - title: Official Site | 官网
+    url: <official_url>
+  - title: Review | 评测
+    url: <review_url>
+tags: [snus, <flavor_tags>]
 ---
 
 - 1–10 分钟：

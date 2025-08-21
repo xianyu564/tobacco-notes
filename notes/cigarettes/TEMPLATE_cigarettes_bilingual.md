@@ -8,13 +8,17 @@ brand: <Brand / 品牌>
 style: <Style / 款型>
 rating: <score>/5
 price: <Price>
-images: 
-  - path: <image_path>
-    caption: <image_caption>
+images:
+  - path: images/cigarettes/<brand>-<style>-pack.jpg
+    caption: Pack detail | 包装细节
+  - path: images/cigarettes/<brand>-<style>-tobacco.jpg
+    caption: Tobacco detail | 烟丝细节
 references:
-  - title: <reference_title>
-    url: <reference_url>
-tags: [cigarette]
+  - title: Official Site | 官网
+    url: <official_url>
+  - title: Review | 评测
+    url: <review_url>
+tags: [cigarette, <flavor_tags>]
 ---
 
 - 开包：
