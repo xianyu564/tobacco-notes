@@ -49,17 +49,18 @@
   <script defer src="./js/share.js"></script>
   <script defer src="./js/animations.js"></script>
   <script defer src="./js/mobile.js"></script>
+  <script defer src="./js/a11y.js"></script>
 </head>
 <body>
   <!-- 固定导航栏 -->
-  <nav class="nav">
-    <a href="./" class="nav-logo">Tobacco Notes</a>
+  <nav class="nav" role="navigation" aria-label="主导航">
+    <a href="./" class="nav-logo" aria-label="返回首页">Tobacco Notes</a>
     <div class="nav-links">
       <button class="btn theme-toggle" aria-label="切换主题">🌓</button>
-      <a href="#latest" class="btn">最新笔记</a>
-      <a href="#categories" class="btn">分类浏览</a>
-      <button class="btn share-button" data-platform="native" aria-label="分享">分享</button>
-      <a id="link-one" class="btn primary" href="#">一句话投稿</a>
+      <a href="#latest" class="btn" aria-label="查看最新笔记">最新笔记</a>
+      <a href="#categories" class="btn" aria-label="按分类浏览笔记">分类浏览</a>
+      <button class="btn share-button" data-platform="native" aria-label="分享页面">分享</button>
+      <a id="link-one" class="btn primary" href="#" aria-label="快速提交一句话笔记">一句话投稿</a>
     </div>
   </nav>
 
@@ -73,115 +74,216 @@
     </div>
   </header>
 
-  <main class="container">
-    <section id="latest" class="animate">
-      <h2>
+  <main class="container" role="main" aria-label="主要内容">
+    <section id="latest" class="animate" aria-labelledby="latest-title">
+      <h2 id="latest-title">
         <span>最新笔记</span>
-        <span class="shortcut-hint">⌘K 搜索</span>
+        <span class="shortcut-hint" aria-label="使用快捷键 Command+K 打开搜索">⌘K 搜索</span>
       </h2>
-      <div class="search">
-        <input id="q" type="search" placeholder="搜索标题/分类/作者..." aria-label="搜索笔记" />
-        <div class="search-dropdown" hidden></div>
+      <div class="search" role="search">
+        <input 
+          id="q" 
+          type="search" 
+          placeholder="搜索标题/分类/作者..." 
+          aria-label="搜索笔记"
+          aria-expanded="false"
+          aria-controls="search-results"
+          aria-describedby="search-desc" 
+        />
+        <div id="search-desc" class="sr-only">输入关键词搜索笔记，使用上下箭头键选择结果，回车键确认</div>
+        <div 
+          id="search-results"
+          class="search-dropdown" 
+          role="listbox" 
+          aria-label="搜索结果"
+          hidden
+        ></div>
       </div>
-      <ul id="latest-list" class="note-list"></ul>
+      <ul 
+        id="latest-list" 
+        class="note-list"
+        role="list"
+        aria-label="最新笔记列表"
+      ></ul>
       <div class="list-pagination">
-        <button class="btn load-more" hidden>加载更多</button>
+        <button 
+          class="btn load-more" 
+          hidden
+          aria-label="加载更多笔记"
+        >加载更多</button>
       </div>
     </section>
 
-    <section id="categories" class="animate">
-      <h2>按分类浏览</h2>
-      <div id="cat-summary" class="cat-summary"></div>
-      <div id="by-category" class="categories"></div>
+    <section id="categories" class="animate" aria-labelledby="categories-title">
+      <h2 id="categories-title">按分类浏览</h2>
+      <div 
+        id="cat-summary" 
+        class="cat-summary"
+        role="navigation"
+        aria-label="分类快速导航"
+      ></div>
+      <div 
+        id="by-category" 
+        class="categories"
+        role="region"
+        aria-label="分类笔记列表"
+      ></div>
     </section>
 
-    <section id="templates" class="animate">
-      <h2>模板与指引</h2>
-      <div class="template-grid">
-        <div class="template-card">
+    <section id="templates" class="animate" aria-labelledby="templates-title">
+      <h2 id="templates-title">模板与指引</h2>
+      <div 
+        class="template-grid"
+        role="list"
+        aria-label="笔记模板列表"
+      >
+        <div class="template-card" role="listitem">
           <h3>雪茄｜Cigars</h3>
           <p>适用于：古巴/非古巴雪茄品鉴记录</p>
-          <a href="../notes/cigars/TEMPLATE_cigars_bilingual.md" class="btn">查看模板</a>
+          <a 
+            href="../notes/cigars/TEMPLATE_cigars_bilingual.md" 
+            class="btn"
+            aria-label="查看雪茄品鉴记录模板"
+          >查看模板</a>
         </div>
-        <div class="template-card">
+        <div class="template-card" role="listitem">
           <h3>纸烟｜Cigarettes</h3>
           <p>适用于：工业卷烟品鉴记录</p>
-          <a href="../notes/cigarettes/TEMPLATE_cigarettes_bilingual.md" class="btn">查看模板</a>
+          <a 
+            href="../notes/cigarettes/TEMPLATE_cigarettes_bilingual.md" 
+            class="btn"
+            aria-label="查看纸烟品鉴记录模板"
+          >查看模板</a>
         </div>
-        <div class="template-card">
+        <div class="template-card" role="listitem">
           <h3>烟斗｜Pipe</h3>
           <p>适用于：烟斗草品鉴记录</p>
-          <a href="../notes/pipe/TEMPLATE_pipe_bilingual.md" class="btn">查看模板</a>
+          <a 
+            href="../notes/pipe/TEMPLATE_pipe_bilingual.md" 
+            class="btn"
+            aria-label="查看烟斗品鉴记录模板"
+          >查看模板</a>
         </div>
-        <div class="template-card">
+        <div class="template-card" role="listitem">
           <h3>手卷｜RYO</h3>
           <p>适用于：手卷烟品鉴记录</p>
-          <a href="../notes/ryo/TEMPLATE_ryo_bilingual.md" class="btn">查看模板</a>
+          <a 
+            href="../notes/ryo/TEMPLATE_ryo_bilingual.md" 
+            class="btn"
+            aria-label="查看手卷烟品鉴记录模板"
+          >查看模板</a>
         </div>
-        <div class="template-card">
+        <div class="template-card" role="listitem">
           <h3>唇烟｜Snus</h3>
           <p>适用于：口含烟品鉴记录</p>
-          <a href="../notes/snus/TEMPLATE_snus_bilingual.md" class="btn">查看模板</a>
+          <a 
+            href="../notes/snus/TEMPLATE_snus_bilingual.md" 
+            class="btn"
+            aria-label="查看唇烟品鉴记录模板"
+          >查看模板</a>
         </div>
-        <div class="template-card">
+        <div class="template-card" role="listitem">
           <h3>电子烟｜E-cig</h3>
           <p>适用于：电子烟品鉴记录</p>
-          <a href="../notes/ecig/TEMPLATE_ecig_bilingual.md" class="btn">查看模板</a>
+          <a 
+            href="../notes/ecig/TEMPLATE_ecig_bilingual.md" 
+            class="btn"
+            aria-label="查看电子烟品鉴记录模板"
+          >查看模板</a>
         </div>
       </div>
-      <div class="template-links">
+      <div 
+        class="template-links"
+        role="navigation"
+        aria-label="相关文档链接"
+      >
         <a href="./contribute.md">参与指南</a>
-        <span>·</span>
+        <span aria-hidden="true">·</span>
         <a href="./style-guide.md">写作格式</a>
-        <span>·</span>
+        <span aria-hidden="true">·</span>
         <a href="../README.md#how-to-use--使用方式">使用说明</a>
       </div>
     </section>
 
-    <section id="sponsor" class="animate">
-      <h2>赞助支持</h2>
+    <section id="sponsor" class="animate" aria-labelledby="sponsor-title">
+      <h2 id="sponsor-title">赞助支持</h2>
       <p>如果你觉得这个项目有用，欢迎赞助支持。你的支持将用于：</p>
-      <ul class="sponsor-uses">
+      <ul 
+        class="sponsor-uses"
+        role="list"
+        aria-label="赞助用途"
+      >
         <li>维护自动化脚本与站点</li>
         <li>改进模板与工具</li>
         <li>社区维护与内容策划</li>
       </ul>
-      <div class="sponsors">
-        <img src="../.github/WeChat%20Sponsor%20Code.jpg" alt="WeChat 赞助码" />
-        <img src="../.github/SG%20PayNow%20Sponsor%20Code.jpg" alt="SG PayNow 赞助码" />
+      <div 
+        class="sponsors"
+        role="region"
+        aria-label="赞助二维码"
+      >
+        <img 
+          src="../.github/WeChat%20Sponsor%20Code.jpg" 
+          alt="微信赞助二维码" 
+          loading="lazy"
+          width="200"
+          height="200"
+        />
+        <img 
+          src="../.github/SG%20PayNow%20Sponsor%20Code.jpg" 
+          alt="新加坡 PayNow 赞助二维码" 
+          loading="lazy"
+          width="200"
+          height="200"
+        />
       </div>
       <p class="sponsor-note">
-        <a href="./sustainability.md">了解更多关于项目可持续性</a>
+        <a 
+          href="./sustainability.md"
+          aria-label="了解更多关于项目可持续性发展计划"
+        >了解更多关于项目可持续性</a>
       </p>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-links">
-      <a href="./sustainability.md">为爱发电</a>
-      <span>·</span>
-      <a href="./contribute.md">如何参与</a>
-      <span>·</span>
-      <a href="./style-guide.md">写作格式</a>
-      <span>·</span>
-      <a href="./glossary.md">术语表</a>
-      <span>·</span>
-      <a href="./contributors.md">贡献者</a>
-      <span>·</span>
-      <a href="./tasks.md">开放任务</a>
+  <footer class="site-footer" role="contentinfo">
+    <div 
+      class="footer-links"
+      role="navigation"
+      aria-label="页脚导航"
+    >
+      <a href="./sustainability.md" aria-label="了解项目为爱发电的理念">为爱发电</a>
+      <span aria-hidden="true">·</span>
+      <a href="./contribute.md" aria-label="了解如何参与项目">如何参与</a>
+      <span aria-hidden="true">·</span>
+      <a href="./style-guide.md" aria-label="查看笔记写作格式指南">写作格式</a>
+      <span aria-hidden="true">·</span>
+      <a href="./glossary.md" aria-label="查看术语表">术语表</a>
+      <span aria-hidden="true">·</span>
+      <a href="./contributors.md" aria-label="查看项目贡献者列表">贡献者</a>
+      <span aria-hidden="true">·</span>
+      <a href="./tasks.md" aria-label="查看开放任务列表">开放任务</a>
     </div>
-    <div class="footer-feeds">
-      订阅更新：
-      <a href="./feed.xml">RSS</a>
-      <span>·</span>
-      <a href="./feed.atom">Atom</a>
-      <span>·</span>
-      <a href="./feed.json">JSON Feed</a>
+    <div 
+      class="footer-feeds"
+      role="navigation"
+      aria-label="订阅源"
+    >
+      <span>订阅更新：</span>
+      <a href="./feed.xml" type="application/rss+xml" aria-label="RSS 订阅">RSS</a>
+      <span aria-hidden="true">·</span>
+      <a href="./feed.atom" type="application/atom+xml" aria-label="Atom 订阅">Atom</a>
+      <span aria-hidden="true">·</span>
+      <a href="./feed.json" type="application/json" aria-label="JSON Feed 订阅">JSON Feed</a>
     </div>
-    <small class="footer-meta">
+    <small 
+      class="footer-meta"
+      role="contentinfo"
+      aria-label="版权和健康提示"
+    >
       内容采用 CC BY 4.0 授权；代码采用 MIT 许可证
       <br>
-      健康提示：所有形式的烟草使用均有害健康。本站仅用于记录与交流，不鼓励使用。
+      <strong>健康提示：</strong>所有形式的烟草使用均有害健康。本站仅用于记录与交流，不鼓励使用。
     </small>
   </footer>
 
