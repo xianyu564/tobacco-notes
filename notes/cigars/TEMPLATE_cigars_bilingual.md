@@ -3,12 +3,19 @@
 Copy this file to create a new note or use the Issue form. 文件可复制为新笔记，或直接用 Issue 表单投稿。
 
 ---
+date: <YYYY-MM-DD>
 product: <Name / 名称>
 vitola: <Vitola / 规格>
 origin: <Origin / 产地>
 price: <Price>
 rating: <score>/100
 pairing: <Pairing>
+images: 
+  - path: <image_path>
+    caption: <image_caption>
+references:
+  - title: <reference_title>
+    url: <reference_url>
 tags: [cigar]
 ---
 
