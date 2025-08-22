@@ -85,21 +85,57 @@ def create_og_image(output_path):
     img.save(output_path, quality=95)
 
 def main():
-    # 确保目录存在
-    assets_dir = Path(__file__).resolve().parents[1] / 'docs' / 'assets'
-    assets_dir.mkdir(parents=True, exist_ok=True)
+    from build_logger import setup_logging, BuildError
+    logger = setup_logging('generate_assets')
     
-    # 生成各种尺寸的图标
-    create_icon(16, assets_dir / 'favicon-16x16.png')
-    create_icon(32, assets_dir / 'favicon-32x32.png')
-    create_icon(180, assets_dir / 'apple-touch-icon.png')
-    create_icon(192, assets_dir / 'icon-192.png')
-    create_icon(512, assets_dir / 'icon-512.png')
-    
-    # 生成 OG 图片
-    create_og_image(assets_dir / 'og-image.png')
-    
-    print("Generated all assets in", assets_dir)
+    try:
+        # 确保目录存在
+        assets_dir = Path(__file__).resolve().parents[1] / 'docs' / 'assets'
+        assets_dir.mkdir(parents=True, exist_ok=True)
+        
+        # 定义要生成的资源
+        icons = [
+            (16, 'favicon-16x16.png'),
+            (32, 'favicon-32x32.png'),
+            (180, 'apple-touch-icon.png'),
+            (192, 'icon-192.png'),
+            (512, 'icon-512.png')
+        ]
+        
+        # 并行生成图标
+        from concurrent.futures import ThreadPoolExecutor
+        
+        def generate_icon(size_and_name):
+            size, name = size_and_name
+            try:
+                output_path = assets_dir / name
+                create_icon(size, output_path)
+                logger.info(f"Generated icon: {name}")
+            except Exception as e:
+                logger.error(f"Failed to generate icon {name}: {e}")
+                raise
+        
+        def generate_og():
+            try:
+                output_path = assets_dir / 'og-image.png'
+                create_og_image(output_path)
+                logger.info("Generated OG image")
+            except Exception as e:
+                logger.error(f"Failed to generate OG image: {e}")
+                raise
+        
+        with ThreadPoolExecutor() as executor:
+            # 生成图标
+            list(executor.map(generate_icon, icons))
+            
+            # 生成 OG 图片
+            executor.submit(generate_og).result()
+        
+        logger.info(f"Generated all assets in {assets_dir}")
+        
+    except Exception as e:
+        logger.error(f"Asset generation failed: {e}")
+        raise BuildError("Failed to generate assets") from e
 
 if __name__ == '__main__':
     main()
