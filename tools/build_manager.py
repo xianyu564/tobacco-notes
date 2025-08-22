@@ -187,8 +187,25 @@ class BuildManager:
                 with TaskTimer(monitor, 'process_static_assets'):
                     self._process_static_assets()
                 
+                # Build search index
+                with TaskTimer(monitor, 'build_search_index'):
+                    self._build_search_index()
+                
                 # Record build time
                 (self.docs_dir / '.lastbuild').write_text(str(time.time()))
+                
+    def _build_search_index(self) -> None:
+        """Build search index for the website."""
+        try:
+            from build_search_index import SearchIndexBuilder
+            
+            logger.info("Building search index...")
+            builder = SearchIndexBuilder(self.repo_root)
+            builder.build_index()
+            
+        except Exception as e:
+            logger.error(f"Search index build failed: {e}")
+            raise BuildError("Failed to build search index") from e
             
             # 生成性能报告
             monitor.generate_report()
