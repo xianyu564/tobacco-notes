@@ -182,29 +182,58 @@ def build_json_feed(items):
     return json.dumps(feed, ensure_ascii=False, indent=2)
 
 def main():
-    repo_root = Path(__file__).resolve().parents[1]
-    notes_dir = repo_root / 'notes'
-    docs_dir = repo_root / 'docs'
+    from build_logger import setup_logging, BuildError
+    logger = setup_logging('build_feeds')
     
-    if not notes_dir.exists():
-        print(f"Notes directory not found: {notes_dir}")
-        return
-    
-    # Build feed items
-    items = build_feed_items(notes_dir)
-    if not items:
-        print("No feed items found")
-        return
-    
-    # Ensure docs directory exists
-    docs_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Write feeds
-    (docs_dir / 'feed.xml').write_text(build_rss(items), encoding='utf-8')
-    (docs_dir / 'feed.atom').write_text(build_atom(items), encoding='utf-8')
-    (docs_dir / 'feed.json').write_text(build_json_feed(items), encoding='utf-8')
-    
-    print(f"Generated feeds with {len(items)} items")
+    try:
+        repo_root = Path(__file__).resolve().parents[1]
+        notes_dir = repo_root / 'notes'
+        docs_dir = repo_root / 'docs'
+        
+        if not notes_dir.exists():
+            raise BuildError(f"Notes directory not found: {notes_dir}")
+        
+        # Build feed items
+        logger.info("Building feed items...")
+        items = build_feed_items(notes_dir)
+        if not items:
+            logger.warning("No feed items found")
+            return
+        
+        # Ensure docs directory exists
+        docs_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Write feeds in parallel
+        from concurrent.futures import ThreadPoolExecutor
+        
+        def write_rss():
+            logger.info("Building RSS feed...")
+            (docs_dir / 'feed.xml').write_text(build_rss(items), encoding='utf-8')
+            
+        def write_atom():
+            logger.info("Building Atom feed...")
+            (docs_dir / 'feed.atom').write_text(build_atom(items), encoding='utf-8')
+            
+        def write_json():
+            logger.info("Building JSON feed...")
+            (docs_dir / 'feed.json').write_text(build_json_feed(items), encoding='utf-8')
+        
+        with ThreadPoolExecutor() as executor:
+            futures = [
+                executor.submit(write_rss),
+                executor.submit(write_atom),
+                executor.submit(write_json)
+            ]
+            
+            # Wait for all feeds to be written
+            for future in futures:
+                future.result()
+        
+        logger.info(f"Generated feeds with {len(items)} items")
+        
+    except Exception as e:
+        logger.error(f"Failed to generate feeds: {e}")
+        raise BuildError("Feed generation failed") from e
 
 if __name__ == '__main__':
     main()

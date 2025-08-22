@@ -1,235 +1,248 @@
-// 搜索功能增强
+// 搜索功能优化
 class SearchManager {
   constructor() {
+    this.searchIndex = null;
+    this.searchData = null;
     this.searchInput = document.getElementById('q');
-    this.dropdown = document.querySelector('.search-dropdown');
-    this.latestList = document.getElementById('latest-list');
-    this.searchResults = [];
-    this.allNotes = [];
-    this.currentPage = 1;
-    this.perPage = 20;
-    this.searchDebounceTimer = null;
+    this.searchResults = document.getElementById('search-results');
+    this.debounceTimeout = null;
+    this.selectedIndex = -1;
     
-    // 绑定事件处理器
-    this.bindEvents();
+    this.init();
   }
-
+  
   async init() {
-    // 加载所有笔记数据
-    this.allNotes = await this.loadNotes();
-    // 初始化显示
-    this.renderNotes(this.allNotes.slice(0, this.perPage));
+    // 初始化搜索
+    await this.initSearchIndex();
+    this.initEventListeners();
   }
-
-  async loadNotes() {
+  
+  async initSearchIndex() {
     try {
-      const [latest, all] = await Promise.all([
-        fetch('./data/latest.json').then(r => r.json()),
-        fetch('./data/index.json').then(r => r.json())
-      ]);
-      return all; // 使用完整数据集
-    } catch (e) {
-      console.error('Failed to load notes:', e);
-      return [];
+      // 加载搜索数据
+      const response = await fetch('./data/search-index.json');
+      if (!response.ok) throw new Error('Failed to load search index');
+      this.searchData = await response.json();
+      
+      // 构建搜索索引
+      this.searchIndex = new Fuse(this.searchData, {
+        keys: [
+          { name: 'title', weight: 0.4 },
+          { name: 'category', weight: 0.3 },
+          { name: 'author', weight: 0.2 },
+          { name: 'tags', weight: 0.1 }
+        ],
+        includeScore: true,
+        threshold: 0.3,
+        distance: 100,
+        useExtendedSearch: true,
+        ignoreLocation: true
+      });
+      
+      console.log('Search index initialized');
+      
+    } catch (error) {
+      console.error('Failed to initialize search:', error);
     }
   }
-
-  bindEvents() {
-    // 搜索输入
+  
+  initEventListeners() {
+    // 输入事件
     this.searchInput.addEventListener('input', () => {
-      clearTimeout(this.searchDebounceTimer);
-      this.searchDebounceTimer = setTimeout(() => this.handleSearch(), 200);
+      this.handleSearchInput();
     });
-
+    
     // 键盘导航
     this.searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        this.handleKeyboardNav(e.key === 'ArrowDown' ? 1 : -1);
-      }
-      if (e.key === 'Enter' && this.dropdown && !this.dropdown.hidden) {
-        e.preventDefault();
-        const selected = this.dropdown.querySelector('.selected');
-        if (selected) selected.click();
-      }
+      this.handleKeyNavigation(e);
     });
-
-    // 点击外部关闭下拉
+    
+    // 点击处理
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.search, .search-dropdown')) {
-        this.hideDropdown();
+      if (!this.searchInput.contains(e.target) && !this.searchResults.contains(e.target)) {
+        this.hideResults();
       }
     });
-
-    // 加载更多
-    const loadMoreBtn = document.querySelector('.load-more');
-    if (loadMoreBtn) {
-      loadMoreBtn.addEventListener('click', () => this.loadMore());
+    
+    // 移动设备优化
+    if ('ontouchstart' in window) {
+      this.initTouchHandlers();
     }
   }
-
-  handleSearch() {
-    const query = this.searchInput.value.trim().toLowerCase();
+  
+  handleSearchInput() {
+    const query = this.searchInput.value.trim();
+    
+    // 清除之前的延时
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
+    }
+    
+    // 空查询处理
     if (!query) {
-      this.resetSearch();
+      this.hideResults();
       return;
     }
-
-    // 执行搜索
-    this.searchResults = this.allNotes.filter(note => 
-      note.title.toLowerCase().includes(query) ||
-      note.category.toLowerCase().includes(query) ||
-      (note.author && note.author.toLowerCase().includes(query))
-    );
-
-    // 更新显示
-    this.currentPage = 1;
-    this.renderSearchResults();
-    this.updateDropdown();
+    
+    // 延迟搜索以减少不必要的计算
+    this.debounceTimeout = setTimeout(() => {
+      this.performSearch(query);
+    }, 150);
   }
-
-  renderSearchResults() {
-    const start = (this.currentPage - 1) * this.perPage;
-    const end = start + this.perPage;
-    const toShow = this.searchResults.slice(start, end);
-    
-    this.renderNotes(toShow, this.currentPage === 1);
-    this.updateLoadMoreButton();
-  }
-
-  renderNotes(notes, replace = true) {
-    if (replace) {
-      this.latestList.innerHTML = '';
-    }
-
-    const fragment = document.createDocumentFragment();
-    notes.forEach(note => {
-      const li = this.createNoteElement(note);
-      fragment.appendChild(li);
-    });
-
-    this.latestList.appendChild(fragment);
-  }
-
-  createNoteElement(note) {
-    const li = document.createElement('li');
-    li.className = 'note-item';
-    
-    const date = document.createElement('span');
-    date.className = 'date';
-    date.textContent = note.date;
-    
-    const category = document.createElement('span');
-    category.className = 'cat';
-    category.textContent = `[${note.category}]`;
-    
-    const link = document.createElement('a');
-    link.href = `../${note.path}`;
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.textContent = note.title;
-    
-    const author = document.createElement('span');
-    author.className = 'author';
-    author.textContent = note.author ? ` @${note.author}` : '';
-    
-    const copyBtn = document.createElement('button');
-    copyBtn.className = 'copy';
-    copyBtn.textContent = '复制链接';
-    copyBtn.onclick = async (e) => {
-      e.preventDefault();
-      const url = `${location.origin}/${note.path}`;
-      try {
-        await navigator.clipboard.writeText(url);
-        copyBtn.textContent = '已复制';
-        setTimeout(() => copyBtn.textContent = '复制链接', 1200);
-      } catch (err) {
-        console.error('Failed to copy:', err);
-      }
-    };
-
-    li.append(date, category, link, author, copyBtn);
-    return li;
-  }
-
-  updateDropdown() {
-    if (!this.searchResults.length) {
-      this.hideDropdown();
+  
+  async performSearch(query) {
+    if (!this.searchIndex) {
+      console.warn('Search index not ready');
       return;
     }
-
-    const fragment = document.createDocumentFragment();
-    this.searchResults.slice(0, 5).forEach((note, idx) => {
-      const div = document.createElement('div');
-      div.className = 'dropdown-item' + (idx === 0 ? ' selected' : '');
-      div.innerHTML = `
-        <span class="cat">[${note.category}]</span>
-        <span class="title">${note.title}</span>
-        ${note.author ? `<span class="author">@${note.author}</span>` : ''}
+    
+    try {
+      // 执行搜索
+      const results = this.searchIndex.search(query);
+      
+      // 限制结果数量
+      const limitedResults = results.slice(0, 10);
+      
+      // 渲染结果
+      this.renderResults(limitedResults);
+      
+    } catch (error) {
+      console.error('Search failed:', error);
+    }
+  }
+  
+  renderResults(results) {
+    if (!results.length) {
+      this.searchResults.innerHTML = '<div class="no-results">没有找到匹配的结果</div>';
+      this.searchResults.hidden = false;
+      return;
+    }
+    
+    const html = results.map((result, index) => {
+      const item = result.item;
+      const score = Math.round((1 - result.score) * 100);
+      
+      return `
+        <div class="search-result" 
+             role="option"
+             data-index="${index}"
+             aria-selected="${index === this.selectedIndex}"
+             tabindex="0">
+          <div class="result-title">${this.highlightMatch(item.title)}</div>
+          <div class="result-meta">
+            <span class="category">${item.category}</span>
+            <span class="author">${item.author}</span>
+            ${item.tags ? `<span class="tags">${item.tags.join(', ')}</span>` : ''}
+          </div>
+          <div class="result-score" aria-hidden="true">${score}% 匹配</div>
+        </div>
       `;
-      div.onclick = () => {
-        window.location.href = `../${note.path}`;
-      };
-      fragment.appendChild(div);
-    });
-
-    this.dropdown.innerHTML = '';
-    this.dropdown.appendChild(fragment);
-    this.dropdown.hidden = false;
-  }
-
-  hideDropdown() {
-    if (this.dropdown) {
-      this.dropdown.hidden = true;
-    }
-  }
-
-  handleKeyboardNav(direction) {
-    if (this.dropdown.hidden) return;
+    }).join('');
     
-    const items = Array.from(this.dropdown.children);
-    const currentIdx = items.findIndex(item => item.classList.contains('selected'));
-    let nextIdx = currentIdx + direction;
+    this.searchResults.innerHTML = html;
+    this.searchResults.hidden = false;
     
-    if (nextIdx < 0) nextIdx = items.length - 1;
-    if (nextIdx >= items.length) nextIdx = 0;
-    
-    items.forEach((item, idx) => {
-      item.classList.toggle('selected', idx === nextIdx);
+    // 添加点击事件处理
+    this.searchResults.querySelectorAll('.search-result').forEach(el => {
+      el.addEventListener('click', () => {
+        const index = parseInt(el.dataset.index);
+        this.selectResult(index);
+      });
     });
   }
-
-  resetSearch() {
-    this.searchResults = this.allNotes;
-    this.currentPage = 1;
-    this.renderNotes(this.allNotes.slice(0, this.perPage));
-    this.hideDropdown();
-    this.updateLoadMoreButton();
-  }
-
-  loadMore() {
-    const start = this.currentPage * this.perPage;
-    const end = start + this.perPage;
-    const toShow = this.searchResults.slice(start, end);
+  
+  highlightMatch(text) {
+    const query = this.searchInput.value.trim();
+    if (!query) return text;
     
-    if (toShow.length) {
-      this.currentPage++;
-      this.renderNotes(toShow, false);
-      this.updateLoadMoreButton();
+    // 转义特殊字符
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    
+    // 高亮匹配文本
+    return text.replace(
+      new RegExp(escapedQuery, 'gi'),
+      match => `<mark>${match}</mark>`
+    );
+  }
+  
+  handleKeyNavigation(e) {
+    const results = this.searchResults.querySelectorAll('.search-result');
+    
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        this.selectedIndex = Math.min(this.selectedIndex + 1, results.length - 1);
+        this.updateSelection();
+        break;
+        
+      case 'ArrowUp':
+        e.preventDefault();
+        this.selectedIndex = Math.max(this.selectedIndex - 1, -1);
+        this.updateSelection();
+        break;
+        
+      case 'Enter':
+        e.preventDefault();
+        if (this.selectedIndex >= 0) {
+          this.selectResult(this.selectedIndex);
+        }
+        break;
+        
+      case 'Escape':
+        e.preventDefault();
+        this.hideResults();
+        break;
     }
   }
-
-  updateLoadMoreButton() {
-    const btn = document.querySelector('.load-more');
-    if (!btn) return;
-
-    const hasMore = this.searchResults.length > this.currentPage * this.perPage;
-    btn.hidden = !hasMore;
+  
+  updateSelection() {
+    const results = this.searchResults.querySelectorAll('.search-result');
+    
+    results.forEach((el, index) => {
+      el.setAttribute('aria-selected', index === this.selectedIndex);
+      if (index === this.selectedIndex) {
+        el.scrollIntoView({ block: 'nearest' });
+      }
+    });
+  }
+  
+  selectResult(index) {
+    const results = this.searchIndex.search(this.searchInput.value.trim());
+    const selected = results[index];
+    if (selected) {
+      window.location.href = selected.item.url;
+    }
+  }
+  
+  hideResults() {
+    this.searchResults.hidden = true;
+    this.selectedIndex = -1;
+  }
+  
+  initTouchHandlers() {
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    this.searchResults.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    });
+    
+    this.searchResults.addEventListener('touchmove', (e) => {
+      touchEndY = e.touches[0].clientY;
+      const deltaY = touchEndY - touchStartY;
+      
+      // 防止滚动穿透
+      if (
+        (this.searchResults.scrollTop === 0 && deltaY > 0) ||
+        (this.searchResults.scrollHeight - this.searchResults.scrollTop === this.searchResults.clientHeight && deltaY < 0)
+      ) {
+        e.preventDefault();
+      }
+    });
   }
 }
 
 // 初始化搜索管理器
 document.addEventListener('DOMContentLoaded', () => {
   window.searchManager = new SearchManager();
-  window.searchManager.init();
 });
