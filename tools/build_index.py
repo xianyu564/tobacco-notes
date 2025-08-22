@@ -111,7 +111,7 @@ def parse_date_from_filename(name: str) -> Optional[str]:
     return None
 
 
-def process_note_images(root: Path, meta: Dict[str, Any]) -> List[Dict[str, str]]:
+def process_note_images(root: Path, meta: Dict[str, Any], force_rebuild: bool = False) -> List[Dict[str, str]]:
     """处理笔记中的图片，返回处理后的图片信息"""
     processed_images = []
     if "images" not in meta:
@@ -125,9 +125,6 @@ def process_note_images(root: Path, meta: Dict[str, Any]) -> List[Dict[str, str]
         if not img_path.exists():
             continue
         
-        # 处理图片
-        process_image(img_path)
-        
         # 生成缩略图路径
         thumb_path = img_path.parent / f"{img_path.stem}_thumb{img_path.suffix}"
         
@@ -138,9 +135,16 @@ def process_note_images(root: Path, meta: Dict[str, Any]) -> List[Dict[str, str]
         static_img_path = static_img_dir / img_path.name
         static_thumb_path = static_img_dir / thumb_path.name
         
-        shutil.copy2(img_path, static_img_path)
-        if thumb_path.exists():
-            shutil.copy2(thumb_path, static_thumb_path)
+        # 检查是否需要处理图片
+        needs_processing = force_rebuild or not static_img_path.exists() or \
+                         img_path.stat().st_mtime > static_img_path.stat().st_mtime
+        
+        if needs_processing:
+            # 处理图片
+            process_image(img_path)
+            shutil.copy2(img_path, static_img_path)
+            if thumb_path.exists():
+                shutil.copy2(thumb_path, static_thumb_path)
         
         processed_images.append({
             "path": img["path"],
