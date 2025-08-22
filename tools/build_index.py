@@ -113,45 +113,47 @@ def parse_date_from_filename(name: str) -> Optional[str]:
 
 def process_note_images(root: Path, meta: Dict[str, Any], force_rebuild: bool = False) -> List[Dict[str, str]]:
     """处理笔记中的图片，返回处理后的图片信息"""
+    from image_processor import ImageProcessor
+    
     processed_images = []
     if "images" not in meta:
         return processed_images
     
+    # 设置图片处理器
+    static_img_dir = root / "docs" / "images"
+    processor = ImageProcessor(
+        output_dir=static_img_dir,
+        cache_dir=static_img_dir / '.cache'
+    )
+    
+    # 收集需要处理的图片
+    images_to_process = []
     for img in meta["images"]:
         if not isinstance(img, dict) or "path" not in img:
             continue
-        
+            
         img_path = root / img["path"]
         if not img_path.exists():
             continue
-        
-        # 生成缩略图路径
-        thumb_path = img_path.parent / f"{img_path.stem}_thumb{img_path.suffix}"
-        
-        # 复制图片到静态网站目录
-        static_img_dir = root / "docs" / "images" / img_path.parent.name
-        static_img_dir.mkdir(parents=True, exist_ok=True)
-        
-        static_img_path = static_img_dir / img_path.name
-        static_thumb_path = static_img_dir / thumb_path.name
-        
-        # 检查是否需要处理图片
-        needs_processing = force_rebuild or not static_img_path.exists() or \
-                         img_path.stat().st_mtime > static_img_path.stat().st_mtime
-        
-        if needs_processing:
-            # 处理图片
-            process_image(img_path)
-            shutil.copy2(img_path, static_img_path)
-            if thumb_path.exists():
-                shutil.copy2(thumb_path, static_thumb_path)
-        
-        processed_images.append({
-            "path": img["path"],
-            "thumb": f"images/{img_path.parent.name}/{thumb_path.name}",
-            "caption": img.get("caption", ""),
-            "url": f"images/{img_path.parent.name}/{img_path.name}"
-        })
+            
+        images_to_process.append((img_path, img.get("caption", "")))
+    
+    # 批量处理图片
+    for img_path, caption in images_to_process:
+        try:
+            result = processor.process_image(img_path)
+            
+            # 添加处理结果
+            processed_images.append({
+                "path": str(img_path.relative_to(root)),
+                "thumb": result["thumbnail"],
+                "caption": caption,
+                "url": result["optimized"],
+                "webp": result["webp"]
+            })
+        except Exception as e:
+            logger.error(f"Failed to process image {img_path}: {e}")
+            continue
     
     return processed_images
 
