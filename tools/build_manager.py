@@ -148,39 +148,54 @@ class BuildManager:
     
     def build(self, incremental: bool = True) -> None:
         """Run the full build process."""
-        start_time = time.time()
-        logger.info("Starting build process...")
+        from performance_monitor import PerformanceMonitor, TaskTimer
+        
+        # 初始化性能监控
+        monitor = PerformanceMonitor(self.docs_dir)
+        monitor.start_monitoring()
         
         try:
-            # Get modified files if doing incremental build
-            if incremental:
-                last_build_file = self.docs_dir / '.lastbuild'
-                last_build_time = None
-                if last_build_file.exists():
-                    last_build_time = float(last_build_file.read_text().strip())
-                self.get_modified_files(last_build_time)
-            else:
-                self.get_modified_files()
+            with TaskTimer(monitor, 'full_build'):
+                logger.info("Starting build process...")
+                
+                # Get modified files if doing incremental build
+                with TaskTimer(monitor, 'get_modified_files', {'incremental': incremental}):
+                    if incremental:
+                        last_build_file = self.docs_dir / '.lastbuild'
+                        last_build_time = None
+                        if last_build_file.exists():
+                            last_build_time = float(last_build_file.read_text().strip())
+                        self.get_modified_files(last_build_time)
+                    else:
+                        self.get_modified_files()
+                
+                # Process content
+                with TaskTimer(monitor, 'process_notes', {'count': len(self.modified_notes)}):
+                    self.process_notes()
+                    
+                with TaskTimer(monitor, 'process_images', {'count': len(self.modified_images)}):
+                    self.process_images()
+                
+                # Build feeds and assets
+                with TaskTimer(monitor, 'build_feeds'):
+                    self.build_feeds()
+                    
+                with TaskTimer(monitor, 'generate_assets'):
+                    self.generate_assets()
+                
+                # Process static assets
+                with TaskTimer(monitor, 'process_static_assets'):
+                    self._process_static_assets()
+                
+                # Record build time
+                (self.docs_dir / '.lastbuild').write_text(str(time.time()))
             
-            # Process content
-            self.process_notes()
-            self.process_images()
-            
-            # Build feeds and assets
-            self.build_feeds()
-            self.generate_assets()
-            
-            # Process static assets
-            self._process_static_assets()
-            
-            # Record build time
-            build_time = time.time() - start_time
-            (self.docs_dir / '.lastbuild').write_text(str(time.time()))
-            
-            logger.info(f"Build completed in {build_time:.2f} seconds")
+            # 生成性能报告
+            monitor.generate_report()
             
         except Exception as e:
             logger.error(f"Build failed: {e}")
+            monitor.stop_monitoring()  # 确保停止监控
             raise BuildError("Build process failed") from e
             
     def _process_static_assets(self) -> None:
