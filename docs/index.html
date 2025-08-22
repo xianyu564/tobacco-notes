@@ -41,22 +41,69 @@
   <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="./feed.atom" />
   <link rel="alternate" type="application/json" title="JSON Feed" href="./feed.json" />
   
-  <!-- 核心功能支持 -->
+  <!-- 资源提示 -->
   <!-- 预加载关键资源 -->
   <link rel="preload" href="./styles.css" as="style">
   <link rel="preload" href="./js/theme.js" as="script">
   <link rel="preload" href="./js/search.js" as="script">
   <link rel="preload" href="./assets/favicon-32x32.png" as="image">
   
-  <!-- DNS 预解析 -->
+  <!-- DNS 预解析和预连接 -->
   <link rel="preconnect" href="https://api.github.com">
   <link rel="preconnect" href="https://raw.githubusercontent.com">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://raw.githubusercontent.com">
+  
+  <!-- 预获取下一页可能需要的资源 -->
+  <link rel="prefetch" href="./data/latest.json">
+  <link rel="prefetch" href="./data/index.json">
+  
+  <!-- 关键CSS内联 -->
+  <style>
+    /* 最小必要样式，用于首屏渲染 */
+    :root {
+      --primary-color: #ff4d6d;
+      --text-color: #333;
+      --bg-color: #fff;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      color: var(--text-color);
+      background: var(--bg-color);
+    }
+    .nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--bg-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-color: #fff;
+        --bg-color: #1a1a1a;
+      }
+    }
+  </style>
+  
+  <!-- 异步加载完整样式表 -->
+  <link rel="stylesheet" href="./styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="./styles.css"></noscript>
   
   <!-- 核心脚本 -->
   <script defer src="./js/performance.js"></script>
   <script defer src="./js/theme.js"></script>
   <script defer src="./js/search.js"></script>
   <script defer src="./js/notes.js"></script>
+  <script defer src="./js/image-optimization.js"></script>
   
   <!-- 非关键脚本 -->
   <script defer src="./js/shortcuts.js"></script>
