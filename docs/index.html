@@ -4,84 +4,333 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tobacco Notes｜烟草笔记</title>
+  
+  <!-- SEO Meta -->
+  <meta name="description" content="轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记；支持赞助。" />
+  <meta name="keywords" content="烟草,品鉴,笔记,雪茄,纸烟,烟斗,手卷,唇烟,电子烟" />
+  <meta name="author" content="Contributors" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- Open Graph -->
   <meta property="og:title" content="Tobacco Notes｜烟草笔记" />
   <meta property="og:description" content="一句话投稿、轻量浏览、友好索引；为爱发电的烟草品鉴记录与分享。" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://xianyu564.github.io/tobacco-notes/" />
+  <meta property="og:image" content="./assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content="Tobacco Notes" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tobacco Notes｜烟草笔记" />
+  <meta name="twitter:description" content="一句话投稿、轻量浏览、友好索引；为爱发电的烟草品鉴记录与分享。" />
+  <meta name="twitter:image" content="./assets/og-image.png" />
+  
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png" />
+  <link rel="manifest" href="./assets/site.webmanifest" />
+  <meta name="theme-color" content="#ff4d6d" />
+  
+  <!-- Styles & Feeds -->
   <link rel="stylesheet" href="./styles.css" />
-  <meta name="description" content="轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记；支持赞助。" />
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="./feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="./feed.atom" />
+  <link rel="alternate" type="application/json" title="JSON Feed" href="./feed.json" />
+  
+  <!-- 核心功能支持 -->
+  <!-- 预加载关键资源 -->
+  <link rel="preload" href="./styles.css" as="style">
+  <link rel="preload" href="./js/theme.js" as="script">
+  <link rel="preload" href="./js/search.js" as="script">
+  <link rel="preload" href="./assets/favicon-32x32.png" as="image">
+  
+  <!-- DNS 预解析 -->
+  <link rel="preconnect" href="https://api.github.com">
+  <link rel="preconnect" href="https://raw.githubusercontent.com">
+  
+  <!-- 核心脚本 -->
+  <script defer src="./js/performance.js"></script>
+  <script defer src="./js/theme.js"></script>
+  <script defer src="./js/search.js"></script>
+  <script defer src="./js/notes.js"></script>
+  
+  <!-- 非关键脚本 -->
+  <script defer src="./js/shortcuts.js"></script>
+  <script defer src="./js/share.js"></script>
+  <script defer src="./js/animations.js"></script>
+  <script defer src="./js/mobile.js"></script>
+  <script defer src="./js/a11y.js"></script>
 </head>
 <body>
-  <header class="site-header">
+  <!-- 固定导航栏 -->
+  <nav class="nav" role="navigation" aria-label="主导航">
+    <a href="./" class="nav-logo" aria-label="返回首页">Tobacco Notes</a>
+    <div class="nav-links">
+      <button class="btn theme-toggle" aria-label="切换主题">🌓</button>
+      <a href="#latest" class="btn" aria-label="查看最新笔记">最新笔记</a>
+      <a href="#categories" class="btn" aria-label="按分类浏览笔记">分类浏览</a>
+      <button class="btn share-button" data-platform="native" aria-label="分享页面">分享</button>
+      <a id="link-one" class="btn primary" href="#" aria-label="快速提交一句话笔记">一句话投稿</a>
+    </div>
+  </nav>
+
+  <header class="site-header animate">
     <h1>Tobacco Notes｜烟草笔记</h1>
-    <p>一句话投稿，轻松浏览。</p>
+    <p>记录每一次品鉴，分享独特体验</p>
     <div class="cta">
-      <a id="link-one" class="btn primary" href="#">一句话投稿</a>
+      <a id="link-quick" class="btn primary" href="#">一句话投稿</a>
       <a id="link-form" class="btn" href="#">标准表单</a>
       <a id="link-repo" class="btn" href="#" target="_blank" rel="noopener">在 GitHub 查看</a>
     </div>
   </header>
 
-  <main class="container">
-    <section>
-      <h2>最新笔记</h2>
-      <div class="search">
-        <input id="q" type="search" placeholder="搜索标题/分类（本地过滤）…" />
+  <main class="container" role="main" aria-label="主要内容">
+    <section 
+      id="latest" 
+      class="animate" 
+      aria-labelledby="latest-title"
+      data-lazy-scripts="./js/shortcuts.js,./js/share.js"
+    >
+      <h2 id="latest-title">
+        <span>最新笔记</span>
+        <span class="shortcut-hint" aria-label="使用快捷键 Command+K 打开搜索">⌘K 搜索</span>
+      </h2>
+      <div class="search" role="search">
+        <input 
+          id="q" 
+          type="search" 
+          placeholder="搜索标题/分类/作者..." 
+          aria-label="搜索笔记"
+          aria-expanded="false"
+          aria-controls="search-results"
+          aria-describedby="search-desc" 
+        />
+        <div id="search-desc" class="sr-only">输入关键词搜索笔记，使用上下箭头键选择结果，回车键确认</div>
+        <div 
+          id="search-results"
+          class="search-dropdown" 
+          role="listbox" 
+          aria-label="搜索结果"
+          hidden
+        ></div>
       </div>
-      <ul id="latest-list" class="note-list"></ul>
+      <ul 
+        id="latest-list" 
+        class="note-list"
+        role="list"
+        aria-label="最新笔记列表"
+      ></ul>
+      <div class="list-pagination">
+        <button 
+          class="btn load-more" 
+          hidden
+          aria-label="加载更多笔记"
+        >加载更多</button>
+      </div>
     </section>
 
-    <section>
-      <h2>按分类浏览</h2>
-      <div id="cat-summary" class="cat-summary"></div>
-      <div id="by-category" class="categories"></div>
+    <section 
+      id="categories" 
+      class="animate" 
+      aria-labelledby="categories-title"
+      data-lazy-scripts="./js/animations.js"
+    >
+      <h2 id="categories-title">按分类浏览</h2>
+      <div 
+        id="cat-summary" 
+        class="cat-summary"
+        role="navigation"
+        aria-label="分类快速导航"
+      ></div>
+      <div 
+        id="by-category" 
+        class="categories"
+        role="region"
+        aria-label="分类笔记列表"
+      ></div>
     </section>
 
-    <section>
-      <h2>模板与指引</h2>
-      <ul class="links">
-        <li><a href="../notes/cigars/TEMPLATE_cigars_bilingual.md">cigars 模板</a></li>
-        <li><a href="../notes/cigarettes/TEMPLATE_cigarettes_bilingual.md">cigarettes 模板</a></li>
-        <li><a href="../notes/pipe/TEMPLATE_pipe_bilingual.md">pipe 模板</a></li>
-        <li><a href="../notes/ryo/TEMPLATE_ryo_bilingual.md">ryo 模板</a></li>
-        <li><a href="../notes/snus/TEMPLATE_snus_bilingual.md">snus 模板</a></li>
-        <li><a href="../notes/ecig/TEMPLATE_ecig_bilingual.md">ecig 模板</a></li>
+    <section 
+      id="templates" 
+      class="animate" 
+      aria-labelledby="templates-title"
+      data-lazy-scripts="./js/mobile.js"
+    >
+      <h2 id="templates-title">模板与指引</h2>
+      <div 
+        class="template-grid"
+        role="list"
+        aria-label="笔记模板列表"
+      >
+        <div class="template-card" role="listitem">
+          <h3>雪茄｜Cigars</h3>
+          <p>适用于：古巴/非古巴雪茄品鉴记录</p>
+          <a 
+            href="../notes/cigars/TEMPLATE_cigars_bilingual.md" 
+            class="btn"
+            aria-label="查看雪茄品鉴记录模板"
+          >查看模板</a>
+        </div>
+        <div class="template-card" role="listitem">
+          <h3>纸烟｜Cigarettes</h3>
+          <p>适用于：工业卷烟品鉴记录</p>
+          <a 
+            href="../notes/cigarettes/TEMPLATE_cigarettes_bilingual.md" 
+            class="btn"
+            aria-label="查看纸烟品鉴记录模板"
+          >查看模板</a>
+        </div>
+        <div class="template-card" role="listitem">
+          <h3>烟斗｜Pipe</h3>
+          <p>适用于：烟斗草品鉴记录</p>
+          <a 
+            href="../notes/pipe/TEMPLATE_pipe_bilingual.md" 
+            class="btn"
+            aria-label="查看烟斗品鉴记录模板"
+          >查看模板</a>
+        </div>
+        <div class="template-card" role="listitem">
+          <h3>手卷｜RYO</h3>
+          <p>适用于：手卷烟品鉴记录</p>
+          <a 
+            href="../notes/ryo/TEMPLATE_ryo_bilingual.md" 
+            class="btn"
+            aria-label="查看手卷烟品鉴记录模板"
+          >查看模板</a>
+        </div>
+        <div class="template-card" role="listitem">
+          <h3>唇烟｜Snus</h3>
+          <p>适用于：口含烟品鉴记录</p>
+          <a 
+            href="../notes/snus/TEMPLATE_snus_bilingual.md" 
+            class="btn"
+            aria-label="查看唇烟品鉴记录模板"
+          >查看模板</a>
+        </div>
+        <div class="template-card" role="listitem">
+          <h3>电子烟｜E-cig</h3>
+          <p>适用于：电子烟品鉴记录</p>
+          <a 
+            href="../notes/ecig/TEMPLATE_ecig_bilingual.md" 
+            class="btn"
+            aria-label="查看电子烟品鉴记录模板"
+          >查看模板</a>
+        </div>
+      </div>
+      <div 
+        class="template-links"
+        role="navigation"
+        aria-label="相关文档链接"
+      >
+        <a href="./contribute.md">参与指南</a>
+        <span aria-hidden="true">·</span>
+        <a href="./style-guide.md">写作格式</a>
+        <span aria-hidden="true">·</span>
+        <a href="../README.md#how-to-use--使用方式">使用说明</a>
+      </div>
+    </section>
+
+    <section 
+      id="sponsor" 
+      class="animate" 
+      aria-labelledby="sponsor-title"
+      data-lazy-scripts="./js/a11y.js"
+    >
+      <h2 id="sponsor-title">赞助支持</h2>
+      <p>如果你觉得这个项目有用，欢迎赞助支持。你的支持将用于：</p>
+      <ul 
+        class="sponsor-uses"
+        role="list"
+        aria-label="赞助用途"
+      >
+        <li>维护自动化脚本与站点</li>
+        <li>改进模板与工具</li>
+        <li>社区维护与内容策划</li>
       </ul>
-      <p>
-        更多：<a href="./contribute.md">如何参与</a> · <a href="../README.md#how-to-use--使用方式">README 使用方式</a>
-      </p>
-    </section>
-
-    <section>
-      <h2>赞助支持</h2>
-      <p>如果你觉得有用，欢迎赞助支持，让更多人受益。</p>
-      <div class="sponsors">
-        <img src="../.github/WeChat%20Sponsor%20Code.jpg" alt="WeChat 赞助码" />
-        <img src="../.github/SG%20PayNow%20Sponsor%20Code.jpg" alt="SG PayNow 赞助码" />
+      <div 
+        class="sponsors"
+        role="region"
+        aria-label="赞助二维码"
+      >
+        <img 
+          src="../.github/WeChat%20Sponsor%20Code.jpg" 
+          alt="微信赞助二维码" 
+          loading="lazy"
+          width="200"
+          height="200"
+        />
+        <img 
+          src="../.github/SG%20PayNow%20Sponsor%20Code.jpg" 
+          alt="新加坡 PayNow 赞助二维码" 
+          loading="lazy"
+          width="200"
+          height="200"
+        />
       </div>
+      <p class="sponsor-note">
+        <a 
+          href="./sustainability.md"
+          aria-label="了解更多关于项目可持续性发展计划"
+        >了解更多关于项目可持续性</a>
+      </p>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <small>
-      内容 CC BY 4.0；代码 MIT。健康提示：所有烟草使用均有害。
-      · <a href="./sustainability.md">为爱发电 / Sustainability</a>
-      · <a href="./contribute.md">如何参与 / Contribute</a>
-      · <a href="./style-guide.md">写作格式 / Style Guide</a>
-      · <a href="./glossary.md">术语表 / Glossary</a>
-      · <a href="./contributors.md">贡献者 / Contributors</a>
-      · <a href="./tasks.md">开放任务 / Open Tasks</a>
-      · <a href="../README.md">模板 / Templates</a>
+  <footer class="site-footer" role="contentinfo">
+    <div 
+      class="footer-links"
+      role="navigation"
+      aria-label="页脚导航"
+    >
+      <a href="./sustainability.md" aria-label="了解项目为爱发电的理念">为爱发电</a>
+      <span aria-hidden="true">·</span>
+      <a href="./contribute.md" aria-label="了解如何参与项目">如何参与</a>
+      <span aria-hidden="true">·</span>
+      <a href="./style-guide.md" aria-label="查看笔记写作格式指南">写作格式</a>
+      <span aria-hidden="true">·</span>
+      <a href="./glossary.md" aria-label="查看术语表">术语表</a>
+      <span aria-hidden="true">·</span>
+      <a href="./contributors.md" aria-label="查看项目贡献者列表">贡献者</a>
+      <span aria-hidden="true">·</span>
+      <a href="./tasks.md" aria-label="查看开放任务列表">开放任务</a>
+    </div>
+    <div 
+      class="footer-feeds"
+      role="navigation"
+      aria-label="订阅源"
+    >
+      <span>订阅更新：</span>
+      <a href="./feed.xml" type="application/rss+xml" aria-label="RSS 订阅">RSS</a>
+      <span aria-hidden="true">·</span>
+      <a href="./feed.atom" type="application/atom+xml" aria-label="Atom 订阅">Atom</a>
+      <span aria-hidden="true">·</span>
+      <a href="./feed.json" type="application/json" aria-label="JSON Feed 订阅">JSON Feed</a>
+    </div>
+    <small 
+      class="footer-meta"
+      role="contentinfo"
+      aria-label="版权和健康提示"
+    >
+      内容采用 CC BY 4.0 授权；代码采用 MIT 许可证
+      <br>
+      <strong>健康提示：</strong>所有形式的烟草使用均有害健康。本站仅用于记录与交流，不鼓励使用。
     </small>
   </footer>
 
   <script>
+    // 核心功能
     async function loadJSON(path) {
       const res = await fetch(path);
       if (!res.ok) return [];
       return await res.json();
     }
+
+    // GitHub 仓库链接处理
     function computeRepoUrls() {
-      // Try to infer owner/repo from Pages path: /<owner>/<repo>/
       const parts = (location.pathname || '/').split('/').filter(Boolean);
       let owner = '';
       let repo = '';
@@ -89,7 +338,6 @@
         owner = parts[0];
         repo = parts[1];
       }
-      // Fallback: read from meta tag data-repo if provided (not set here)
       if (!owner || !repo) return null;
       const base = `https://github.com/${owner}/${repo}`;
       return {
@@ -98,20 +346,43 @@
         form: `${base}/issues/new?template=tasting.yml`
       };
     }
+
+    // DOM 辅助函数
     function el(tag, attrs={}, children=[]) {
       const e = document.createElement(tag);
       Object.entries(attrs).forEach(([k,v])=> e.setAttribute(k, v));
       children.forEach(c=> e.appendChild(typeof c === 'string'? document.createTextNode(c): c));
       return e;
     }
+
+    // 笔记项渲染
     function noteItem(n) {
-      const a = el('a', { href: `../${n.path}`, target: '_blank', rel: 'noopener' }, [n.title]);
-      const copyBtn = el('button', { class: 'copy' }, ['复制链接']);
-      copyBtn.addEventListener('click', async () => {
+      const a = el('a', { 
+        href: `../${n.path}`,
+        target: '_blank',
+        rel: 'noopener',
+        title: n.title
+      }, [n.title]);
+
+      const copyBtn = el('button', {
+        class: 'copy',
+        'aria-label': '复制链接'
+      }, ['复制链接']);
+
+      copyBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
         const url = location.origin + '/' + location.pathname.split('/').filter(Boolean).slice(0,2).join('/') + '/' + n.path;
-        try { await navigator.clipboard.writeText(url); copyBtn.textContent = '已复制'; setTimeout(()=> copyBtn.textContent='复制链接', 1200);} catch(e){}
+        try {
+          await navigator.clipboard.writeText(url);
+          copyBtn.textContent = '已复制';
+          setTimeout(()=> copyBtn.textContent='复制链接', 1200);
+        } catch(e) {
+          console.error('Copy failed:', e);
+        }
       });
+
       const author = n.author ? ` @${n.author}` : '';
+      
       return el('li', {}, [
         el('span', { class: 'date' }, [n.date + ' ']),
         el('span', { class: 'cat' }, ['['+n.category+'] ']),
@@ -120,70 +391,123 @@
         copyBtn
       ]);
     }
+
+    // 初始化
     (async () => {
+      // 设置仓库链接
       const urls = computeRepoUrls();
       const aOne = document.getElementById('link-one');
+      const aQuick = document.getElementById('link-quick');
       const aForm = document.getElementById('link-form');
       const aRepo = document.getElementById('link-repo');
+      
       if (urls) {
-        aOne.href = urls.one;
+        [aOne, aQuick].forEach(a => a.href = urls.one);
         aForm.href = urls.form;
         aRepo.href = urls.repo;
       } else {
-        // Fallback for local preview on GitHub: relative links work in repo view
-        aOne.href = '../issues/new?template=quick.yml';
+        [aOne, aQuick].forEach(a => a.href = '../issues/new?template=quick.yml');
         aForm.href = '../issues/new?template=tasting.yml';
         aRepo.href = '../../';
       }
+
+      // 加载数据
       const latest = await loadJSON('./data/latest.json');
       const all = await loadJSON('./data/index.json');
+      
+      // 渲染最新列表
       const latestList = document.getElementById('latest-list');
       let current = latest.slice();
-      function renderLatest(list){
-        latestList.innerHTML = '';
+      
+      function renderLatest(list, replace = true) {
+        if (replace) {
+          latestList.innerHTML = '';
+        }
         list.forEach(n => latestList.appendChild(noteItem(n)));
       }
+      
       renderLatest(current);
 
+      // 搜索功能
       const input = document.getElementById('q');
+      const dropdown = document.querySelector('.search-dropdown');
+      
       input.addEventListener('input', () => {
         const v = input.value.trim().toLowerCase();
-        if (!v) { renderLatest(latest); return; }
+        if (!v) {
+          renderLatest(latest);
+          dropdown.hidden = true;
+          return;
+        }
+        
         const filtered = latest.filter(n =>
           (n.title || '').toLowerCase().includes(v) ||
-          (n.category || '').toLowerCase().includes(v)
+          (n.category || '').toLowerCase().includes(v) ||
+          (n.author || '').toLowerCase().includes(v)
         );
+        
         renderLatest(filtered);
       });
 
-      // Category summary counts
+      // 分类统计
       const catOrder = ['cigars','cigarettes','pipe','ryo','snus','ecig'];
       const counts = Object.fromEntries(catOrder.map(c=>[c,0]));
       all.forEach(n => { if (counts[n.category] !== undefined) counts[n.category]++; });
+      
       const catSummary = document.getElementById('cat-summary');
       catSummary.innerHTML = '';
       catOrder.forEach(c => {
-        const badge = el('span', { class: 'badge' }, [`${c}: ${counts[c]}`]);
+        const badge = el('a', {
+          class: 'badge',
+          href: `#${c}`,
+          'data-category': c
+        }, [`${c}: ${counts[c]}`]);
         catSummary.appendChild(badge);
       });
 
+      // 分类列表
       const byCat = {};
       all.forEach(n => (byCat[n.category] = byCat[n.category] || []).push(n));
+      
       const container = document.getElementById('by-category');
       Object.keys(byCat).forEach(cat => {
-        const section = el('div', { class: 'category-block' }, [
-          el('h3', {}, [cat])
+        const section = el('div', {
+          class: 'category-block animate',
+          id: cat
+        }, [
+          el('h3', {}, [
+            cat,
+            el('span', { class: 'count' }, [` (${byCat[cat].length})`])
+          ])
         ]);
+        
         const ul = el('ul', { class: 'note-list' });
         byCat[cat].slice(0, 50).forEach(n => ul.appendChild(noteItem(n)));
-        section.appendChild(ul);
+        
+        if (byCat[cat].length > 50) {
+          const more = el('button', {
+            class: 'btn load-more',
+            'data-category': cat
+          }, [`加载更多 ${cat} 笔记`]);
+          
+          more.addEventListener('click', () => {
+            const start = ul.children.length;
+            const next = byCat[cat].slice(start, start + 50);
+            next.forEach(n => ul.appendChild(noteItem(n)));
+            if (start + 50 >= byCat[cat].length) {
+              more.hidden = true;
+            }
+          });
+          
+          section.appendChild(ul);
+          section.appendChild(more);
+        } else {
+          section.appendChild(ul);
+        }
+        
         container.appendChild(section);
       });
     })();
   </script>
 </body>
-<style>
-</style>
 </html>
-
-

@@ -4,20 +4,42 @@
 > 参考：[Tobacco Appreciation 101 — 烟草赏析入门](../wiki/Tobacco-Appreciation-101.md)（完整 Wiki 指南）与 [烟草品类导览](../wiki/Tobacco-Category-Guide.md)
 
 ## 1) 元数据（前言区）| Front matter
-- 必填：`date`、`category`、标题字段（随品类不同，如 cigars 用 `product`，cigarettes 用 `brand` 等）
-- 建议：`rating`、`pairing`、`tags`、`origin/price`（如适用）
+- 必填：
+  - `date`：品鉴日期（YYYY-MM-DD格式）
+  - `category`：品类
+  - 标题字段（随品类不同，如 cigars 用 `product`，cigarettes 用 `brand` 等）
+- 建议：
+  - `rating`：评分
+  - `pairing`：搭配建议
+  - `tags`：标签
+  - `origin/price`：产地/价格（如适用）
+  - `images`：图片（可多张，需包含路径和说明）
+  - `references`：参考链接（标题和URL）
 - 作者与来源：系统会自动加入 `author` 与 `source_issue`（无需手填）
 
 示例（cigars）：
 ```yaml
 ---
+date: 2024-03-21
 product: Partagas Serie D No.4
 vitola: Robusto
 origin: Cuba
 price: 15 USD
 rating: 88/100
 pairing: Espresso
-tags: [cigar, woody, spicy]
+images:
+  - path: images/cigars/partagas-d4-wrapper.jpg
+    caption: Wrapper detail | 包装细节
+  - path: images/cigars/partagas-d4-lighting.jpg
+    caption: First light | 点燃瞬间
+  - path: images/cigars/partagas-d4-ash.jpg
+    caption: Ash at halfway | 中段烟灰
+references:
+  - title: Official Site | 官网
+    url: https://www.habanos.com/en/productos/partagas/
+  - title: Review | 评测
+    url: https://halfwheel.com/partagas-serie-d-no-4-2/
+tags: [cigar, woody, spicy, medium-full]
 ---
 ```
 
