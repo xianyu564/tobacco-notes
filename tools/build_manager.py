@@ -151,29 +151,50 @@ class BuildManager:
         start_time = time.time()
         logger.info("Starting build process...")
         
-        # Get modified files if doing incremental build
-        if incremental:
-            last_build_file = self.docs_dir / '.lastbuild'
-            last_build_time = None
-            if last_build_file.exists():
-                last_build_time = float(last_build_file.read_text().strip())
-            self.get_modified_files(last_build_time)
-        else:
-            self.get_modified_files()
-        
-        # Process content
-        self.process_notes()
-        self.process_images()
-        
-        # Build feeds and assets
-        self.build_feeds()
-        self.generate_assets()
-        
-        # Record build time
-        build_time = time.time() - start_time
-        (self.docs_dir / '.lastbuild').write_text(str(time.time()))
-        
-        logger.info(f"Build completed in {build_time:.2f} seconds")
+        try:
+            # Get modified files if doing incremental build
+            if incremental:
+                last_build_file = self.docs_dir / '.lastbuild'
+                last_build_time = None
+                if last_build_file.exists():
+                    last_build_time = float(last_build_file.read_text().strip())
+                self.get_modified_files(last_build_time)
+            else:
+                self.get_modified_files()
+            
+            # Process content
+            self.process_notes()
+            self.process_images()
+            
+            # Build feeds and assets
+            self.build_feeds()
+            self.generate_assets()
+            
+            # Process static assets
+            self._process_static_assets()
+            
+            # Record build time
+            build_time = time.time() - start_time
+            (self.docs_dir / '.lastbuild').write_text(str(time.time()))
+            
+            logger.info(f"Build completed in {build_time:.2f} seconds")
+            
+        except Exception as e:
+            logger.error(f"Build failed: {e}")
+            raise BuildError("Build process failed") from e
+            
+    def _process_static_assets(self) -> None:
+        """Process static assets with versioning and caching."""
+        try:
+            from asset_manager import AssetManager
+            
+            logger.info("Processing static assets...")
+            manager = AssetManager(self.repo_root)
+            manager.process_assets()
+            
+        except Exception as e:
+            logger.error(f"Static asset processing failed: {e}")
+            raise BuildError("Failed to process static assets") from e
 
 def main():
     """Main entry point."""
