@@ -8,6 +8,7 @@
 ## 导航 | Navigation
 
 ### 核心指南 | Core Guides
+- **[🎯 入门术语表 | Beginner Terminology](./Terminology-Descriptors.md#入门术语表--beginner-terminology)** - 新手专享：30分钟掌握基础词汇
 - **[Tobacco Appreciation 101 | 烟草赏析入门](./Tobacco-Appreciation-101.md)** - 品鉴方法论与入门指南
 - **[Tobacco Category Guide | 烟草品类导览](./Tobacco-Category-Guide.md)** - 各品类详细解析
 - **[Tasting Methodology | 品鉴方法论](./Tasting-Methodology.md)** - 系统化品鉴框架
@@ -52,13 +53,24 @@ This project aims to establish an open, systematic knowledge base for tobacco ap
 
 ## 快速开始 | Quick Start
 
+### 🎯 新手专属入口 | Beginner-Friendly Entry Point
+
+**完全新手？从这里开始！| Complete beginner? Start here!**
+
+🚀 **[入门术语表 | Beginner Terminology](./Terminology-Descriptors.md#入门术语表--beginner-terminology)** - 30分钟快速掌握基础词汇，包含拼音注音 | Master basic vocabulary in 30 minutes with pinyin notation
+
+---
+
+### 📚 系统学习路径 | Systematic Learning Path  
+
 如果你是新手，建议按以下顺序阅读：
 If you're a beginner, we recommend reading in this order:
 
-1. **[烟草赏析入门 | Tobacco Appreciation 101](./Tobacco-Appreciation-101.md)** - 了解基础概念和方法
-2. **[品鉴方法论 | Tasting Methodology](./Tasting-Methodology.md)** - 学习系统化品鉴步骤
-3. **[选择感兴趣的品类指南 | Choose Your Category Guide](./Tobacco-Category-Guide.md)** - 根据兴趣深入学习
-4. **[术语词典 | Terminology Dictionary](./Terminology-Descriptors.md)** - 掌握专业术语
+1. **[🎯 入门术语表 | Beginner Terminology](./Terminology-Descriptors.md#入门术语表--beginner-terminology)** - 基础词汇快速入门 (推荐起点)
+2. **[烟草赏析入门 | Tobacco Appreciation 101](./Tobacco-Appreciation-101.md)** - 了解基础概念和方法
+3. **[品鉴方法论 | Tasting Methodology](./Tasting-Methodology.md)** - 学习系统化品鉴步骤
+4. **[选择感兴趣的品类指南 | Choose Your Category Guide](./Tobacco-Category-Guide.md)** - 根据兴趣深入学习
+5. **[完整术语词典 | Complete Terminology Dictionary](./Terminology-Descriptors.md)** - 掌握专业术语
 
 ## 最新更新 | Recent Updates
 
