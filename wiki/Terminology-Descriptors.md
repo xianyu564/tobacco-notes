@@ -6,6 +6,10 @@
 
 **中文**: 本综合术语指南为烟草赏析提供标准化词汇，确保在不同烟草类别和品鉴体验中进行一致和精确的交流。
 
+> **🎯 新手专享 | For Beginners**: 如果你是初学者，建议直接跳转到 [入门术语表](#入门术语表--beginner-terminology) 开始学习。该章节包含最基础的术语，附有拼音注音和简化解释，帮助你快速上手。
+> 
+> **🎯 Beginner-Friendly**: If you're a beginner, we recommend jumping directly to the [Beginner Terminology](#入门术语表--beginner-terminology) section. It contains the most basic terms with pinyin notation and simplified explanations to help you get started quickly.
+
 > **使用说明 | Usage Notes**: 这些术语按类别组织，每个词条都包含英文原文、中文翻译和详细解释。建议根据具体品鉴场景选择合适的描述词。
 > These terms are organized by category, with each entry including English original, Chinese translation, and detailed explanations. Choose appropriate descriptors based on specific tasting contexts.
 
@@ -13,14 +17,213 @@
 
 ## 目录 | Table of Contents
 
-1. [Basic Tasting Terms | 基础品鉴术语](#basic-tasting-terms--基础品鉴术语)
-2. [Aroma Descriptors | 香气描述词](#aroma-descriptors--香气描述词)
-3. [Flavor Descriptors | 风味描述词](#flavor-descriptors--风味描述词)
-4. [Texture & Mouthfeel | 质地与口感](#texture--mouthfeel--质地与口感)
-5. [Strength & Body | 力度与厚度](#strength--body--力度与厚度)
-6. [Construction & Technical | 制作与技术](#construction--technical--制作与技术)
-7. [Category-Specific Terms | 品类专用术语](#category-specific-terms--品类专用术语)
-8. [Rating & Evaluation | 评分与评估](#rating--evaluation--评分与评估)
+### 🎯 新手专区 | Beginner Section
+1. [**入门术语表 | Beginner Terminology**](#入门术语表--beginner-terminology) ⭐ **推荐起点 | Recommended Start**
+
+### 📚 完整词典 | Complete Dictionary  
+2. [Basic Tasting Terms | 基础品鉴术语](#basic-tasting-terms--基础品鉴术语)
+3. [Aroma Descriptors | 香气描述词](#aroma-descriptors--香气描述词)
+4. [Flavor Descriptors | 风味描述词](#flavor-descriptors--风味描述词)
+5. [Texture & Mouthfeel | 质地与口感](#texture--mouthfeel--质地与口感)
+6. [Strength & Body | 力度与厚度](#strength--body--力度与厚度)
+7. [Construction & Technical | 制作与技术](#construction--technical--制作与技术)
+8. [Category-Specific Terms | 品类专用术语](#category-specific-terms--品类专用术语)
+9. [Rating & Evaluation | 评分与评估](#rating--evaluation--评分与评估)
+
+---
+
+## 入门术语表 | Beginner Terminology
+
+> 🎯 **新手指南 | Beginner's Guide**: 这个章节专为初学者设计，包含最基础、最实用的烟草品鉴术语。每个词条都有中英对照、拼音注音和简单易懂的解释。建议先掌握这些基础术语，再进入详细词典学习。
+> 
+> This section is designed for beginners, containing the most basic and practical tobacco appreciation terms. Each entry includes Chinese-English comparison, pinyin notation, and easy-to-understand explanations. We recommend mastering these basic terms first before moving to the detailed dictionary.
+
+### 🏁 快速开始 | Quick Start
+
+#### 学习路径 | Learning Path
+1. **第一步**: 掌握基础味觉词汇 (5-10分钟)
+2. **第二步**: 学习强度等级 (5分钟) 
+3. **第三步**: 认识简单香气类型 (10分钟)
+4. **第四步**: 了解评分方法 (5分钟)
+5. **实践**: 尝试描述一款产品 (10分钟)
+
+1. **Step 1**: Master basic taste vocabulary (5-10 minutes)
+2. **Step 2**: Learn strength levels (5 minutes)
+3. **Step 3**: Recognize simple aroma types (10 minutes) 
+4. **Step 4**: Understand rating methods (5 minutes)
+5. **Practice**: Try describing a product (10 minutes)
+
+---
+
+### 📊 基础味觉 | Basic Tastes
+
+#### 甜 | Sweet
+- **拼音**: tián
+- **English**: Sweet
+- **简单说明**: 像糖或蜂蜜的味道，让人愉悦
+- **Simple explanation**: Tastes like sugar or honey, pleasant
+- **例子 | Example**: "这款烟草有轻微的甜味" / "This tobacco has a mild sweetness"
+
+#### 苦 | Bitter  
+- **拼音**: kǔ
+- **English**: Bitter
+- **简单说明**: 像咖啡或茶的苦味，不一定是坏事
+- **Simple explanation**: Like coffee or tea bitterness, not necessarily bad
+- **例子 | Example**: "收尾有一点苦味" / "There's a bit of bitterness in the finish"
+
+#### 咸 | Salty
+- **拼音**: xián  
+- **English**: Salty
+- **简单说明**: 像海水的味道，增加复杂性
+- **Simple explanation**: Like seawater taste, adds complexity
+- **例子 | Example**: "有淡淡的咸味" / "There's a subtle salty note"
+
+#### 酸 | Sour
+- **拼音**: suān
+- **English**: Sour/Tart
+- **简单说明**: 像柠檬的酸味，带来清新感
+- **Simple explanation**: Like lemon sourness, brings freshness
+- **例子 | Example**: "轻微的酸味平衡了甜腻" / "Slight sourness balances the sweetness"
+
+---
+
+### 💪 强度等级 | Strength Levels
+
+#### 温和 | Mild
+- **拼音**: wēn hé
+- **English**: Mild
+- **适合人群**: 初学者、不常吸食者
+- **Suitable for**: Beginners, occasional users
+- **感觉**: 轻松、不刺激
+- **Feel**: Easy, non-irritating
+
+#### 中等 | Medium  
+- **拼音**: zhōng děng
+- **English**: Medium
+- **适合人群**: 有一定经验者
+- **Suitable for**: Those with some experience
+- **感觉**: 平衡、满足感好
+- **Feel**: Balanced, satisfying
+
+#### 浓郁 | Strong
+- **拼音**: nóng yù
+- **English**: Strong/Full
+- **适合人群**: 有经验者
+- **Suitable for**: Experienced users
+- **感觉**: 强烈、需要适应
+- **Feel**: Intense, requires adaptation
+
+---
+
+### 🌸 简单香气 | Simple Aromas
+
+#### 木香 | Woody
+- **拼音**: mù xiāng
+- **English**: Woody
+- **说明**: 像木头的香味，温暖舒适
+- **Description**: Like wood scent, warm and comfortable
+- **常见词**: 雪松 (xuě sōng, cedar)、橡木 (xiàng mù, oak)
+
+#### 甜香 | Sweet
+- **拼音**: tián xiāng  
+- **English**: Sweet aroma
+- **说明**: 像糖果或香草的香味
+- **Description**: Like candy or vanilla scent
+- **常见词**: 香草 (xiāng cǎo, vanilla)、蜂蜜 (fēng mì, honey)
+
+#### 辛香 | Spicy
+- **拼音**: xīn xiāng
+- **English**: Spicy
+- **说明**: 像胡椒或肉桂的香味
+- **Description**: Like pepper or cinnamon scent  
+- **常见词**: 胡椒 (hú jiāo, pepper)、肉桂 (ròu guì, cinnamon)
+
+#### 土腥 | Earthy
+- **拼音**: tǔ xīng
+- **English**: Earthy
+- **说明**: 像泥土或森林的味道
+- **Description**: Like soil or forest scent
+- **常见词**: 泥土 (ní tǔ, soil)、森林 (sēn lín, forest)
+
+---
+
+### 📝 简单评分 | Simple Rating
+
+#### 5分制快速评分 | 5-Point Quick Rating
+
+**5分 ⭐⭐⭐⭐⭐**: 非常好 (fēi cháng hǎo) - Excellent
+- 强烈推荐，会再次购买
+
+**4分 ⭐⭐⭐⭐**: 好 (hǎo) - Good  
+- 推荐，质量不错
+
+**3分 ⭐⭐⭐**: 一般 (yī bān) - Average
+- 可以接受，没有特别亮点
+
+**2分 ⭐⭐**: 不太好 (bù tài hǎo) - Below Average
+- 有明显问题，不太推荐
+
+**1分 ⭐**: 差 (chà) - Poor
+- 不推荐，有严重问题
+
+---
+
+### 🎯 实用模板 | Practical Template
+
+#### 新手品鉴模板 | Beginner Tasting Template
+
+```
+产品名称 | Product: ________________
+日期 | Date: ________________
+
+外观 | Appearance:
+□ 好看 (Good looking) □ 一般 (Average) □ 不佳 (Poor)
+
+香气 | Aroma:  
+□ 木香 (Woody) □ 甜香 (Sweet) □ 辛香 (Spicy) □ 土腥 (Earthy)
+□ 其他 (Other): ________________
+
+强度 | Strength:
+□ 温和 (Mild) □ 中等 (Medium) □ 浓郁 (Strong)
+
+味道 | Taste:
+□ 甜 (Sweet) □ 苦 (Bitter) □ 咸 (Salty) □ 酸 (Sour)
+最主要的味道 | Main taste: ________________
+
+整体感受 | Overall:
+□ 顺滑 (Smooth) □ 刺激 (Harsh) □ 平衡 (Balanced)
+
+评分 | Rating: ⭐⭐⭐⭐⭐ (1-5分)
+
+会再次购买吗？| Will buy again?
+□ 是 (Yes) □ 否 (No) □ 也许 (Maybe)
+
+备注 | Notes: ________________
+```
+
+---
+
+### 🚀 进阶学习 | Advanced Learning
+
+#### 准备好学更多了吗？| Ready to Learn More?
+
+当你掌握了这些基础术语，可以继续学习：
+When you master these basic terms, you can continue learning:
+
+1. **下一步**: [基础品鉴术语 | Basic Tasting Terms](#basic-tasting-terms--基础品鉴术语) - 更详细的专业术语
+2. **香气词典**: [香气描述词 | Aroma Descriptors](#aroma-descriptors--香气描述词) - 丰富的香气词汇  
+3. **专业评分**: [评分与评估 | Rating & Evaluation](#rating--evaluation--评分与评估) - 专业评分方法
+
+#### 常见错误 | Common Mistakes
+
+❌ **过度复杂化**: 一开始就使用很复杂的词汇
+✅ **从简单开始**: 先用基础词汇准确描述
+
+❌ **追求完美**: 担心描述不够专业  
+✅ **忠于感受**: 诚实记录自己的感受
+
+❌ **盲目跟风**: 完全按别人的描述
+✅ **培养味觉**: 逐步建立自己的判断
 
 ---
 
