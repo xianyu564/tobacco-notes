@@ -7,6 +7,10 @@
 
 **新位置 | New Location**: [**Terminology & Descriptors Wiki**](../wiki/Terminology-Descriptors.md)
 
+**✨ 新增内容 | New Addition**: 
+- 🎯 **[入门术语表 | Beginner Terminology](../wiki/Terminology-Descriptors.md#入门术语表--beginner-terminology)** - 专为初学者设计，包含拼音注音和简化解释
+- 🎯 **[Beginner Terminology Section](../wiki/Terminology-Descriptors.md#入门术语表--beginner-terminology)** - Designed for beginners with pinyin notation and simplified explanations
+
 包含超过200个专业术语，完整双语解释，涵盖：
 Contains over 200 professional terms with complete bilingual explanations, covering:
 
@@ -71,6 +75,18 @@ Contains over 200 professional terms with complete bilingual explanations, cover
 - [开放任务 | Open Tasks](./tasks.md)
 
 ## 💡 快速参考 | Quick Reference
+
+### 🎯 新手指南 | Beginner's Guide
+
+#### 推荐学习顺序 | Recommended Learning Order
+1. **第一步**: [入门术语表](../wiki/Terminology-Descriptors.md#入门术语表--beginner-terminology) - 基础词汇 (30分钟)
+2. **第二步**: 实践使用新手品鉴模板 (每次品鉴15分钟)  
+3. **第三步**: 掌握后进入专业术语学习
+
+#### 基础必学词汇 | Essential Vocabulary
+- **味觉**: 甜 (tián)、苦 (kǔ)、咸 (xián)、酸 (suān)
+- **强度**: 温和 (wēn hé)、中等 (zhōng děng)、浓郁 (nóng yù)
+- **香气**: 木香 (mù xiāng)、甜香 (tián xiāng)、辛香 (xīn xiāng)、土腥 (tǔ xīng)
 
 ### 常用评分 | Common Ratings
 - **雪茄 | Cigars**: 100分制 (80=合格, 90=优秀, 95+=尖峰)
