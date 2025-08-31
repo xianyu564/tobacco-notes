@@ -1,0 +1,36 @@
+{
+  "success": false,
+  "stats": {
+    "total_notes": 6,
+    "valid_notes": 0,
+    "categories": {
+      "ryo": 0,
+      "cigarettes": 0,
+      "ecig": 0,
+      "snus": 0,
+      "cigars": 0,
+      "pipe": 0
+    },
+    "validation_score": 0
+  },
+  "errors": [
+    "缺少必需字段 title: /home/runner/work/tobacco-notes/tobacco-notes/notes/ryo/2025-08-21-virginia-ocb-charcoal.md",
+    "缺少必需字段 title: /home/runner/work/tobacco-notes/tobacco-notes/notes/cigarettes/2025-08-21-xxx-regular.md",
+    "缺少必需字段 title: /home/runner/work/tobacco-notes/tobacco-notes/notes/ecig/2025-08-21-peach-ice-35mg.md",
+    "缺少必需字段 title: /home/runner/work/tobacco-notes/tobacco-notes/notes/snus/2025-08-21-general-mint.md",
+    "缺少必需字段 title: /home/runner/work/tobacco-notes/tobacco-notes/notes/cigars/2025-08-21-partagas-serie-d-no4.md",
+    "缺少必需字段 title: /home/runner/work/tobacco-notes/tobacco-notes/notes/pipe/2025-08-21-virginia-flake.md",
+    "笔记缺少字段 slug [索引0]: /home/runner/work/tobacco-notes/tobacco-notes/docs/data/latest.json",
+    "笔记缺少字段 slug [索引1]: /home/runner/work/tobacco-notes/tobacco-notes/docs/data/latest.json",
+    "笔记缺少字段 slug [索引2]: /home/runner/work/tobacco-notes/tobacco-notes/docs/data/latest.json",
+    "笔记缺少字段 slug [索引3]: /home/runner/work/tobacco-notes/tobacco-notes/docs/data/latest.json",
+    "笔记缺少字段 slug [索引4]: /home/runner/work/tobacco-notes/tobacco-notes/docs/data/latest.json",
+    "笔记缺少字段 slug [索引5]: /home/runner/work/tobacco-notes/tobacco-notes/docs/data/latest.json"
+  ],
+  "warnings": [
+    "图片目录不存在",
+    ".htaccess缺少RewriteEngine配置",
+    ".htaccess缺少缓存配置"
+  ],
+  "timestamp": "2025-08-31T08:18:16.120209"
+}

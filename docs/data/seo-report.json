@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-08-31T08:22:21.652001",
+  "score": 90,
+  "summary": {
+    "errors": 0,
+    "warnings": 2,
+    "suggestions": 1
+  },
+  "details": {
+    "errors": [],
+    "warnings": [
+      "页面标题过短 (18字符，建议30-60字符)",
+      "页面描述过短 (36字符，建议120-160字符)"
+    ],
+    "suggestions": [
+      "建议配置HTTPS重定向"
+    ]
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "页面标题",
+      "suggestion": "优化页面标题：确保长度适中(30-60字符)，包含关键词，描述准确"
+    }
+  ]
+}

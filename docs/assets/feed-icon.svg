@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect width="128" height="128" fill="#ff4d6d" rx="16"/>
+  <g fill="white">
+    <!-- RSS-style feed icon -->
+    <circle cx="32" cy="96" r="8"/>
+    <path d="M20 40v16c26.51 0 48 21.49 48 48h16c0-35.29-28.71-64-64-64z"/>
+    <path d="M20 64v16c8.837 0 16 7.163 16 16h16c0-17.673-14.327-32-32-32z"/>
+    <!-- Tobacco leaf accent -->
+    <path d="M70 20c-8 0-15 4-20 10-5-6-12-10-20-10-11 0-20 9-20 20 0 22 20 40 40 60 20-20 40-38 40-60 0-11-9-20-20-20z" opacity="0.3"/>
+  </g>
+</svg>

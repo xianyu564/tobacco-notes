@@ -1,0 +1,92 @@
+name: Essential Validation
+
+on:
+  push:
+    branches: [ master, develop, feature/*, chore/* ]
+  pull_request:
+    branches: [ master, develop ]
+  workflow_dispatch:
+
+jobs:
+  content-validation:
+    runs-on: ubuntu-latest
+    name: Content & Bilingual Validation
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r tools/requirements.txt
+        
+    - name: Validate notes content
+      run: |
+        python tools/validate_content.py
+        
+    - name: Validate feeds
+      run: |
+        python tools/validate_feeds.py
+        
+    - name: Upload content validation report
+      uses: actions/upload-artifact@v3
+      if: failure()
+      with:
+        name: content-validation-report
+        path: docs/data/validation-report.json
+
+  basic-frontend-test:
+    runs-on: ubuntu-latest
+    name: Basic Frontend Test
+    
+    steps:
+    - uses: actions/checkout@v4
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Test static site access
+      run: |
+        cd docs
+        python -m http.server 3000 &
+        sleep 5
+        curl -f http://localhost:3000/ || exit 1
+        curl -f http://localhost:3000/index.html || exit 1
+
+  validation-summary:
+    runs-on: ubuntu-latest
+    name: Validation Summary
+    needs: [content-validation, basic-frontend-test]
+    if: always()
+    
+    steps:
+    - uses: actions/checkout@v4
+      
+    - name: Generate validation summary
+      run: |
+        echo "## 🚀 双语网站验证摘要" > validation-summary.md
+        echo "" >> validation-summary.md
+        echo "**提交**: \`${{ github.sha }}\`" >> validation-summary.md
+        echo "**分支**: \`${{ github.ref_name }}\`" >> validation-summary.md
+        echo "**时间**: \`$(date -Iseconds)\`" >> validation-summary.md
+        echo "" >> validation-summary.md
+        echo "| 验证类型 | 状态 |" >> validation-summary.md
+        echo "|---------|------|" >> validation-summary.md
+        echo "| 内容验证 | ${{ needs.content-validation.result == 'success' && '✅ 通过' || '❌ 失败' }} |" >> validation-summary.md
+        echo "| 前端测试 | ${{ needs.basic-frontend-test.result == 'success' && '✅ 通过' || '❌ 失败' }} |" >> validation-summary.md
+        
+    - name: Upload validation summary
+      uses: actions/upload-artifact@v3
+      if: failure()
+      with:
+        name: validation-summary
+        path: validation-summary.md
