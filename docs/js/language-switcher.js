@@ -182,11 +182,23 @@ class BilingualSwitcher {
     // Update title and meta description
     if (translations['site-title']) {
       document.title = translations['site-title'];
+      
+      // Update OG title for sharing
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) {
+        ogTitle.content = translations['site-title'];
+      }
     }
     
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc && translations['site-description']) {
       metaDesc.content = translations['site-description'];
+    }
+    
+    // Update OG description for sharing
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc && translations['site-description']) {
+      ogDesc.content = translations['site-description'];
     }
 
     // Update specific elements by content
