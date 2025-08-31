@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Generate RSS/Atom/JSON Feed from notes.
+Generate RSS/Atom/JSON Feed from notes with SEO optimization.
 """
 from datetime import datetime, timezone
 import json
@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import re
 import yaml
+import html
 
 SITE_URL = "https://xianyu564.github.io/tobacco-notes"
 SITE_TITLE = "Tobacco Notes｜烟草笔记"
@@ -42,12 +43,66 @@ def extract_description(content, max_length=200):
     content = ' '.join(content.split())
     return content[:max_length] + ('...' if len(content) > max_length else '')
 
+def markdown_to_html(content):
+    """Convert basic markdown to HTML for feeds."""
+    # Convert bold/italic
+    content = re.sub(r'\*\*([^\*]+)\*\*', r'<strong>\1</strong>', content)
+    content = re.sub(r'\*([^\*]+)\*', r'<em>\1</em>', content)
+    
+    # Convert line breaks to <br> tags
+    content = content.replace('\n', '<br>\n')
+    
+    # Escape HTML entities
+    content = html.escape(content, quote=False)
+    
+    return content
+
+def get_note_web_url(site_url, category, filename):
+    """Generate proper web URL for note viewing instead of raw markdown."""
+    # Remove .md extension for clean URLs
+    note_id = filename.replace('.md', '')
+    # Create hash-based URL for SPA navigation
+    return f"{site_url}#{category}/{note_id}"
+
+def enhanced_extract_metadata(meta, body):
+    """Extract enhanced metadata from note frontmatter and content."""
+    # Enhanced rating extraction
+    rating = meta.get('rating', '')
+    rating_numeric = None
+    if rating:
+        # Extract numeric rating (e.g., "90/100" -> 90)
+        rating_match = re.search(r'(\d+)', str(rating))
+        if rating_match:
+            rating_numeric = int(rating_match.group(1))
+    
+    # Enhanced product info
+    product = meta.get('product', '')
+    vitola = meta.get('vitola', '')
+    origin = meta.get('origin', '')
+    price = meta.get('price', '')
+    
+    # Create enhanced title
+    enhanced_title = product if product else meta.get('title', '')
+    if vitola and product:
+        enhanced_title = f"{product} ({vitola})"
+    
+    return {
+        'enhanced_title': enhanced_title,
+        'product': product,
+        'vitola': vitola, 
+        'origin': origin,
+        'price': price,
+        'rating_numeric': rating_numeric,
+        'pairing': meta.get('pairing', ''),
+        'tags': meta.get('tags', [])
+    }
+
 def format_datetime(dt):
     """Format datetime in RFC 3339 format."""
     return dt.astimezone(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
 
 def build_feed_items(notes_dir):
-    """Build feed items from notes directory."""
+    """Build feed items from notes directory with enhanced SEO metadata."""
     items = []
     
     for category in ['cigars', 'cigarettes', 'pipe', 'ryo', 'snus', 'ecig']:
@@ -75,12 +130,18 @@ def build_feed_items(notes_dir):
                 content = note_file.read_text(encoding='utf-8')
                 meta, body = parse_frontmatter(content)
                 
-                # Build item
+                # Extract enhanced metadata
+                enhanced_meta = enhanced_extract_metadata(meta, body)
+                
+                # Generate proper web URL
+                web_url = get_note_web_url(SITE_URL, category, note_file.name)
+                
+                # Build enhanced item
                 item = {
-                    'id': f"{SITE_URL}/notes/{category}/{note_file.name}",
-                    'url': f"{SITE_URL}/notes/{category}/{note_file.name}",
-                    'title': meta.get('title', note_file.stem),
-                    'content_html': body,  # TODO: Convert markdown to HTML
+                    'id': web_url,
+                    'url': web_url,
+                    'title': enhanced_meta['enhanced_title'] or note_file.stem,
+                    'content_html': markdown_to_html(body),
                     'content_text': body,
                     'summary': extract_description(body),
                     'date_published': format_datetime(date),
@@ -88,9 +149,18 @@ def build_feed_items(notes_dir):
                     'author': {
                         'name': meta.get('author', 'Anonymous')
                     },
-                    'tags': meta.get('tags', []),
+                    'tags': enhanced_meta['tags'],
                     '_category': category,
-                    '_rating': meta.get('rating', '')
+                    '_rating': meta.get('rating', ''),
+                    '_rating_numeric': enhanced_meta['rating_numeric'],
+                    '_product': enhanced_meta['product'],
+                    '_vitola': enhanced_meta['vitola'],
+                    '_origin': enhanced_meta['origin'],
+                    '_price': enhanced_meta['price'],
+                    '_pairing': enhanced_meta['pairing'],
+                    'external_url': web_url,
+                    # Add image if available (assuming convention)
+                    'image': f"{SITE_URL}/assets/og-image.png"  # Default fallback
                 }
                 
                 items.append(item)
@@ -103,67 +173,119 @@ def build_feed_items(notes_dir):
     return items
 
 def build_rss(items):
-    """Build RSS 2.0 feed."""
+    """Build RSS 2.0 feed with enhanced SEO elements."""
     rss = [
         '<?xml version="1.0" encoding="UTF-8"?>',
-        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">',
         '<channel>',
         f'<title>{SITE_TITLE}</title>',
         f'<link>{SITE_URL}</link>',
         f'<description>{SITE_DESCRIPTION}</description>',
         f'<atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>',
         '<language>zh-CN</language>',
-        f'<lastBuildDate>{format_datetime(datetime.now(timezone.utc))}</lastBuildDate>'
+        f'<lastBuildDate>{format_datetime(datetime.now(timezone.utc))}</lastBuildDate>',
+        '<generator>Tobacco Notes Feed Generator v2.0</generator>',
+        f'<image>',
+        f'  <url>{SITE_URL}/assets/og-image.png</url>',
+        f'  <title>{SITE_TITLE}</title>',
+        f'  <link>{SITE_URL}</link>',
+        f'</image>',
+        '<copyright>内容采用 CC BY 4.0 授权</copyright>',
+        '<managingEditor>Contributors</managingEditor>',
+        '<webMaster>Contributors</webMaster>',
+        '<ttl>60</ttl>'
     ]
     
     for item in items[:50]:  # Latest 50 items
+        # Build enhanced description with structured content
+        enhanced_desc = item["summary"]
+        if item.get('_product'):
+            enhanced_desc = f"产品: {item['_product']} | {enhanced_desc}"
+        if item.get('_rating'):
+            enhanced_desc = f"评分: {item['_rating']} | {enhanced_desc}"
+        
         rss.extend([
             '<item>',
-            f'<title>{item["title"]}</title>',
+            f'<title><![CDATA[{item["title"]}]]></title>',
             f'<link>{item["url"]}</link>',
-            f'<guid isPermaLink="true">{item["url"]}</guid>',
+            f'<guid isPermaLink="false">{item["id"]}</guid>',
             f'<pubDate>{item["date_published"]}</pubDate>',
-            f'<description><![CDATA[{item["summary"]}]]></description>',
+            f'<description><![CDATA[{enhanced_desc}]]></description>',
+            f'<content:encoded><![CDATA[{item["content_html"]}]]></content:encoded>',
             f'<category>{item["_category"]}</category>',
-            '</item>'
+            f'<dc:creator>{item["author"]["name"]}</dc:creator>'
         ])
+        
+        # Add tags as categories
+        for tag in item.get('tags', []):
+            rss.append(f'<category>{tag}</category>')
+        
+        # Add enclosure for image if available
+        if item.get('image'):
+            rss.append(f'<enclosure url="{item["image"]}" type="image/png" length="0"/>')
+            
+        rss.append('</item>')
     
     rss.extend(['</channel>', '</rss>'])
     return '\n'.join(rss)
 
 def build_atom(items):
-    """Build Atom feed."""
+    """Build Atom feed with enhanced SEO elements."""
     atom = [
         '<?xml version="1.0" encoding="UTF-8"?>',
-        '<feed xmlns="http://www.w3.org/2005/Atom">',
-        f'<title>{SITE_TITLE}</title>',
-        f'<subtitle>{SITE_DESCRIPTION}</subtitle>',
-        f'<link href="{SITE_URL}"/>',
-        f'<link href="{SITE_URL}/feed.atom" rel="self"/>',
-        f'<id>{SITE_URL}/</id>',
-        f'<updated>{format_datetime(datetime.now(timezone.utc))}</updated>'
+        '<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">',
+        f'<title type="text">{SITE_TITLE}</title>',
+        f'<subtitle type="text">{SITE_DESCRIPTION}</subtitle>',
+        f'<link href="{SITE_URL}" rel="alternate" type="text/html"/>',
+        f'<link href="{SITE_URL}/feed.atom" rel="self" type="application/atom+xml"/>',
+        f'<id>{SITE_URL}/feed.atom</id>',
+        f'<updated>{format_datetime(datetime.now(timezone.utc))}</updated>',
+        f'<generator uri="{SITE_URL}">Tobacco Notes Feed Generator v2.0</generator>',
+        f'<logo>{SITE_URL}/assets/og-image.png</logo>',
+        f'<icon>{SITE_URL}/assets/favicon-32x32.png</icon>',
+        '<rights type="text">内容采用 CC BY 4.0 授权</rights>',
+        '<author>',
+        '  <name>Contributors</name>',
+        f'  <uri>{SITE_URL}/contributors.md</uri>',
+        '</author>'
     ]
     
     for item in items[:50]:
+        # Build enhanced summary with metadata
+        enhanced_summary = item["summary"]
+        if item.get('_product'):
+            enhanced_summary = f"产品: {item['_product']} | {enhanced_summary}"
+        if item.get('_rating'):
+            enhanced_summary = f"评分: {item['_rating']} | {enhanced_summary}"
+        
         atom.extend([
             '<entry>',
-            f'<title>{item["title"]}</title>',
-            f'<link href="{item["url"]}"/>',
+            f'<title type="text"><![CDATA[{item["title"]}]]></title>',
+            f'<link href="{item["url"]}" rel="alternate" type="text/html"/>',
             f'<id>{item["id"]}</id>',
             f'<updated>{item["date_modified"]}</updated>',
             f'<published>{item["date_published"]}</published>',
             f'<author><name>{item["author"]["name"]}</name></author>',
-            f'<summary type="text">{item["summary"]}</summary>',
-            f'<content type="text">{item["content_text"]}</content>',
-            f'<category term="{item["_category"]}"/>',
-            '</entry>'
+            f'<summary type="text"><![CDATA[{enhanced_summary}]]></summary>',
+            f'<content type="html"><![CDATA[{item["content_html"]}]]></content>'
         ])
+        
+        # Add categories for tags and main category
+        atom.append(f'<category term="{item["_category"]}" label="{item["_category"]}"/>')
+        for tag in item.get('tags', []):
+            atom.append(f'<category term="{tag}" label="{tag}"/>')
+        
+        # Add media element if image available
+        if item.get('image'):
+            atom.append(f'<media:thumbnail url="{item["image"]}"/>')
+            
+        atom.append('</entry>')
     
     atom.append('</feed>')
     return '\n'.join(atom)
 
 def build_json_feed(items):
-    """Build JSON Feed."""
+    """Build JSON Feed with enhanced SEO elements."""
     feed = {
         "version": "https://jsonfeed.org/version/1.1",
         "title": SITE_TITLE,
@@ -173,12 +295,52 @@ def build_json_feed(items):
         "authors": [
             {
                 "name": "Contributors",
-                "url": f"{SITE_URL}/docs/contributors.md"
+                "url": f"{SITE_URL}/contributors.md"
             }
         ],
         "language": "zh-CN",
-        "items": items[:50]  # Latest 50 items
+        "icon": f"{SITE_URL}/assets/favicon-32x32.png",
+        "favicon": f"{SITE_URL}/assets/favicon-32x32.png",
+        "user_comment": "This is a feed of tobacco tasting notes and reviews.",
+        "expired": False,
+        "items": []
     }
+    
+    # Enhanced items with richer metadata
+    for item in items[:50]:  # Latest 50 items
+        enhanced_item = {
+            "id": item["id"],
+            "url": item["url"],
+            "external_url": item.get("external_url", item["url"]),
+            "title": item["title"],
+            "content_html": item["content_html"],
+            "content_text": item["content_text"],
+            "summary": item["summary"],
+            "image": item.get("image"),
+            "date_published": item["date_published"],
+            "date_modified": item["date_modified"],
+            "authors": [item["author"]],
+            "tags": item.get("tags", []),
+            "language": "zh-CN"
+        }
+        
+        # Add custom extensions for tobacco-specific metadata
+        enhanced_item["_tobacco_notes"] = {
+            "category": item["_category"],
+            "rating": item["_rating"],
+            "product": item.get("_product"),
+            "vitola": item.get("_vitola"),
+            "origin": item.get("_origin"),
+            "price": item.get("_price"),
+            "pairing": item.get("_pairing")
+        }
+        
+        # Remove None values
+        enhanced_item = {k: v for k, v in enhanced_item.items() if v is not None}
+        enhanced_item["_tobacco_notes"] = {k: v for k, v in enhanced_item["_tobacco_notes"].items() if v is not None}
+        
+        feed["items"].append(enhanced_item)
+    
     return json.dumps(feed, ensure_ascii=False, indent=2)
 
 def main():

@@ -1,81 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-<title>Tobacco Notes｜烟草笔记</title>
-<subtitle>轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记。</subtitle>
-<link href="https://xianyu564.github.io/tobacco-notes"/>
-<link href="https://xianyu564.github.io/tobacco-notes/feed.atom" rel="self"/>
-<id>https://xianyu564.github.io/tobacco-notes/</id>
-<updated>2025-08-31T07:31:35Z</updated>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+<title type="text">Tobacco Notes｜烟草笔记</title>
+<subtitle type="text">轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记。</subtitle>
+<link href="https://xianyu564.github.io/tobacco-notes" rel="alternate" type="text/html"/>
+<link href="https://xianyu564.github.io/tobacco-notes/feed.atom" rel="self" type="application/atom+xml"/>
+<id>https://xianyu564.github.io/tobacco-notes/feed.atom</id>
+<updated>2025-08-31T07:34:30Z</updated>
+<generator uri="https://xianyu564.github.io/tobacco-notes">Tobacco Notes Feed Generator v2.0</generator>
+<logo>https://xianyu564.github.io/tobacco-notes/assets/og-image.png</logo>
+<icon>https://xianyu564.github.io/tobacco-notes/assets/favicon-32x32.png</icon>
+<rights type="text">内容采用 CC BY 4.0 授权</rights>
+<author>
+  <name>Contributors</name>
+  <uri>https://xianyu564.github.io/tobacco-notes/contributors.md</uri>
+</author>
 <entry>
-<title>2025-08-21-partagas-serie-d-no4</title>
-<link href="https://xianyu564.github.io/tobacco-notes/notes/cigars/2025-08-21-partagas-serie-d-no4.md"/>
-<id>https://xianyu564.github.io/tobacco-notes/notes/cigars/2025-08-21-partagas-serie-d-no4.md</id>
+<title type="text"><![CDATA[Partagas Serie D No.4 (Robusto 50x124)]]></title>
+<link href="https://xianyu564.github.io/tobacco-notes#cigars/2025-08-21-partagas-serie-d-no4" rel="alternate" type="text/html"/>
+<id>https://xianyu564.github.io/tobacco-notes#cigars/2025-08-21-partagas-serie-d-no4</id>
 <updated>2025-08-21T00:00:00Z</updated>
 <published>2025-08-21T00:00:00Z</published>
 <author><name>Anonymous</name></author>
-<summary type="text">Appearance/Draw：油亮，回弹好，冷抽胡椒与木质 1/3：胡椒、烤坚果；烟气饱满 2/3：甜感上升，可可、面包谷物 3/3：香料增强，略热需放慢 Burn/Ash：燃烧线基本稳定，偶校正 Retrohale：坚果与香料感明显 Verdict：稳健经典，会回购</summary>
-<content type="text">**Appearance/Draw**：油亮，回弹好，冷抽胡椒与木质  
-**1/3**：胡椒、烤坚果；烟气饱满  
-**2/3**：甜感上升，可可、面包谷物  
-**3/3**：香料增强，略热需放慢  
-**Burn/Ash**：燃烧线基本稳定，偶校正  
-**Retrohale**：坚果与香料感明显  
-**Verdict**：稳健经典，会回购</content>
-<category term="cigars"/>
+<summary type="text"><![CDATA[评分: 90/100 | 产品: Partagas Serie D No.4 | Appearance/Draw：油亮，回弹好，冷抽胡椒与木质 1/3：胡椒、烤坚果；烟气饱满 2/3：甜感上升，可可、面包谷物 3/3：香料增强，略热需放慢 Burn/Ash：燃烧线基本稳定，偶校正 Retrohale：坚果与香料感明显 Verdict：稳健经典，会回购]]></summary>
+<content type="html"><![CDATA[&lt;strong&gt;Appearance/Draw&lt;/strong&gt;：油亮，回弹好，冷抽胡椒与木质  &lt;br&gt;
+&lt;strong&gt;1/3&lt;/strong&gt;：胡椒、烤坚果；烟气饱满  &lt;br&gt;
+&lt;strong&gt;2/3&lt;/strong&gt;：甜感上升，可可、面包谷物  &lt;br&gt;
+&lt;strong&gt;3/3&lt;/strong&gt;：香料增强，略热需放慢  &lt;br&gt;
+&lt;strong&gt;Burn/Ash&lt;/strong&gt;：燃烧线基本稳定，偶校正  &lt;br&gt;
+&lt;strong&gt;Retrohale&lt;/strong&gt;：坚果与香料感明显  &lt;br&gt;
+&lt;strong&gt;Verdict&lt;/strong&gt;：稳健经典，会回购]]></content>
+<category term="cigars" label="cigars"/>
+<category term="pepper" label="pepper"/>
+<category term="wood" label="wood"/>
+<category term="cocoa" label="cocoa"/>
+<category term="nutty" label="nutty"/>
+<media:thumbnail url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png"/>
 </entry>
 <entry>
-<title>2025-08-21-xxx-regular</title>
-<link href="https://xianyu564.github.io/tobacco-notes/notes/cigarettes/2025-08-21-xxx-regular.md"/>
-<id>https://xianyu564.github.io/tobacco-notes/notes/cigarettes/2025-08-21-xxx-regular.md</id>
+<title type="text"><![CDATA[2025-08-21-xxx-regular]]></title>
+<link href="https://xianyu564.github.io/tobacco-notes#cigarettes/2025-08-21-xxx-regular" rel="alternate" type="text/html"/>
+<id>https://xianyu564.github.io/tobacco-notes#cigarettes/2025-08-21-xxx-regular</id>
 <updated>2025-08-21T00:00:00Z</updated>
 <published>2025-08-21T00:00:00Z</published>
 <author><name>Anonymous</name></author>
-<summary type="text">开包甜香；前段刺激低，中段稳定，尾段纸味略显；烟气密度中等，燃速匀；余味干净</summary>
-<content type="text">开包甜香；前段刺激低，中段稳定，尾段纸味略显；烟气密度中等，燃速匀；余味干净</content>
-<category term="cigarettes"/>
+<summary type="text"><![CDATA[评分: 3.5/5 | 开包甜香；前段刺激低，中段稳定，尾段纸味略显；烟气密度中等，燃速匀；余味干净]]></summary>
+<content type="html"><![CDATA[开包甜香；前段刺激低，中段稳定，尾段纸味略显；烟气密度中等，燃速匀；余味干净]]></content>
+<category term="cigarettes" label="cigarettes"/>
+<category term="tobacco-sweet" label="tobacco-sweet"/>
+<category term="mild" label="mild"/>
+<category term="even-burn" label="even-burn"/>
+<media:thumbnail url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png"/>
 </entry>
 <entry>
-<title>2025-08-21-virginia-flake</title>
-<link href="https://xianyu564.github.io/tobacco-notes/notes/pipe/2025-08-21-virginia-flake.md"/>
-<id>https://xianyu564.github.io/tobacco-notes/notes/pipe/2025-08-21-virginia-flake.md</id>
+<title type="text"><![CDATA[2025-08-21-virginia-flake]]></title>
+<link href="https://xianyu564.github.io/tobacco-notes#pipe/2025-08-21-virginia-flake" rel="alternate" type="text/html"/>
+<id>https://xianyu564.github.io/tobacco-notes#pipe/2025-08-21-virginia-flake</id>
 <updated>2025-08-21T00:00:00Z</updated>
 <published>2025-08-21T00:00:00Z</published>
 <author><name>Anonymous</name></author>
-<summary type="text">装斗易点；上段干草/蜂蜜；中段面包/柑橘；下段温度升高需控抽；舌刺轻；余味甜净</summary>
-<content type="text">装斗易点；上段干草/蜂蜜；中段面包/柑橘；下段温度升高需控抽；舌刺轻；余味甜净</content>
-<category term="pipe"/>
+<summary type="text"><![CDATA[评分: 4/5 | 装斗易点；上段干草/蜂蜜；中段面包/柑橘；下段温度升高需控抽；舌刺轻；余味甜净]]></summary>
+<content type="html"><![CDATA[装斗易点；上段干草/蜂蜜；中段面包/柑橘；下段温度升高需控抽；舌刺轻；余味甜净]]></content>
+<category term="pipe" label="pipe"/>
+<category term="hay" label="hay"/>
+<category term="honey" label="honey"/>
+<category term="citrus" label="citrus"/>
+<category term="bready" label="bready"/>
+<media:thumbnail url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png"/>
 </entry>
 <entry>
-<title>2025-08-21-virginia-ocb-charcoal</title>
-<link href="https://xianyu564.github.io/tobacco-notes/notes/ryo/2025-08-21-virginia-ocb-charcoal.md"/>
-<id>https://xianyu564.github.io/tobacco-notes/notes/ryo/2025-08-21-virginia-ocb-charcoal.md</id>
+<title type="text"><![CDATA[2025-08-21-virginia-ocb-charcoal]]></title>
+<link href="https://xianyu564.github.io/tobacco-notes#ryo/2025-08-21-virginia-ocb-charcoal" rel="alternate" type="text/html"/>
+<id>https://xianyu564.github.io/tobacco-notes#ryo/2025-08-21-virginia-ocb-charcoal</id>
 <updated>2025-08-21T00:00:00Z</updated>
 <published>2025-08-21T00:00:00Z</published>
 <author><name>Anonymous</name></author>
-<summary type="text">切丝均匀，含水量适中；点燃后谷物/焦糖；击喉温和；燃速稳定；余味清爽</summary>
-<content type="text">切丝均匀，含水量适中；点燃后谷物/焦糖；击喉温和；燃速稳定；余味清爽</content>
-<category term="ryo"/>
+<summary type="text"><![CDATA[评分: 4/5 | 切丝均匀，含水量适中；点燃后谷物/焦糖；击喉温和；燃速稳定；余味清爽]]></summary>
+<content type="html"><![CDATA[切丝均匀，含水量适中；点燃后谷物/焦糖；击喉温和；燃速稳定；余味清爽]]></content>
+<category term="ryo" label="ryo"/>
+<category term="cereal" label="cereal"/>
+<category term="caramel" label="caramel"/>
+<category term="clean" label="clean"/>
+<media:thumbnail url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png"/>
 </entry>
 <entry>
-<title>2025-08-21-general-mint</title>
-<link href="https://xianyu564.github.io/tobacco-notes/notes/snus/2025-08-21-general-mint.md"/>
-<id>https://xianyu564.github.io/tobacco-notes/notes/snus/2025-08-21-general-mint.md</id>
+<title type="text"><![CDATA[2025-08-21-general-mint]]></title>
+<link href="https://xianyu564.github.io/tobacco-notes#snus/2025-08-21-general-mint" rel="alternate" type="text/html"/>
+<id>https://xianyu564.github.io/tobacco-notes#snus/2025-08-21-general-mint</id>
 <updated>2025-08-21T00:00:00Z</updated>
 <published>2025-08-21T00:00:00Z</published>
 <author><name>Anonymous</name></author>
-<summary type="text">1–10 分钟清凉/薄荷；20 分钟盐度与烟草味上来；滴漏轻；满足度中等偏上</summary>
-<content type="text">1–10 分钟清凉/薄荷；20 分钟盐度与烟草味上来；滴漏轻；满足度中等偏上</content>
-<category term="snus"/>
+<summary type="text"><![CDATA[评分: 4/5 | 1–10 分钟清凉/薄荷；20 分钟盐度与烟草味上来；滴漏轻；满足度中等偏上]]></summary>
+<content type="html"><![CDATA[1–10 分钟清凉/薄荷；20 分钟盐度与烟草味上来；滴漏轻；满足度中等偏上]]></content>
+<category term="snus" label="snus"/>
+<category term="mint" label="mint"/>
+<category term="salty" label="salty"/>
+<category term="tobacco" label="tobacco"/>
+<category term="cooling" label="cooling"/>
+<media:thumbnail url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png"/>
 </entry>
 <entry>
-<title>2025-08-21-peach-ice-35mg</title>
-<link href="https://xianyu564.github.io/tobacco-notes/notes/ecig/2025-08-21-peach-ice-35mg.md"/>
-<id>https://xianyu564.github.io/tobacco-notes/notes/ecig/2025-08-21-peach-ice-35mg.md</id>
+<title type="text"><![CDATA[2025-08-21-peach-ice-35mg]]></title>
+<link href="https://xianyu564.github.io/tobacco-notes#ecig/2025-08-21-peach-ice-35mg" rel="alternate" type="text/html"/>
+<id>https://xianyu564.github.io/tobacco-notes#ecig/2025-08-21-peach-ice-35mg</id>
 <updated>2025-08-21T00:00:00Z</updated>
 <published>2025-08-21T00:00:00Z</published>
 <author><name>Anonymous</name></author>
-<summary type="text">闻香桃子糖；入口甜与冷感明显；中段略腻；喉感温和；余味甜凉，适合短抽</summary>
-<content type="text">闻香桃子糖；入口甜与冷感明显；中段略腻；喉感温和；余味甜凉，适合短抽</content>
-<category term="ecig"/>
+<summary type="text"><![CDATA[评分: 3/5 | 闻香桃子糖；入口甜与冷感明显；中段略腻；喉感温和；余味甜凉，适合短抽]]></summary>
+<content type="html"><![CDATA[闻香桃子糖；入口甜与冷感明显；中段略腻；喉感温和；余味甜凉，适合短抽]]></content>
+<category term="ecig" label="ecig"/>
+<category term="peach" label="peach"/>
+<category term="sweet" label="sweet"/>
+<category term="cooling" label="cooling"/>
+<media:thumbnail url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png"/>
 </entry>
 </feed>

@@ -1,0 +1,35 @@
+# Feed-specific optimizations and caching
+<Files "feed.xml">
+    Header set Content-Type "application/rss+xml; charset=utf-8"
+    Header set Cache-Control "public, max-age=3600"
+    Header set X-Feed-Type "RSS 2.0"
+    Header set X-Generator "Tobacco Notes Feed Generator v2.0"
+</Files>
+
+<Files "feed.atom">
+    Header set Content-Type "application/atom+xml; charset=utf-8"
+    Header set Cache-Control "public, max-age=3600"
+    Header set X-Feed-Type "Atom 1.0"
+    Header set X-Generator "Tobacco Notes Feed Generator v2.0"
+</Files>
+
+<Files "feed.json">
+    Header set Content-Type "application/json; charset=utf-8"
+    Header set Cache-Control "public, max-age=3600"
+    Header set X-Feed-Type "JSON Feed 1.1"
+    Header set X-Generator "Tobacco Notes Feed Generator v2.0"
+</Files>
+
+# Compress feeds for better performance
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/atom+xml
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+
+# Security headers for feeds
+<FilesMatch "\.(xml|atom|json)$">
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</FilesMatch>

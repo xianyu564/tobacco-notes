@@ -1,59 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/">
 <channel>
 <title>Tobacco Notes｜烟草笔记</title>
 <link>https://xianyu564.github.io/tobacco-notes</link>
 <description>轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记。</description>
 <atom:link href="https://xianyu564.github.io/tobacco-notes/feed.xml" rel="self" type="application/rss+xml"/>
 <language>zh-CN</language>
-<lastBuildDate>2025-08-31T07:31:35Z</lastBuildDate>
+<lastBuildDate>2025-08-31T07:34:30Z</lastBuildDate>
+<generator>Tobacco Notes Feed Generator v2.0</generator>
+<image>
+  <url>https://xianyu564.github.io/tobacco-notes/assets/og-image.png</url>
+  <title>Tobacco Notes｜烟草笔记</title>
+  <link>https://xianyu564.github.io/tobacco-notes</link>
+</image>
+<copyright>内容采用 CC BY 4.0 授权</copyright>
+<managingEditor>Contributors</managingEditor>
+<webMaster>Contributors</webMaster>
+<ttl>60</ttl>
 <item>
-<title>2025-08-21-partagas-serie-d-no4</title>
-<link>https://xianyu564.github.io/tobacco-notes/notes/cigars/2025-08-21-partagas-serie-d-no4.md</link>
-<guid isPermaLink="true">https://xianyu564.github.io/tobacco-notes/notes/cigars/2025-08-21-partagas-serie-d-no4.md</guid>
+<title><![CDATA[Partagas Serie D No.4 (Robusto 50x124)]]></title>
+<link>https://xianyu564.github.io/tobacco-notes#cigars/2025-08-21-partagas-serie-d-no4</link>
+<guid isPermaLink="false">https://xianyu564.github.io/tobacco-notes#cigars/2025-08-21-partagas-serie-d-no4</guid>
 <pubDate>2025-08-21T00:00:00Z</pubDate>
-<description><![CDATA[Appearance/Draw：油亮，回弹好，冷抽胡椒与木质 1/3：胡椒、烤坚果；烟气饱满 2/3：甜感上升，可可、面包谷物 3/3：香料增强，略热需放慢 Burn/Ash：燃烧线基本稳定，偶校正 Retrohale：坚果与香料感明显 Verdict：稳健经典，会回购]]></description>
+<description><![CDATA[评分: 90/100 | 产品: Partagas Serie D No.4 | Appearance/Draw：油亮，回弹好，冷抽胡椒与木质 1/3：胡椒、烤坚果；烟气饱满 2/3：甜感上升，可可、面包谷物 3/3：香料增强，略热需放慢 Burn/Ash：燃烧线基本稳定，偶校正 Retrohale：坚果与香料感明显 Verdict：稳健经典，会回购]]></description>
+<content:encoded><![CDATA[&lt;strong&gt;Appearance/Draw&lt;/strong&gt;：油亮，回弹好，冷抽胡椒与木质  &lt;br&gt;
+&lt;strong&gt;1/3&lt;/strong&gt;：胡椒、烤坚果；烟气饱满  &lt;br&gt;
+&lt;strong&gt;2/3&lt;/strong&gt;：甜感上升，可可、面包谷物  &lt;br&gt;
+&lt;strong&gt;3/3&lt;/strong&gt;：香料增强，略热需放慢  &lt;br&gt;
+&lt;strong&gt;Burn/Ash&lt;/strong&gt;：燃烧线基本稳定，偶校正  &lt;br&gt;
+&lt;strong&gt;Retrohale&lt;/strong&gt;：坚果与香料感明显  &lt;br&gt;
+&lt;strong&gt;Verdict&lt;/strong&gt;：稳健经典，会回购]]></content:encoded>
 <category>cigars</category>
+<dc:creator>Anonymous</dc:creator>
+<category>pepper</category>
+<category>wood</category>
+<category>cocoa</category>
+<category>nutty</category>
+<enclosure url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png" type="image/png" length="0"/>
 </item>
 <item>
-<title>2025-08-21-xxx-regular</title>
-<link>https://xianyu564.github.io/tobacco-notes/notes/cigarettes/2025-08-21-xxx-regular.md</link>
-<guid isPermaLink="true">https://xianyu564.github.io/tobacco-notes/notes/cigarettes/2025-08-21-xxx-regular.md</guid>
+<title><![CDATA[2025-08-21-xxx-regular]]></title>
+<link>https://xianyu564.github.io/tobacco-notes#cigarettes/2025-08-21-xxx-regular</link>
+<guid isPermaLink="false">https://xianyu564.github.io/tobacco-notes#cigarettes/2025-08-21-xxx-regular</guid>
 <pubDate>2025-08-21T00:00:00Z</pubDate>
-<description><![CDATA[开包甜香；前段刺激低，中段稳定，尾段纸味略显；烟气密度中等，燃速匀；余味干净]]></description>
+<description><![CDATA[评分: 3.5/5 | 开包甜香；前段刺激低，中段稳定，尾段纸味略显；烟气密度中等，燃速匀；余味干净]]></description>
+<content:encoded><![CDATA[开包甜香；前段刺激低，中段稳定，尾段纸味略显；烟气密度中等，燃速匀；余味干净]]></content:encoded>
 <category>cigarettes</category>
+<dc:creator>Anonymous</dc:creator>
+<category>tobacco-sweet</category>
+<category>mild</category>
+<category>even-burn</category>
+<enclosure url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png" type="image/png" length="0"/>
 </item>
 <item>
-<title>2025-08-21-virginia-flake</title>
-<link>https://xianyu564.github.io/tobacco-notes/notes/pipe/2025-08-21-virginia-flake.md</link>
-<guid isPermaLink="true">https://xianyu564.github.io/tobacco-notes/notes/pipe/2025-08-21-virginia-flake.md</guid>
+<title><![CDATA[2025-08-21-virginia-flake]]></title>
+<link>https://xianyu564.github.io/tobacco-notes#pipe/2025-08-21-virginia-flake</link>
+<guid isPermaLink="false">https://xianyu564.github.io/tobacco-notes#pipe/2025-08-21-virginia-flake</guid>
 <pubDate>2025-08-21T00:00:00Z</pubDate>
-<description><![CDATA[装斗易点；上段干草/蜂蜜；中段面包/柑橘；下段温度升高需控抽；舌刺轻；余味甜净]]></description>
+<description><![CDATA[评分: 4/5 | 装斗易点；上段干草/蜂蜜；中段面包/柑橘；下段温度升高需控抽；舌刺轻；余味甜净]]></description>
+<content:encoded><![CDATA[装斗易点；上段干草/蜂蜜；中段面包/柑橘；下段温度升高需控抽；舌刺轻；余味甜净]]></content:encoded>
 <category>pipe</category>
+<dc:creator>Anonymous</dc:creator>
+<category>hay</category>
+<category>honey</category>
+<category>citrus</category>
+<category>bready</category>
+<enclosure url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png" type="image/png" length="0"/>
 </item>
 <item>
-<title>2025-08-21-virginia-ocb-charcoal</title>
-<link>https://xianyu564.github.io/tobacco-notes/notes/ryo/2025-08-21-virginia-ocb-charcoal.md</link>
-<guid isPermaLink="true">https://xianyu564.github.io/tobacco-notes/notes/ryo/2025-08-21-virginia-ocb-charcoal.md</guid>
+<title><![CDATA[2025-08-21-virginia-ocb-charcoal]]></title>
+<link>https://xianyu564.github.io/tobacco-notes#ryo/2025-08-21-virginia-ocb-charcoal</link>
+<guid isPermaLink="false">https://xianyu564.github.io/tobacco-notes#ryo/2025-08-21-virginia-ocb-charcoal</guid>
 <pubDate>2025-08-21T00:00:00Z</pubDate>
-<description><![CDATA[切丝均匀，含水量适中；点燃后谷物/焦糖；击喉温和；燃速稳定；余味清爽]]></description>
+<description><![CDATA[评分: 4/5 | 切丝均匀，含水量适中；点燃后谷物/焦糖；击喉温和；燃速稳定；余味清爽]]></description>
+<content:encoded><![CDATA[切丝均匀，含水量适中；点燃后谷物/焦糖；击喉温和；燃速稳定；余味清爽]]></content:encoded>
 <category>ryo</category>
+<dc:creator>Anonymous</dc:creator>
+<category>cereal</category>
+<category>caramel</category>
+<category>clean</category>
+<enclosure url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png" type="image/png" length="0"/>
 </item>
 <item>
-<title>2025-08-21-general-mint</title>
-<link>https://xianyu564.github.io/tobacco-notes/notes/snus/2025-08-21-general-mint.md</link>
-<guid isPermaLink="true">https://xianyu564.github.io/tobacco-notes/notes/snus/2025-08-21-general-mint.md</guid>
+<title><![CDATA[2025-08-21-general-mint]]></title>
+<link>https://xianyu564.github.io/tobacco-notes#snus/2025-08-21-general-mint</link>
+<guid isPermaLink="false">https://xianyu564.github.io/tobacco-notes#snus/2025-08-21-general-mint</guid>
 <pubDate>2025-08-21T00:00:00Z</pubDate>
-<description><![CDATA[1–10 分钟清凉/薄荷；20 分钟盐度与烟草味上来；滴漏轻；满足度中等偏上]]></description>
+<description><![CDATA[评分: 4/5 | 1–10 分钟清凉/薄荷；20 分钟盐度与烟草味上来；滴漏轻；满足度中等偏上]]></description>
+<content:encoded><![CDATA[1–10 分钟清凉/薄荷；20 分钟盐度与烟草味上来；滴漏轻；满足度中等偏上]]></content:encoded>
 <category>snus</category>
+<dc:creator>Anonymous</dc:creator>
+<category>mint</category>
+<category>salty</category>
+<category>tobacco</category>
+<category>cooling</category>
+<enclosure url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png" type="image/png" length="0"/>
 </item>
 <item>
-<title>2025-08-21-peach-ice-35mg</title>
-<link>https://xianyu564.github.io/tobacco-notes/notes/ecig/2025-08-21-peach-ice-35mg.md</link>
-<guid isPermaLink="true">https://xianyu564.github.io/tobacco-notes/notes/ecig/2025-08-21-peach-ice-35mg.md</guid>
+<title><![CDATA[2025-08-21-peach-ice-35mg]]></title>
+<link>https://xianyu564.github.io/tobacco-notes#ecig/2025-08-21-peach-ice-35mg</link>
+<guid isPermaLink="false">https://xianyu564.github.io/tobacco-notes#ecig/2025-08-21-peach-ice-35mg</guid>
 <pubDate>2025-08-21T00:00:00Z</pubDate>
-<description><![CDATA[闻香桃子糖；入口甜与冷感明显；中段略腻；喉感温和；余味甜凉，适合短抽]]></description>
+<description><![CDATA[评分: 3/5 | 闻香桃子糖；入口甜与冷感明显；中段略腻；喉感温和；余味甜凉，适合短抽]]></description>
+<content:encoded><![CDATA[闻香桃子糖；入口甜与冷感明显；中段略腻；喉感温和；余味甜凉，适合短抽]]></content:encoded>
 <category>ecig</category>
+<dc:creator>Anonymous</dc:creator>
+<category>peach</category>
+<category>sweet</category>
+<category>cooling</category>
+<enclosure url="https://xianyu564.github.io/tobacco-notes/assets/og-image.png" type="image/png" length="0"/>
 </item>
 </channel>
 </rss>
