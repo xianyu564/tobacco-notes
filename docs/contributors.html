@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>贡献者 | Contributors - Tobacco Notes</title>
+  <meta name="description" content="感谢所有为 Tobacco Notes 项目做出贡献的朋友们！查看项目贡献者列表和统计信息。" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="贡献者 | Contributors - Tobacco Notes" />
+  <meta property="og:description" content="感谢所有为 Tobacco Notes 项目做出贡献的朋友们！" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://xianyu564.github.io/tobacco-notes/contributors.html" />
+  <meta property="og:image" content="./assets/og-image.png" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="贡献者 | Contributors - Tobacco Notes" />
+  <meta name="twitter:description" content="感谢所有为 Tobacco Notes 项目做出贡献的朋友们！" />
+  <meta name="twitter:image" content="./assets/og-image.png" />
+  
+  <!-- Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png" />
+  <link rel="manifest" href="./assets/site.webmanifest" />
+  <meta name="theme-color" content="#ff4d6d" />
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="./styles.css" />
+  <style>
+    /* Contributors-specific styles */
+    .contributors-page {
+      min-height: 100vh;
+      padding: 2rem 0;
+    }
+
+    .contributors-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem 1rem;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      color: white;
+      border-radius: 12px;
+    }
+
+    .contributors-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .contributors-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    .contributors-last-updated {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .contributors-filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-group label {
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .filter-group select {
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: white;
+      color: var(--text);
+    }
+
+    .sort-toggle {
+      padding: 0.5rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .sort-toggle:hover {
+      background: var(--bg-hover);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .contributors-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .contributor-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .contributor-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      border-color: var(--primary-light);
+    }
+
+    .contributor-avatar {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .contributor-avatar img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid var(--border);
+    }
+
+    .maintainer-badge {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      background: var(--primary);
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .contributor-name {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    .contributor-name a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contributor-name a:hover {
+      color: var(--primary);
+    }
+
+    .contributor-bio {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .contributor-location {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .contributor-stats {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contributor-stats .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 60px;
+    }
+
+    .contributor-stats .stat-number {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .contributor-stats .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      .contributors-title {
+        font-size: 2rem;
+      }
+
+      .contributors-filters {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-group {
+        justify-content: space-between;
+      }
+
+      .contributors-list {
+        grid-template-columns: 1fr;
+      }
+
+      .contributor-stats {
+        justify-content: space-around;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <main class="contributors-page">
+      <a href="./" class="back-link" aria-label="返回首页">
+        ← 返回首页
+      </a>
+
+      <header class="contributors-header">
+        <h1 class="contributors-title">贡献者</h1>
+        <p class="contributors-subtitle">感谢所有为本项目做出贡献的朋友们！</p>
+        <p class="contributors-last-updated" id="last-updated">正在加载...</p>
+      </header>
+
+      <div id="contributors-stats" aria-live="polite"></div>
+
+      <div id="contributors-container">
+        <!-- Filters will be inserted here by JavaScript -->
+      </div>
+
+      <div 
+        id="contributors-list" 
+        class="contributors-list"
+        role="main"
+        aria-label="贡献者列表"
+        aria-live="polite"
+      >
+        <div class="loading-placeholder">
+          <p>正在加载贡献者信息...</p>
+        </div>
+      </div>
+
+      <section class="contribute-cta" style="margin-top: 3rem; text-align: center; padding: 2rem; background: var(--bg-secondary); border-radius: 12px;">
+        <h2>想要参与贡献？</h2>
+        <p>我们欢迎任何形式的贡献，从简单的一句话分享到完整的品鉴记录。</p>
+        <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a href="./contribute.md" class="btn" style="text-decoration: none;">查看参与指南</a>
+          <a href="https://github.com/xianyu564/tobacco-notes/issues/new?template=quick.yml" class="btn btn-outline" target="_blank" rel="noopener">一句话投稿</a>
+        </div>
+      </section>
+    </main>
+
+    <footer style="margin-top: 3rem; text-align: center; padding: 2rem 0; border-top: 1px solid var(--border); color: var(--text-secondary); font-size: 0.9rem;">
+      <p>贡献者数据每日更新 | 数据来源：GitHub API</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="./contribute.md" style="color: var(--primary);">参与指南</a> · 
+        <a href="https://github.com/xianyu564/tobacco-notes" style="color: var(--primary);" target="_blank" rel="noopener">GitHub</a>
+      </p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./js/theme.js"></script>
+  <script src="./js/contributors.js"></script>
+  <script>
+    // Update last updated time when data loads
+    document.addEventListener('DOMContentLoaded', async () => {
+      const manager = window.contributorsManager;
+      if (manager && manager.contributorsData) {
+        const lastUpdated = new Date(manager.contributorsData.last_updated).toLocaleDateString('zh-CN');
+        document.getElementById('last-updated').textContent = `最后更新：${lastUpdated}`;
+      }
+    });
+  </script>
+</body>
+</html>

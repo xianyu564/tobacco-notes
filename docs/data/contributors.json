@@ -1,0 +1,26 @@
+{
+  "last_updated": "2025-08-31T07:53:30.876615",
+  "total_contributors": 1,
+  "contributors": [
+    {
+      "username": "xianyu564",
+      "display_name": "xianyu564",
+      "avatar_url": "https://github.com/xianyu564.png",
+      "profile_url": "https://github.com/xianyu564",
+      "join_date": "2025-08-31",
+      "total_contributions": 1,
+      "issues_count": 0,
+      "prs_count": 0,
+      "notes_count": 0,
+      "last_active": "2025-08-31",
+      "bio": "Repository maintainer",
+      "location": "",
+      "is_maintainer": true,
+      "contributions": []
+    }
+  ],
+  "stats": {
+    "total_notes": 0,
+    "active_contributors": 1
+  }
+}

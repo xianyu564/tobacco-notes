@@ -747,4 +747,129 @@
   border-radius: 3px;
   font-size: 12px;
 }
+
+/* Contributors Widget Styles */
+#contributors-preview {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.contributors-widget {
+  text-align: center;
+}
+
+.contributors-widget h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.contributors-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.contributors-stats span {
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  border: 1px solid var(--border);
+}
+
+.top-contributors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.contributor-card-compact {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  min-width: 120px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contributor-card-compact:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.contributor-card-compact .contributor-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 0.5rem;
+}
+
+.contributor-card-compact .contributor-name {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.contributor-card-compact .contributor-stats {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.contributor-card-compact .contributor-stats .stat {
+  margin: 0 0.25rem;
+}
+
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.view-all-btn:hover {
+  background: var(--primary-dark);
+  color: white;
+}
+
+/* Loading placeholder */
+.loading-placeholder {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.loading-placeholder p {
+  margin: 0;
+  font-style: italic;
+}
+
+/* Mobile responsive for contributors widget */
+@media (max-width: 768px) {
+  .contributors-stats {
+    gap: 1rem;
+  }
+
+  .top-contributors {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contributor-card-compact {
+    min-width: 100px;
+  }
+}
 }
