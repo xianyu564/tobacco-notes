@@ -104,6 +104,7 @@
   <script defer src="./js/search.js"></script>
   <script defer src="./js/notes.js"></script>
   <script defer src="./js/image-optimization.js"></script>
+  <script defer src="./js/sponsor.js"></script>
   
   <!-- 非关键脚本 -->
   <script defer src="./js/shortcuts.js"></script>
@@ -283,47 +284,108 @@
 
     <section 
       id="sponsor" 
-      class="animate" 
+      class="animate sponsor-section" 
       aria-labelledby="sponsor-title"
-      data-lazy-scripts="./js/a11y.js"
+      data-lazy-scripts="./js/a11y.js,./js/sponsor.js"
     >
-      <h2 id="sponsor-title">赞助支持</h2>
-      <p>如果你觉得这个项目有用，欢迎赞助支持。你的支持将用于：</p>
-      <ul 
-        class="sponsor-uses"
-        role="list"
-        aria-label="赞助用途"
-      >
-        <li>维护自动化脚本与站点</li>
-        <li>改进模板与工具</li>
-        <li>社区维护与内容策划</li>
-      </ul>
-      <div 
-        class="sponsors"
-        role="region"
-        aria-label="赞助二维码"
-      >
-        <img 
-          src="../.github/WeChat%20Sponsor%20Code.jpg" 
-          alt="微信赞助二维码" 
-          loading="lazy"
-          width="200"
-          height="200"
-        />
-        <img 
-          src="../.github/SG%20PayNow%20Sponsor%20Code.jpg" 
-          alt="新加坡 PayNow 赞助二维码" 
-          loading="lazy"
-          width="200"
-          height="200"
-        />
+      <div class="sponsor-container">
+        <div class="sponsor-header">
+          <h2 id="sponsor-title">❤️ 赞助支持</h2>
+          <p class="sponsor-subtitle">如果这个项目对你有帮助，请考虑赞助支持我们的持续发展</p>
+        </div>
+        
+        <div class="sponsor-impact">
+          <h3>你的支持将用于：</h3>
+          <ul 
+            class="sponsor-uses"
+            role="list"
+            aria-label="赞助用途"
+          >
+            <li><span class="impact-icon">🔧</span>维护自动化脚本与站点</li>
+            <li><span class="impact-icon">📋</span>改进模板与工具</li>
+            <li><span class="impact-icon">👥</span>社区维护与内容策划</li>
+          </ul>
+        </div>
+
+        <div class="sponsor-cta-section">
+          <h3>选择你的赞助方式：</h3>
+          
+          <div class="sponsor-methods">
+            <div class="sponsor-method">
+              <div class="sponsor-method-header">
+                <h4>🔗 GitHub Sponsor</h4>
+                <p>官方赞助平台，支持定期赞助</p>
+              </div>
+              <a 
+                href="https://github.com/sponsors/xianyu564" 
+                class="btn btn-primary sponsor-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="通过 GitHub Sponsors 赞助项目"
+              >
+                💖 开始赞助
+              </a>
+            </div>
+
+            <div class="sponsor-method">
+              <div class="sponsor-method-header">
+                <h4>📱 扫码赞助</h4>
+                <p>微信或新加坡 PayNow 一次性赞助</p>
+              </div>
+              <button 
+                class="btn btn-secondary sponsor-btn toggle-qr"
+                aria-label="显示二维码"
+                data-target="sponsor-qr-codes"
+              >
+                📱 显示二维码
+              </button>
+            </div>
+          </div>
+
+          <div 
+            id="sponsor-qr-codes"
+            class="sponsors-qr hidden"
+            role="region"
+            aria-label="赞助二维码"
+            aria-hidden="true"
+          >
+            <div class="qr-grid">
+              <div class="qr-item">
+                <img 
+                  src="../.github/WeChat%20Sponsor%20Code.jpg" 
+                  alt="微信赞助二维码" 
+                  loading="lazy"
+                  width="200"
+                  height="200"
+                />
+                <span class="qr-label">微信支付</span>
+              </div>
+              <div class="qr-item">
+                <img 
+                  src="../.github/SG%20PayNow%20Sponsor%20Code.jpg" 
+                  alt="新加坡 PayNow 赞助二维码" 
+                  loading="lazy"
+                  width="200"
+                  height="200"
+                />
+                <span class="qr-label">PayNow (SG)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sponsor-footer">
+          <p class="sponsor-note">
+            <a 
+              href="./sustainability.md"
+              aria-label="了解更多关于项目可持续性发展计划"
+            >了解更多关于项目可持续性发展 →</a>
+          </p>
+          <div class="sponsor-thanks">
+            <small>感谢每一位赞助者的支持！🙏</small>
+          </div>
+        </div>
       </div>
-      <p class="sponsor-note">
-        <a 
-          href="./sustainability.md"
-          aria-label="了解更多关于项目可持续性发展计划"
-        >了解更多关于项目可持续性</a>
-      </p>
     </section>
   </main>
 
