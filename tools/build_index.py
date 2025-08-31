@@ -11,10 +11,15 @@ from __future__ import annotations
 
 import json
 import re
+import shutil
+import yaml
+from collections import defaultdict, Counter
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, List, Any
+
+from process_images import process_image
 
 CATEGORIES = ["cigars", "cigarettes", "pipe", "ryo", "snus", "ecig"]
 
@@ -27,26 +32,29 @@ class NoteEntry:
     date: str
     path: Path
     title: str
+    images: List[Dict[str, str]]
 
 
-def read_front_matter(filepath: Path) -> Dict[str, str]:
+def read_front_matter(filepath: Path) -> Dict[str, Any]:
+    """Parse YAML frontmatter from markdown file"""
     content = filepath.read_text(encoding="utf-8", errors="ignore")
     if not content.startswith("---\n"):
         return {}
     end = content.find("\n---", 4)
     if end == -1:
         return {}
-    block = content[4 : end].strip()
-    meta: Dict[str, str] = {}
-    for line in block.splitlines():
-        if ":" not in line:
-            continue
-        key, value = line.split(":", 1)
-        meta[key.strip()] = value.strip()
-    return meta
+    yaml_block = content[4:end].strip()
+    
+    try:
+        # Use proper YAML parsing to handle arrays like [tag1, tag2, tag3]
+        meta = yaml.safe_load(yaml_block)
+        return meta if isinstance(meta, dict) else {}
+    except yaml.YAMLError:
+        # Fallback to simple parsing if YAML fails
+        return {}
 
 
-def infer_title(meta: Dict[str, str], fallback: str) -> str:
+def infer_title(meta: Dict[str, Any], fallback: str) -> str:
     for key in [
         "title",
         "product",
@@ -61,11 +69,94 @@ def infer_title(meta: Dict[str, str], fallback: str) -> str:
     return fallback
 
 
+def extract_tags_from_notes(entries: List[NoteEntry]) -> Dict[str, Any]:
+    """Extract and aggregate tags from all notes"""
+    tag_counts = Counter()
+    tag_to_notes = defaultdict(list)
+    
+    for entry in entries:
+        meta = read_front_matter(Path(__file__).resolve().parents[1] / entry.path)
+        tags = meta.get("tags", [])
+        
+        # Ensure tags is a list
+        if isinstance(tags, str):
+            tags = [tags]
+        elif not isinstance(tags, list):
+            tags = []
+        
+        # Process tags for this note
+        for tag in tags:
+            if isinstance(tag, str) and tag.strip():
+                tag = tag.strip()
+                tag_counts[tag] += 1
+                tag_to_notes[tag].append({
+                    "category": entry.category,
+                    "date": entry.date,
+                    "path": entry.path.as_posix(),
+                    "title": entry.title
+                })
+    
+    # Convert to regular dict for JSON serialization
+    return {
+        "tag_counts": dict(tag_counts),
+        "tag_to_notes": dict(tag_to_notes),
+        "total_tags": len(tag_counts),
+        "total_notes_with_tags": len([e for e in entries if read_front_matter(Path(__file__).resolve().parents[1] / e.path).get("tags")])
+    }
+
+
 def parse_date_from_filename(name: str) -> Optional[str]:
     m = RE_DATE_PREFIX.match(name)
     if m:
         return m.group(1)
     return None
+
+
+def process_note_images(root: Path, meta: Dict[str, Any], force_rebuild: bool = False) -> List[Dict[str, str]]:
+    """处理笔记中的图片，返回处理后的图片信息"""
+    from image_processor import ImageProcessor
+    
+    processed_images = []
+    if "images" not in meta:
+        return processed_images
+    
+    # 设置图片处理器
+    static_img_dir = root / "docs" / "images"
+    processor = ImageProcessor(
+        output_dir=static_img_dir,
+        cache_dir=static_img_dir / '.cache'
+    )
+    
+    # 收集需要处理的图片
+    images_to_process = []
+    for img in meta["images"]:
+        if not isinstance(img, dict) or "path" not in img:
+            continue
+            
+        img_path = root / img["path"]
+        if not img_path.exists():
+            continue
+            
+        images_to_process.append((img_path, img.get("caption", "")))
+    
+    # 批量处理图片
+    for img_path, caption in images_to_process:
+        try:
+            result = processor.process_image(img_path)
+            
+            # 添加处理结果
+            processed_images.append({
+                "path": str(img_path.relative_to(root)),
+                "thumb": result["thumbnail"],
+                "caption": caption,
+                "url": result["optimized"],
+                "webp": result["webp"]
+            })
+        except Exception as e:
+            logger.error(f"Failed to process image {img_path}: {e}")
+            continue
+    
+    return processed_images
 
 
 def collect_notes(root: Path) -> list[NoteEntry]:
@@ -81,7 +172,16 @@ def collect_notes(root: Path) -> list[NoteEntry]:
                 continue
             meta = read_front_matter(fp)
             title = infer_title(meta, fallback=fp.stem)
-            entries.append(NoteEntry(category=category, date=date, path=fp.relative_to(root), title=title))
+            # 处理图片
+            images = process_note_images(root, meta)
+            entries.append(NoteEntry(
+                category=category,
+                date=date,
+                path=fp.relative_to(root),
+                title=title,
+                images=images
+            ))
+    
     # Sort by date desc, then title
     def sort_key(e: NoteEntry) -> Tuple[datetime, str]:
         try:
@@ -89,7 +189,7 @@ def collect_notes(root: Path) -> list[NoteEntry]:
         except Exception:
             dt = datetime(1970, 1, 1)
         return (dt, e.title.lower())
-
+    
     entries.sort(key=sort_key, reverse=True)
     return entries
 
@@ -115,9 +215,18 @@ def write_index(root: Path, entries: list[NoteEntry]) -> None:
         for e in group:
             # [YYYY-MM-DD] Title (relative path)
             # Try to show author if present in front matter
-            author = read_front_matter(root / e.path).get("author", "")
+            meta = read_front_matter(root / e.path)
+            author = meta.get("author", "")
             author_str = f" — @{author}" if author else ""
-            lines.append(f"- [{e.date}] [{e.title}]({e.path.as_posix()}){author_str}")
+            
+            # Add thumbnail if available
+            thumb_str = ""
+            if e.images:
+                first_image = e.images[0]
+                if "thumb" in first_image:
+                    thumb_str = f" ![{first_image.get('caption', '')}]({first_image['thumb']})"
+            
+            lines.append(f"- [{e.date}] [{e.title}]({e.path.as_posix()}){thumb_str}{author_str}")
         lines.append("")
 
     notes_dir = root / "notes"
@@ -134,7 +243,9 @@ def write_index(root: Path, entries: list[NoteEntry]) -> None:
             "date": e.date,
             "path": e.path.as_posix(),
             "title": e.title,
-            "author": fm.get("author", "")
+            "author": fm.get("author", ""),
+            "tags": fm.get("tags", []),
+            "images": e.images
         })
     (notes_dir / "index.json").write_text(json.dumps(json_entries, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -145,6 +256,10 @@ def write_index(root: Path, entries: list[NoteEntry]) -> None:
 
     latest = json_entries[:20]
     (docs_data / "latest.json").write_text(json.dumps(latest, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # Generate tag aggregation data
+    tag_data = extract_tags_from_notes(entries)
+    (docs_data / "tags.json").write_text(json.dumps(tag_data, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(out_path)
 
@@ -157,5 +272,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-
