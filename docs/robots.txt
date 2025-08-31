@@ -1,5 +1,23 @@
 User-agent: *
 Allow: /
-Sitemap: sitemap.xml
+Disallow: /data/
+Disallow: /js/tests/
+Disallow: /.github/
+
+# Feed-specific directives
+Allow: /feed.xml
+Allow: /feed.atom
+Allow: /feed.json
+
+# Sitemap location
+Sitemap: https://xianyu564.github.io/tobacco-notes/sitemap.xml
+
+# Feed URLs for discovery
+# RSS Feed: https://xianyu564.github.io/tobacco-notes/feed.xml
+# Atom Feed: https://xianyu564.github.io/tobacco-notes/feed.atom
+# JSON Feed: https://xianyu564.github.io/tobacco-notes/feed.json
+
+# Crawl-delay for feed readers
+Crawl-delay: 1
 
 

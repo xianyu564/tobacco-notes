@@ -37,9 +37,33 @@
   
   <!-- Styles & Feeds -->
   <link rel="stylesheet" href="./styles.css" />
-  <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="./feed.xml" />
-  <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="./feed.atom" />
-  <link rel="alternate" type="application/json" title="JSON Feed" href="./feed.json" />
+  
+  <!-- Feed Discovery (Enhanced) -->
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed - 烟草笔记最新更新" href="./feed.xml" />
+  <link rel="alternate" type="application/atom+xml" title="Atom Feed - 烟草笔记最新更新" href="./feed.atom" />
+  <link rel="alternate" type="application/json" title="JSON Feed - 烟草笔记最新更新" href="./feed.json" />
+  
+  <!-- Feed Icon -->
+  <link rel="icon" type="image/svg+xml" href="./assets/feed-icon.svg" sizes="any" />
+  
+  <!-- Additional SEO Meta Tags -->
+  <meta name="application-name" content="Tobacco Notes" />
+  <meta name="msapplication-TileColor" content="#ff4d6d" />
+  <meta name="msapplication-config" content="./assets/browserconfig.xml" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Tobacco Notes" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://xianyu564.github.io/tobacco-notes/" />
+  
+  <!-- Feed-specific Meta Tags -->
+  <meta name="feed-version" content="2.0" />
+  <meta name="feed-generator" content="Tobacco Notes Feed Generator v2.0" />
+  <meta name="syndication-right" content="Open" />
+  <meta name="rating" content="General" />
   
   <!-- 资源提示 -->
   <!-- 预加载关键资源 -->
@@ -105,13 +129,87 @@
   <script defer src="./js/notes.js"></script>
   <script defer src="./js/image-optimization.js"></script>
   <script defer src="./js/sponsor.js"></script>
-  
+
   <!-- 非关键脚本 -->
   <script defer src="./js/shortcuts.js"></script>
   <script defer src="./js/share.js"></script>
   <script defer src="./js/animations.js"></script>
   <script defer src="./js/mobile.js"></script>
   <script defer src="./js/a11y.js"></script>
+
+  <!-- 结构化数据 (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Tobacco Notes｜烟草笔记",
+    "description": "轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记。",
+    "url": "https://xianyu564.github.io/tobacco-notes/",
+    "image": "https://xianyu564.github.io/tobacco-notes/assets/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "Contributors",
+      "url": "https://xianyu564.github.io/tobacco-notes/contributors.md"
+    },
+    "publisher": {
+      "@type": "Organization", 
+      "name": "Tobacco Notes",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://xianyu564.github.io/tobacco-notes/assets/og-image.png"
+      }
+    },
+    "mainEntity": {
+      "@type": "Blog",
+      "name": "Tobacco Notes",
+      "description": "专业的烟草品鉴笔记与评测分享平台",
+      "inLanguage": "zh-CN",
+      "copyrightHolder": {
+        "@type": "Organization",
+        "name": "Contributors"
+      },
+      "license": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://xianyu564.github.io/tobacco-notes/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "sameAs": [
+      "https://github.com/xianyu564/tobacco-notes"
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DataFeed",
+    "name": "Tobacco Notes RSS Feed",
+    "description": "Latest tobacco tasting notes and reviews",
+    "url": "https://xianyu564.github.io/tobacco-notes/feed.xml",
+    "dataFeedElement": [
+      {
+        "@type": "DataFeedItem",
+        "name": "RSS Feed",
+        "url": "https://xianyu564.github.io/tobacco-notes/feed.xml",
+        "encodingFormat": "application/rss+xml"
+      },
+      {
+        "@type": "DataFeedItem", 
+        "name": "Atom Feed",
+        "url": "https://xianyu564.github.io/tobacco-notes/feed.atom",
+        "encodingFormat": "application/atom+xml"
+      },
+      {
+        "@type": "DataFeedItem",
+        "name": "JSON Feed", 
+        "url": "https://xianyu564.github.io/tobacco-notes/feed.json",
+        "encodingFormat": "application/json"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- 固定导航栏 -->
@@ -454,12 +552,21 @@
       role="navigation"
       aria-label="订阅源"
     >
-      <span>订阅更新：</span>
-      <a href="./feed.xml" type="application/rss+xml" aria-label="RSS 订阅">RSS</a>
+      <span>📡 订阅更新：</span>
+      <a href="./feed.xml" type="application/rss+xml" aria-label="RSS 订阅 - 最新烟草笔记更新" title="RSS 2.0 订阅源">
+        <img src="./assets/feed-icon.svg" alt="RSS" width="16" height="16" style="vertical-align: middle; margin-right: 4px;">
+        RSS
+      </a>
       <span aria-hidden="true">·</span>
-      <a href="./feed.atom" type="application/atom+xml" aria-label="Atom 订阅">Atom</a>
+      <a href="./feed.atom" type="application/atom+xml" aria-label="Atom 订阅 - 最新烟草笔记更新" title="Atom 1.0 订阅源">
+        <img src="./assets/feed-icon.svg" alt="Atom" width="16" height="16" style="vertical-align: middle; margin-right: 4px;">
+        Atom
+      </a>
       <span aria-hidden="true">·</span>
-      <a href="./feed.json" type="application/json" aria-label="JSON Feed 订阅">JSON Feed</a>
+      <a href="./feed.json" type="application/json" aria-label="JSON Feed 订阅 - 最新烟草笔记更新" title="JSON Feed 1.1 订阅源">
+        <img src="./assets/feed-icon.svg" alt="JSON" width="16" height="16" style="vertical-align: middle; margin-right: 4px;">
+        JSON Feed
+      </a>
     </div>
     <small 
       class="footer-meta"
