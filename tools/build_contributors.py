@@ -118,6 +118,42 @@ def get_repository_contributors(token: Optional[str] = None) -> Dict[str, Contri
     
     return contributors
 
+
+def update_notes_with_contributors(contributors_data, notes_index_file="notes/index.json"):
+    """Update notes index with contributor information"""
+    try:
+        if not os.path.exists(notes_index_file):
+            print(f"Notes index file not found: {notes_index_file}")
+            return
+            
+        with open(notes_index_file, 'r', encoding='utf-8') as f:
+            notes = json.load(f)
+        
+        # For now, assign all notes to the main contributor (repository owner)
+        # In the future, this could be enhanced to parse git blame or issue authors
+        main_contributor = None
+        for contrib_id, contrib_data in contributors_data.items():
+            if contrib_data.get('is_maintainer', False):
+                main_contributor = contrib_data
+                break
+        
+        if main_contributor:
+            updated = False
+            for note in notes:
+                if not note.get('author') or note['author'] == "":
+                    note['author'] = main_contributor['display_name']
+                    note['author_id'] = main_contributor['username']
+                    note['author_url'] = main_contributor.get('profile_url', '')
+                    updated = True
+            
+            if updated:
+                with open(notes_index_file, 'w', encoding='utf-8') as f:
+                    json.dump(notes, f, ensure_ascii=False, indent=2)
+                print(f"Updated notes index with contributor information")
+    except Exception as e:
+        print(f"Error updating notes with contributors: {e}")
+
+
 def extract_author_from_notes(notes_dir: Path) -> Dict[str, int]:
     """Extract author information from existing notes."""
     author_counts = defaultdict(int)
@@ -213,6 +249,10 @@ def main():
     print(f"✅ Contributors data written to {contributors_file}")
     print(f"📊 Found {contributors_data['total_contributors']} contributors")
     print(f"📝 Total notes: {contributors_data['stats']['total_notes']}")
+    
+    # Update notes with contributor data
+    contributors_dict = {contrib['username']: contrib for contrib in contributors_data['contributors']}
+    update_notes_with_contributors(contributors_dict)
     
     # Update contributors.md with dynamic content
     update_contributors_md(docs_dir, contributors_data)

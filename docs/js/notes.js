@@ -157,7 +157,18 @@ class NotesManager {
     
     const author = document.createElement('span');
     author.className = 'author';
-    author.textContent = note.author ? ` @${note.author}` : '';
+    if (note.author && note.author_url) {
+      const authorLink = document.createElement('a');
+      authorLink.href = note.author_url;
+      authorLink.target = '_blank';
+      authorLink.rel = 'noopener';
+      authorLink.textContent = `@${note.author}`;
+      authorLink.title = `查看 ${note.author} 的 GitHub 资料`;
+      author.appendChild(document.createTextNode(' '));
+      author.appendChild(authorLink);
+    } else if (note.author) {
+      author.textContent = ` @${note.author}`;
+    }
     
     const copyBtn = document.createElement('button');
     copyBtn.className = 'copy';
