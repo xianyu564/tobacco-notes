@@ -45,6 +45,56 @@ temp/
 
 # Node modules (if any)
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage/
+*.tgz
+.npm
+.eslintcache
 
 # Build artifacts
 .cache/
+
+# Testing artifacts  
+test-results/
+docs/js/tests/coverage/
+docs/js/tests/node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local# Test coverage and artifacts
+docs/js/tests/coverage/
+docs/js/tests/node_modules/
+docs/js/tests/.nyc_output/
+docs/js/tests/test-results/
+
+# Build artifacts
+docs/data/validation-report.json
+docs/assets/generated/
+tmp/
+logs/
+
+# Development files
+.env.local
+.vscode/settings.json
+*.log
+debug.log
+# Test coverage and artifacts
+docs/js/tests/coverage/
+docs/js/tests/node_modules/
+docs/js/tests/.nyc_output/
+docs/js/tests/test-results/
+
+# Build artifacts
+docs/data/validation-report.json
+docs/assets/generated/
+tmp/
+logs/
+
+# Development files
+.env.local
+.vscode/settings.json
+*.log
+debug.log

@@ -1,0 +1,20 @@
+{
+  "version": "2.0",
+  "build": {
+    "parallel": true,
+    "workers": 4,
+    "cache_enabled": true,
+    "optimization_level": "high"
+  },
+  "validation": {
+    "content": true,
+    "performance": true,
+    "accessibility": true,
+    "seo": true
+  },
+  "output": {
+    "compression": true,
+    "minification": true,
+    "image_optimization": true
+  }
+}

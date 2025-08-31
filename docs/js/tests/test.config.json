@@ -1,0 +1,11 @@
+{
+  "coverage_threshold": 80,
+  "test_timeout": 10000,
+  "parallel_tests": true,
+  "watch_mode": true,
+  "report_formats": [
+    "text",
+    "html",
+    "json"
+  ]
+}
