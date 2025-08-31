@@ -1265,4 +1265,113 @@
     min-width: unset;
   }
 }
+
+/* Language Switcher 语言切换器 */
+.language-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 12px;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.language-switcher::after {
+  content: "Alt+L";
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  margin-left: 4px;
+  padding: 1px 4px;
+  background: var(--accent);
+  border-radius: 4px;
+  font-family: monospace;
+}
+}
+
+.language-switcher:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.lang-switch-btn {
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.lang-switch-btn:hover {
+  background: var(--accent);
+  color: var(--text);
+}
+
+.lang-switch-btn.active {
+  background: var(--primary);
+  color: white;
+}
+
+.lang-switch-btn:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.lang-divider {
+  color: var(--border);
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+/* Bilingual content styles 双语内容样式 */
+.bilingual-text {
+  transition: all 0.3s ease;
+}
+
+/* Mobile responsive for language switcher */
+@media (max-width: 768px) {
+  .language-switcher {
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .lang-switch-btn {
+    padding: 3px 6px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Language-specific adjustments */
+[lang="zh-CN"] .english-only {
+  display: none !important;
+}
+
+[lang="en-US"] .chinese-only {
+  display: none !important;
+}
+
+/* Smooth transitions for language switching */
+.language-transition {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.language-transition.changing {
+  opacity: 0.7;
+}
 }
