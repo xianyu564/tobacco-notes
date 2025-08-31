@@ -1,0 +1,215 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Tobacco Notes｜烟草笔记",
+  "description": "轻量、开放的烟草品鉴笔记；一键一句话投稿；浏览最新/全部笔记。",
+  "home_page_url": "https://xianyu564.github.io/tobacco-notes",
+  "feed_url": "https://xianyu564.github.io/tobacco-notes/feed.json",
+  "authors": [
+    {
+      "name": "Contributors",
+      "url": "https://xianyu564.github.io/tobacco-notes/contributors.md"
+    }
+  ],
+  "language": "zh-CN",
+  "icon": "https://xianyu564.github.io/tobacco-notes/assets/favicon-32x32.png",
+  "favicon": "https://xianyu564.github.io/tobacco-notes/assets/favicon-32x32.png",
+  "user_comment": "This is a feed of tobacco tasting notes and reviews.",
+  "expired": false,
+  "items": [
+    {
+      "id": "https://xianyu564.github.io/tobacco-notes#cigars/2025-08-21-partagas-serie-d-no4",
+      "url": "https://xianyu564.github.io/tobacco-notes#cigars/2025-08-21-partagas-serie-d-no4",
+      "external_url": "https://xianyu564.github.io/tobacco-notes#cigars/2025-08-21-partagas-serie-d-no4",
+      "title": "Partagas Serie D No.4 (Robusto 50x124)",
+      "content_html": "&lt;strong&gt;Appearance/Draw&lt;/strong&gt;：油亮，回弹好，冷抽胡椒与木质  &lt;br&gt;\n&lt;strong&gt;1/3&lt;/strong&gt;：胡椒、烤坚果；烟气饱满  &lt;br&gt;\n&lt;strong&gt;2/3&lt;/strong&gt;：甜感上升，可可、面包谷物  &lt;br&gt;\n&lt;strong&gt;3/3&lt;/strong&gt;：香料增强，略热需放慢  &lt;br&gt;\n&lt;strong&gt;Burn/Ash&lt;/strong&gt;：燃烧线基本稳定，偶校正  &lt;br&gt;\n&lt;strong&gt;Retrohale&lt;/strong&gt;：坚果与香料感明显  &lt;br&gt;\n&lt;strong&gt;Verdict&lt;/strong&gt;：稳健经典，会回购",
+      "content_text": "**Appearance/Draw**：油亮，回弹好，冷抽胡椒与木质  \n**1/3**：胡椒、烤坚果；烟气饱满  \n**2/3**：甜感上升，可可、面包谷物  \n**3/3**：香料增强，略热需放慢  \n**Burn/Ash**：燃烧线基本稳定，偶校正  \n**Retrohale**：坚果与香料感明显  \n**Verdict**：稳健经典，会回购",
+      "summary": "Appearance/Draw：油亮，回弹好，冷抽胡椒与木质 1/3：胡椒、烤坚果；烟气饱满 2/3：甜感上升，可可、面包谷物 3/3：香料增强，略热需放慢 Burn/Ash：燃烧线基本稳定，偶校正 Retrohale：坚果与香料感明显 Verdict：稳健经典，会回购",
+      "image": "https://xianyu564.github.io/tobacco-notes/assets/og-image.png",
+      "date_published": "2025-08-21T00:00:00Z",
+      "date_modified": "2025-08-21T00:00:00Z",
+      "authors": [
+        {
+          "name": "Anonymous"
+        }
+      ],
+      "tags": [
+        "pepper",
+        "wood",
+        "cocoa",
+        "nutty"
+      ],
+      "language": "zh-CN",
+      "_tobacco_notes": {
+        "category": "cigars",
+        "rating": "90/100",
+        "product": "Partagas Serie D No.4",
+        "vitola": "Robusto 50x124",
+        "origin": "Cuba",
+        "price": "20 USD",
+        "pairing": "Espresso"
+      }
+    },
+    {
+      "id": "https://xianyu564.github.io/tobacco-notes#cigarettes/2025-08-21-xxx-regular",
+      "url": "https://xianyu564.github.io/tobacco-notes#cigarettes/2025-08-21-xxx-regular",
+      "external_url": "https://xianyu564.github.io/tobacco-notes#cigarettes/2025-08-21-xxx-regular",
+      "title": "2025-08-21-xxx-regular",
+      "content_html": "开包甜香；前段刺激低，中段稳定，尾段纸味略显；烟气密度中等，燃速匀；余味干净",
+      "content_text": "开包甜香；前段刺激低，中段稳定，尾段纸味略显；烟气密度中等，燃速匀；余味干净",
+      "summary": "开包甜香；前段刺激低，中段稳定，尾段纸味略显；烟气密度中等，燃速匀；余味干净",
+      "image": "https://xianyu564.github.io/tobacco-notes/assets/og-image.png",
+      "date_published": "2025-08-21T00:00:00Z",
+      "date_modified": "2025-08-21T00:00:00Z",
+      "authors": [
+        {
+          "name": "Anonymous"
+        }
+      ],
+      "tags": [
+        "tobacco-sweet",
+        "mild",
+        "even-burn"
+      ],
+      "language": "zh-CN",
+      "_tobacco_notes": {
+        "category": "cigarettes",
+        "rating": "3.5/5",
+        "product": "",
+        "vitola": "",
+        "origin": "",
+        "price": "35 CNY",
+        "pairing": ""
+      }
+    },
+    {
+      "id": "https://xianyu564.github.io/tobacco-notes#pipe/2025-08-21-virginia-flake",
+      "url": "https://xianyu564.github.io/tobacco-notes#pipe/2025-08-21-virginia-flake",
+      "external_url": "https://xianyu564.github.io/tobacco-notes#pipe/2025-08-21-virginia-flake",
+      "title": "2025-08-21-virginia-flake",
+      "content_html": "装斗易点；上段干草/蜂蜜；中段面包/柑橘；下段温度升高需控抽；舌刺轻；余味甜净",
+      "content_text": "装斗易点；上段干草/蜂蜜；中段面包/柑橘；下段温度升高需控抽；舌刺轻；余味甜净",
+      "summary": "装斗易点；上段干草/蜂蜜；中段面包/柑橘；下段温度升高需控抽；舌刺轻；余味甜净",
+      "image": "https://xianyu564.github.io/tobacco-notes/assets/og-image.png",
+      "date_published": "2025-08-21T00:00:00Z",
+      "date_modified": "2025-08-21T00:00:00Z",
+      "authors": [
+        {
+          "name": "Anonymous"
+        }
+      ],
+      "tags": [
+        "hay",
+        "honey",
+        "citrus",
+        "bready"
+      ],
+      "language": "zh-CN",
+      "_tobacco_notes": {
+        "category": "pipe",
+        "rating": "4/5",
+        "product": "",
+        "vitola": "",
+        "origin": "",
+        "price": "",
+        "pairing": ""
+      }
+    },
+    {
+      "id": "https://xianyu564.github.io/tobacco-notes#ryo/2025-08-21-virginia-ocb-charcoal",
+      "url": "https://xianyu564.github.io/tobacco-notes#ryo/2025-08-21-virginia-ocb-charcoal",
+      "external_url": "https://xianyu564.github.io/tobacco-notes#ryo/2025-08-21-virginia-ocb-charcoal",
+      "title": "2025-08-21-virginia-ocb-charcoal",
+      "content_html": "切丝均匀，含水量适中；点燃后谷物/焦糖；击喉温和；燃速稳定；余味清爽",
+      "content_text": "切丝均匀，含水量适中；点燃后谷物/焦糖；击喉温和；燃速稳定；余味清爽",
+      "summary": "切丝均匀，含水量适中；点燃后谷物/焦糖；击喉温和；燃速稳定；余味清爽",
+      "image": "https://xianyu564.github.io/tobacco-notes/assets/og-image.png",
+      "date_published": "2025-08-21T00:00:00Z",
+      "date_modified": "2025-08-21T00:00:00Z",
+      "authors": [
+        {
+          "name": "Anonymous"
+        }
+      ],
+      "tags": [
+        "cereal",
+        "caramel",
+        "clean"
+      ],
+      "language": "zh-CN",
+      "_tobacco_notes": {
+        "category": "ryo",
+        "rating": "4/5",
+        "product": "",
+        "vitola": "",
+        "origin": "",
+        "price": "",
+        "pairing": ""
+      }
+    },
+    {
+      "id": "https://xianyu564.github.io/tobacco-notes#snus/2025-08-21-general-mint",
+      "url": "https://xianyu564.github.io/tobacco-notes#snus/2025-08-21-general-mint",
+      "external_url": "https://xianyu564.github.io/tobacco-notes#snus/2025-08-21-general-mint",
+      "title": "2025-08-21-general-mint",
+      "content_html": "1–10 分钟清凉/薄荷；20 分钟盐度与烟草味上来；滴漏轻；满足度中等偏上",
+      "content_text": "1–10 分钟清凉/薄荷；20 分钟盐度与烟草味上来；滴漏轻；满足度中等偏上",
+      "summary": "1–10 分钟清凉/薄荷；20 分钟盐度与烟草味上来；滴漏轻；满足度中等偏上",
+      "image": "https://xianyu564.github.io/tobacco-notes/assets/og-image.png",
+      "date_published": "2025-08-21T00:00:00Z",
+      "date_modified": "2025-08-21T00:00:00Z",
+      "authors": [
+        {
+          "name": "Anonymous"
+        }
+      ],
+      "tags": [
+        "mint",
+        "salty",
+        "tobacco",
+        "cooling"
+      ],
+      "language": "zh-CN",
+      "_tobacco_notes": {
+        "category": "snus",
+        "rating": "4/5",
+        "product": "",
+        "vitola": "",
+        "origin": "",
+        "price": "",
+        "pairing": ""
+      }
+    },
+    {
+      "id": "https://xianyu564.github.io/tobacco-notes#ecig/2025-08-21-peach-ice-35mg",
+      "url": "https://xianyu564.github.io/tobacco-notes#ecig/2025-08-21-peach-ice-35mg",
+      "external_url": "https://xianyu564.github.io/tobacco-notes#ecig/2025-08-21-peach-ice-35mg",
+      "title": "2025-08-21-peach-ice-35mg",
+      "content_html": "闻香桃子糖；入口甜与冷感明显；中段略腻；喉感温和；余味甜凉，适合短抽",
+      "content_text": "闻香桃子糖；入口甜与冷感明显；中段略腻；喉感温和；余味甜凉，适合短抽",
+      "summary": "闻香桃子糖；入口甜与冷感明显；中段略腻；喉感温和；余味甜凉，适合短抽",
+      "image": "https://xianyu564.github.io/tobacco-notes/assets/og-image.png",
+      "date_published": "2025-08-21T00:00:00Z",
+      "date_modified": "2025-08-21T00:00:00Z",
+      "authors": [
+        {
+          "name": "Anonymous"
+        }
+      ],
+      "tags": [
+        "peach",
+        "sweet",
+        "cooling"
+      ],
+      "language": "zh-CN",
+      "_tobacco_notes": {
+        "category": "ecig",
+        "rating": "3/5",
+        "product": "",
+        "vitola": "",
+        "origin": "",
+        "price": "",
+        "pairing": ""
+      }
+    }
+  ]
+}
