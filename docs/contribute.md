@@ -36,8 +36,8 @@
 - 记录影响变量：存储、环境、器具、抽吸节奏；
 - 可加配饮、评分与价格，便于参考。
  
-更多细则见：`docs/style-guide.md`（写作格式指引），并参考 Wiki：
-[Tobacco Appreciation 101 — 烟草赏析入门](https://github.com/xianyu564/tobacco-notes/wiki/Tobacco-Appreciation-101-%E2%80%94-%E7%83%9F%E8%8D%89%E8%B5%8F%E6%9E%90%E5%85%A5%E9%97%A8#%E7%83%9F%E8%8D%89%E5%93%81%E7%B1%BB%E5%AF%BC%E8%A7%88)
+更多细则见：[`docs/style-guide.md`](./style-guide.md)（写作格式指引），并参考完整 Wiki 指南：
+[Tobacco Appreciation 101 — 烟草赏析入门](../wiki/Tobacco-Appreciation-101.md) | [烟草品类导览](../wiki/Tobacco-Category-Guide.md) | [术语词典](../wiki/Terminology-Descriptors.md)
 
 ## 行为与健康｜Conduct & Health
 - 友善、尊重事实，避免夸张与引战；
