@@ -1,0 +1,150 @@
+{
+  "summary": {
+    "total_tags": 20,
+    "total_notes_with_tags": 6,
+    "categories_with_tags": 6
+  },
+  "popular_tags": [
+    {
+      "tag": "cooling",
+      "count": 2
+    },
+    {
+      "tag": "pepper",
+      "count": 1
+    },
+    {
+      "tag": "wood",
+      "count": 1
+    },
+    {
+      "tag": "cocoa",
+      "count": 1
+    },
+    {
+      "tag": "nutty",
+      "count": 1
+    },
+    {
+      "tag": "tobacco-sweet",
+      "count": 1
+    },
+    {
+      "tag": "mild",
+      "count": 1
+    },
+    {
+      "tag": "even-burn",
+      "count": 1
+    },
+    {
+      "tag": "hay",
+      "count": 1
+    },
+    {
+      "tag": "honey",
+      "count": 1
+    },
+    {
+      "tag": "citrus",
+      "count": 1
+    },
+    {
+      "tag": "bready",
+      "count": 1
+    },
+    {
+      "tag": "cereal",
+      "count": 1
+    },
+    {
+      "tag": "caramel",
+      "count": 1
+    },
+    {
+      "tag": "clean",
+      "count": 1
+    },
+    {
+      "tag": "mint",
+      "count": 1
+    },
+    {
+      "tag": "salty",
+      "count": 1
+    },
+    {
+      "tag": "tobacco",
+      "count": 1
+    },
+    {
+      "tag": "peach",
+      "count": 1
+    },
+    {
+      "tag": "sweet",
+      "count": 1
+    }
+  ],
+  "featured_collections": [
+    {
+      "id": "popular",
+      "title": "热门标签",
+      "title_en": "Popular Tags",
+      "description": "使用频率最高的标签",
+      "description_en": "Most frequently used tags",
+      "tags": [
+        "cooling",
+        "pepper",
+        "wood",
+        "cocoa",
+        "nutty",
+        "tobacco-sweet",
+        "mild",
+        "even-burn",
+        "hay",
+        "honey"
+      ],
+      "type": "popular"
+    },
+    {
+      "id": "flavors",
+      "title": "风味标签",
+      "title_en": "Flavor Tags",
+      "description": "描述口感和风味的标签",
+      "description_en": "Tags describing taste and flavor profiles",
+      "tags": [
+        "pepper",
+        "cocoa",
+        "nutty",
+        "tobacco-sweet",
+        "caramel",
+        "sweet"
+      ],
+      "type": "flavor"
+    },
+    {
+      "id": "intensity",
+      "title": "强度标签",
+      "title_en": "Intensity Tags",
+      "description": "描述强度和浓度的标签",
+      "description_en": "Tags describing strength and intensity",
+      "tags": [
+        "mild"
+      ],
+      "type": "intensity"
+    },
+    {
+      "id": "quality",
+      "title": "体验标签",
+      "title_en": "Experience Tags",
+      "description": "描述品质和体验的标签",
+      "description_en": "Tags describing quality and experience",
+      "tags": [
+        "clean",
+        "cooling"
+      ],
+      "type": "quality"
+    }
+  ]
+}
