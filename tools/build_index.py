@@ -12,6 +12,8 @@ from __future__ import annotations
 import json
 import re
 import shutil
+import yaml
+from collections import defaultdict, Counter
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -34,59 +36,22 @@ class NoteEntry:
 
 
 def read_front_matter(filepath: Path) -> Dict[str, Any]:
+    """Parse YAML frontmatter from markdown file"""
     content = filepath.read_text(encoding="utf-8", errors="ignore")
     if not content.startswith("---\n"):
         return {}
     end = content.find("\n---", 4)
     if end == -1:
         return {}
-    block = content[4:end].strip()
-    meta: Dict[str, Any] = {}
-    current_key = None
-    current_list = []
+    yaml_block = content[4:end].strip()
     
-    for line in block.splitlines():
-        if not line.strip():
-            continue
-        if not line.startswith(" "):  # New key
-            if current_key and current_list:
-                meta[current_key] = current_list
-                current_list = []
-            if ":" not in line:
-                continue
-            key, value = line.split(":", 1)
-            key = key.strip()
-            value = value.strip()
-            if value:  # Single value
-                meta[key] = value
-            else:  # Start of a list
-                current_key = key
-                current_list = []
-        elif line.startswith("  - "):  # List item
-            if current_key:
-                item_dict = {}
-                item_content = line[4:].strip()
-                if ":" in item_content:
-                    item_key, item_value = item_content.split(":", 1)
-                    item_dict[item_key.strip()] = item_value.strip()
-                    while True:
-                        next_line_idx = block.find("\n", block.find(line) + len(line))
-                        if next_line_idx == -1:
-                            break
-                        next_line = block[next_line_idx + 1:block.find("\n", next_line_idx + 1)].strip()
-                        if not next_line.startswith(" ") or next_line.startswith("  - "):
-                            break
-                        if ":" in next_line:
-                            sub_key, sub_value = next_line.split(":", 1)
-                            item_dict[sub_key.strip()] = sub_value.strip()
-                    current_list.append(item_dict)
-                else:
-                    current_list.append(item_content)
-    
-    if current_key and current_list:
-        meta[current_key] = current_list
-    
-    return meta
+    try:
+        # Use proper YAML parsing to handle arrays like [tag1, tag2, tag3]
+        meta = yaml.safe_load(yaml_block)
+        return meta if isinstance(meta, dict) else {}
+    except yaml.YAMLError:
+        # Fallback to simple parsing if YAML fails
+        return {}
 
 
 def infer_title(meta: Dict[str, Any], fallback: str) -> str:
@@ -102,6 +67,42 @@ def infer_title(meta: Dict[str, Any], fallback: str) -> str:
         if v:
             return v
     return fallback
+
+
+def extract_tags_from_notes(entries: List[NoteEntry]) -> Dict[str, Any]:
+    """Extract and aggregate tags from all notes"""
+    tag_counts = Counter()
+    tag_to_notes = defaultdict(list)
+    
+    for entry in entries:
+        meta = read_front_matter(Path(__file__).resolve().parents[1] / entry.path)
+        tags = meta.get("tags", [])
+        
+        # Ensure tags is a list
+        if isinstance(tags, str):
+            tags = [tags]
+        elif not isinstance(tags, list):
+            tags = []
+        
+        # Process tags for this note
+        for tag in tags:
+            if isinstance(tag, str) and tag.strip():
+                tag = tag.strip()
+                tag_counts[tag] += 1
+                tag_to_notes[tag].append({
+                    "category": entry.category,
+                    "date": entry.date,
+                    "path": entry.path.as_posix(),
+                    "title": entry.title
+                })
+    
+    # Convert to regular dict for JSON serialization
+    return {
+        "tag_counts": dict(tag_counts),
+        "tag_to_notes": dict(tag_to_notes),
+        "total_tags": len(tag_counts),
+        "total_notes_with_tags": len([e for e in entries if read_front_matter(Path(__file__).resolve().parents[1] / e.path).get("tags")])
+    }
 
 
 def parse_date_from_filename(name: str) -> Optional[str]:
@@ -243,6 +244,7 @@ def write_index(root: Path, entries: list[NoteEntry]) -> None:
             "path": e.path.as_posix(),
             "title": e.title,
             "author": fm.get("author", ""),
+            "tags": fm.get("tags", []),
             "images": e.images
         })
     (notes_dir / "index.json").write_text(json.dumps(json_entries, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -254,6 +256,10 @@ def write_index(root: Path, entries: list[NoteEntry]) -> None:
 
     latest = json_entries[:20]
     (docs_data / "latest.json").write_text(json.dumps(latest, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # Generate tag aggregation data
+    tag_data = extract_tags_from_notes(entries)
+    (docs_data / "tags.json").write_text(json.dumps(tag_data, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(out_path)
 

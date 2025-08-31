@@ -287,3 +287,82 @@
     opacity: 1;
   }
 }
+
+/* Tag styling */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.tag-badge {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tag-badge:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.note-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 4px 0;
+}
+
+.tag {
+  background: var(--primary);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tag:hover {
+  background: var(--muted);
+}
+
+.tag-filter-info {
+  background: var(--card);
+  border-left: 4px solid var(--primary);
+  padding: 12px;
+  margin: 16px 0;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.filtered-notes {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  background: var(--card);
+}
+
+.clear-filter {
+  background: var(--muted);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 16px;
+}
+
+.clear-filter:hover {
+  background: var(--text);
+}
+}

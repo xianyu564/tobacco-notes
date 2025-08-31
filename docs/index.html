@@ -150,7 +150,7 @@
         <input 
           id="q" 
           type="search" 
-          placeholder="搜索标题/分类/作者..." 
+          placeholder="搜索标题/分类/作者/标签..." 
           aria-label="搜索笔记"
           aria-expanded="false"
           aria-controls="search-results"
@@ -198,6 +198,34 @@
         class="categories"
         role="region"
         aria-label="分类笔记列表"
+      ></div>
+    </section>
+
+    <section 
+      id="tags" 
+      class="animate" 
+      aria-labelledby="tags-title"
+      data-lazy-scripts="./js/animations.js"
+    >
+      <h2 id="tags-title">按标签浏览</h2>
+      <div 
+        id="tag-cloud" 
+        class="tag-cloud"
+        role="navigation"
+        aria-label="标签云"
+      ></div>
+      <div 
+        id="tag-filter-info" 
+        class="tag-filter-info" 
+        hidden
+        aria-live="polite"
+      ></div>
+      <div 
+        id="tag-filtered-notes" 
+        class="filtered-notes"
+        role="region"
+        aria-label="按标签筛选的笔记"
+        hidden
       ></div>
     </section>
 

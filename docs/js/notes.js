@@ -3,6 +3,8 @@ class NotesManager {
   constructor() {
     this.categories = ['cigars', 'cigarettes', 'pipe', 'ryo', 'snus', 'ecig'];
     this.categoryData = {};
+    this.tagData = {};
+    this.currentTagFilter = null;
     this.observers = new Map();
     
     this.initIntersectionObserver();
@@ -11,7 +13,9 @@ class NotesManager {
 
   async init() {
     await this.loadData();
+    await this.loadTagData();
     this.renderCategories();
+    this.renderTagCloud();
     this.initLazyLoading();
   }
 
@@ -24,6 +28,15 @@ class NotesManager {
       });
     } catch (e) {
       console.error('Failed to load notes data:', e);
+    }
+  }
+
+  async loadTagData() {
+    try {
+      this.tagData = await fetch('./data/tags.json').then(r => r.json());
+    } catch (e) {
+      console.error('Failed to load tag data:', e);
+      this.tagData = { tag_counts: {}, tag_to_notes: {}, total_tags: 0 };
     }
   }
 
@@ -159,6 +172,22 @@ class NotesManager {
     author.className = 'author';
     author.textContent = note.author ? ` @${note.author}` : '';
     
+    // Add tags if they exist
+    const tags = document.createElement('div');
+    tags.className = 'note-tags';
+    if (note.tags && note.tags.length) {
+      note.tags.forEach(tag => {
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'tag';
+        tagSpan.textContent = `#${tag}`;
+        tagSpan.onclick = (e) => {
+          e.preventDefault();
+          this.filterByTag(tag);
+        };
+        tags.appendChild(tagSpan);
+      });
+    }
+    
     const copyBtn = document.createElement('button');
     copyBtn.className = 'copy';
     copyBtn.textContent = '复制链接';
@@ -174,7 +203,7 @@ class NotesManager {
       }
     };
 
-    li.append(date, category, link, author, copyBtn);
+    li.append(date, category, link, author, tags, copyBtn);
     return li;
   }
 
@@ -191,6 +220,85 @@ class NotesManager {
 
     const currentCount = list.children.length;
     this.loadCategoryNotes(category, currentCount);
+  }
+
+  renderTagCloud() {
+    const container = document.getElementById('tag-cloud');
+    if (!container || !this.tagData.tag_counts) return;
+
+    container.innerHTML = '';
+    
+    // Sort tags by count (descending) and then alphabetically
+    const sortedTags = Object.entries(this.tagData.tag_counts)
+      .sort(([a, countA], [b, countB]) => {
+        if (countB !== countA) return countB - countA;
+        return a.localeCompare(b);
+      });
+
+    sortedTags.forEach(([tag, count]) => {
+      const tagBadge = document.createElement('button');
+      tagBadge.className = 'tag-badge';
+      tagBadge.textContent = `${tag} (${count})`;
+      tagBadge.onclick = () => this.filterByTag(tag);
+      container.appendChild(tagBadge);
+    });
+
+    // Add clear filter button (initially hidden)
+    const clearBtn = document.createElement('button');
+    clearBtn.className = 'btn clear-filter';
+    clearBtn.textContent = '清除筛选';
+    clearBtn.onclick = () => this.clearTagFilter();
+    clearBtn.hidden = true;
+    container.appendChild(clearBtn);
+  }
+
+  filterByTag(tag) {
+    this.currentTagFilter = tag;
+    const notes = this.tagData.tag_to_notes[tag] || [];
+    
+    // Show filter info
+    const filterInfo = document.getElementById('tag-filter-info');
+    const filteredNotes = document.getElementById('tag-filtered-notes');
+    const clearBtn = document.querySelector('.clear-filter');
+    
+    if (filterInfo) {
+      filterInfo.hidden = false;
+      filterInfo.textContent = `显示包含标签 "#${tag}" 的笔记 (${notes.length} 条)`;
+    }
+    
+    if (filteredNotes) {
+      filteredNotes.hidden = false;
+      filteredNotes.innerHTML = '';
+      
+      const list = document.createElement('ul');
+      list.className = 'note-list filtered';
+      
+      notes.forEach(note => {
+        const li = this.createNoteElement(note);
+        list.appendChild(li);
+      });
+      
+      filteredNotes.appendChild(list);
+    }
+    
+    if (clearBtn) {
+      clearBtn.hidden = false;
+    }
+
+    // Scroll to filtered results
+    document.getElementById('tags').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  clearTagFilter() {
+    this.currentTagFilter = null;
+    
+    const filterInfo = document.getElementById('tag-filter-info');
+    const filteredNotes = document.getElementById('tag-filtered-notes');
+    const clearBtn = document.querySelector('.clear-filter');
+    
+    if (filterInfo) filterInfo.hidden = true;
+    if (filteredNotes) filteredNotes.hidden = true;
+    if (clearBtn) clearBtn.hidden = true;
   }
 
   initLazyLoading() {
