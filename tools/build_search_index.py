@@ -99,7 +99,8 @@ class SearchIndexBuilder:
                 'tags': metadata.get('tags', []),
                 'date': date_match.group(1),
                 'url': f"./notes/{note_path.parent.name}/{note_path.name}",
-                'excerpt': self._extract_excerpt(body)
+                'excerpt': self._extract_excerpt(body),
+                'rating': metadata.get('rating', None)
             }
             
             # 添加额外的搜索字段

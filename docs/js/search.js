@@ -8,6 +8,12 @@ class SearchManager {
     this.debounceTimeout = null;
     this.selectedIndex = -1;
     
+    // 筛选器元素
+    this.categoryFilter = document.getElementById('category-filter');
+    this.dateFilter = document.getElementById('date-filter');
+    this.ratingFilter = document.getElementById('rating-filter');
+    this.clearFiltersBtn = document.getElementById('clear-filters');
+    
     this.init();
   }
   
@@ -24,20 +30,50 @@ class SearchManager {
       if (!response.ok) throw new Error('Failed to load search index');
       this.searchData = await response.json();
       
-      // 构建搜索索引
-      this.searchIndex = new Fuse(this.searchData, {
-        keys: [
-          { name: 'title', weight: 0.4 },
-          { name: 'category', weight: 0.3 },
-          { name: 'author', weight: 0.2 },
-          { name: 'tags', weight: 0.1 }
-        ],
-        includeScore: true,
-        threshold: 0.3,
-        distance: 100,
-        useExtendedSearch: true,
-        ignoreLocation: true
-      });
+      // 使用简单搜索算法替代 Fuse.js
+      this.searchIndex = {
+        search: (query) => {
+          if (!query) return [];
+          
+          const queryLower = query.toLowerCase();
+          const results = this.searchData
+            .map((item, index) => {
+              let score = 0;
+              
+              // 标题匹配
+              if (item.title && item.title.toLowerCase().includes(queryLower)) {
+                score += 0.4;
+              }
+              
+              // 分类匹配
+              if (item.category && item.category.toLowerCase().includes(queryLower)) {
+                score += 0.3;
+              }
+              
+              // 作者匹配
+              if (item.author && item.author.toLowerCase().includes(queryLower)) {
+                score += 0.2;
+              }
+              
+              // 标签匹配
+              if (item.tags && item.tags.some(tag => 
+                tag.toLowerCase().includes(queryLower))) {
+                score += 0.1;
+              }
+              
+              // 搜索文本匹配
+              if (item.search_text && item.search_text.includes(queryLower)) {
+                score += 0.1;
+              }
+              
+              return score > 0 ? { item, score: 1 - score, refIndex: index } : null;
+            })
+            .filter(result => result !== null)
+            .sort((a, b) => a.score - b.score);
+            
+          return results;
+        }
+      };
       
       console.log('Search index initialized');
       
@@ -56,6 +92,31 @@ class SearchManager {
     this.searchInput.addEventListener('keydown', (e) => {
       this.handleKeyNavigation(e);
     });
+    
+    // 筛选器事件
+    if (this.categoryFilter) {
+      this.categoryFilter.addEventListener('change', () => {
+        this.handleFilterChange();
+      });
+    }
+    
+    if (this.dateFilter) {
+      this.dateFilter.addEventListener('change', () => {
+        this.handleFilterChange();
+      });
+    }
+    
+    if (this.ratingFilter) {
+      this.ratingFilter.addEventListener('change', () => {
+        this.handleFilterChange();
+      });
+    }
+    
+    if (this.clearFiltersBtn) {
+      this.clearFiltersBtn.addEventListener('click', () => {
+        this.clearFilters();
+      });
+    }
     
     // 点击处理
     document.addEventListener('click', (e) => {
@@ -78,8 +139,8 @@ class SearchManager {
       clearTimeout(this.debounceTimeout);
     }
     
-    // 空查询处理
-    if (!query) {
+    // 空查询处理 - 但如果有活动筛选器，仍然需要搜索
+    if (!query && !this.hasActiveFilters()) {
       this.hideResults();
       return;
     }
@@ -97,11 +158,30 @@ class SearchManager {
     }
     
     try {
-      // 执行搜索
-      const results = this.searchIndex.search(query);
+      let results;
+      
+      // 如果有查询词，执行搜索
+      if (query) {
+        results = this.searchIndex.search(query);
+      } else {
+        // 如果没有查询词但有活动筛选器，显示所有符合筛选条件的结果
+        if (this.hasActiveFilters()) {
+          results = this.searchData.map((item, index) => ({
+            item: item,
+            score: 0,
+            refIndex: index
+          }));
+        } else {
+          this.hideResults();
+          return;
+        }
+      }
+      
+      // 应用筛选器
+      const filteredResults = this.applyFilters(results);
       
       // 限制结果数量
-      const limitedResults = results.slice(0, 10);
+      const limitedResults = filteredResults.slice(0, 10);
       
       // 渲染结果
       this.renderResults(limitedResults);
@@ -132,6 +212,7 @@ class SearchManager {
           <div class="result-meta">
             <span class="category">${item.category}</span>
             <span class="author">${item.author}</span>
+            ${item.rating ? `<span class="rating">评分: ${item.rating}</span>` : ''}
             ${item.tags ? `<span class="tags">${item.tags.join(', ')}</span>` : ''}
           </div>
           <div class="result-score" aria-hidden="true">${score}% 匹配</div>
@@ -239,6 +320,125 @@ class SearchManager {
         e.preventDefault();
       }
     });
+  }
+  
+  // 筛选器相关方法
+  handleFilterChange() {
+    // 触发搜索以应用筛选器
+    const query = this.searchInput.value.trim();
+    if (query || this.hasActiveFilters()) {
+      this.performSearch(query);
+    } else {
+      this.hideResults();
+    }
+  }
+  
+  hasActiveFilters() {
+    return (this.categoryFilter && this.categoryFilter.value) ||
+           (this.dateFilter && this.dateFilter.value) ||
+           (this.ratingFilter && this.ratingFilter.value);
+  }
+  
+  clearFilters() {
+    if (this.categoryFilter) this.categoryFilter.value = '';
+    if (this.dateFilter) this.dateFilter.value = '';
+    if (this.ratingFilter) this.ratingFilter.value = '';
+    
+    // 重新执行搜索
+    const query = this.searchInput.value.trim();
+    if (query) {
+      this.performSearch(query);
+    } else {
+      this.hideResults();
+    }
+  }
+  
+  applyFilters(results) {
+    let filteredResults = results;
+    
+    // 分类筛选
+    if (this.categoryFilter && this.categoryFilter.value) {
+      const category = this.categoryFilter.value;
+      filteredResults = filteredResults.filter(result => 
+        result.item.category === category
+      );
+    }
+    
+    // 日期筛选
+    if (this.dateFilter && this.dateFilter.value) {
+      const dateFilter = this.dateFilter.value;
+      const now = new Date();
+      let cutoffDate;
+      
+      switch (dateFilter) {
+        case 'week':
+          cutoffDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+          break;
+        case 'month':
+          cutoffDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+          break;
+        case '3months':
+          cutoffDate = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
+          break;
+        case 'year':
+          cutoffDate = new Date(now.getTime() - 365 * 24 * 60 * 60 * 1000);
+          break;
+        default:
+          cutoffDate = null;
+      }
+      
+      if (cutoffDate) {
+        filteredResults = filteredResults.filter(result => {
+          const itemDate = new Date(result.item.date);
+          return itemDate >= cutoffDate;
+        });
+      }
+    }
+    
+    // 评分筛选
+    if (this.ratingFilter && this.ratingFilter.value) {
+      const ratingFilter = this.ratingFilter.value;
+      filteredResults = filteredResults.filter(result => {
+        const rating = result.item.rating;
+        if (!rating) return false;
+        
+        const normalizedRating = this.normalizeRating(rating);
+        if (normalizedRating === null) return false;
+        
+        switch (ratingFilter) {
+          case 'high':
+            return normalizedRating >= 0.8; // ≥4/5 或 ≥80/100
+          case 'medium':
+            return normalizedRating >= 0.6 && normalizedRating < 0.8; // 3-3.9/5 或 60-79/100
+          case 'low':
+            return normalizedRating < 0.6; // <3/5 或 <60/100
+          default:
+            return true;
+        }
+      });
+    }
+    
+    return filteredResults;
+  }
+  
+  normalizeRating(rating) {
+    if (!rating) return null;
+    
+    const ratingStr = rating.toString();
+    
+    // 处理 X/5 格式
+    if (ratingStr.includes('/5')) {
+      const value = parseFloat(ratingStr.split('/')[0]);
+      return value / 5; // 转换为 0-1 范围
+    }
+    
+    // 处理 X/100 格式
+    if (ratingStr.includes('/100')) {
+      const value = parseFloat(ratingStr.split('/')[0]);
+      return value / 100; // 转换为 0-1 范围
+    }
+    
+    return null;
   }
 }
 

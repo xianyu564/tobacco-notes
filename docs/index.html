@@ -157,6 +157,48 @@
           aria-describedby="search-desc" 
         />
         <div id="search-desc" class="sr-only">输入关键词搜索笔记，使用上下箭头键选择结果，回车键确认</div>
+        
+        <!-- 搜索筛选器 -->
+        <div class="search-filters" aria-label="搜索筛选选项">
+          <div class="filter-group">
+            <label for="category-filter" class="filter-label">分类：</label>
+            <select id="category-filter" class="filter-select" aria-label="按分类筛选">
+              <option value="">全部分类</option>
+              <option value="cigars">雪茄 (Cigars)</option>
+              <option value="cigarettes">纸烟 (Cigarettes)</option>
+              <option value="pipe">烟斗 (Pipe)</option>
+              <option value="ryo">手卷 (RYO)</option>
+              <option value="snus">鼻烟 (Snus)</option>
+              <option value="ecig">电子烟 (E-cig)</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="date-filter" class="filter-label">日期：</label>
+            <select id="date-filter" class="filter-select" aria-label="按日期筛选">
+              <option value="">全部日期</option>
+              <option value="week">最近一周</option>
+              <option value="month">最近一月</option>
+              <option value="3months">最近三月</option>
+              <option value="year">最近一年</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label for="rating-filter" class="filter-label">评分：</label>
+            <select id="rating-filter" class="filter-select" aria-label="按评分筛选">
+              <option value="">全部评分</option>
+              <option value="high">高分 (≥4/5 或 ≥80/100)</option>
+              <option value="medium">中等 (3-3.9/5 或 60-79/100)</option>
+              <option value="low">低分 (<3/5 或 <60/100)</option>
+            </select>
+          </div>
+          
+          <button id="clear-filters" class="btn filter-clear" aria-label="清除所有筛选">
+            清除筛选
+          </button>
+        </div>
+        
         <div 
           id="search-results"
           class="search-dropdown" 
