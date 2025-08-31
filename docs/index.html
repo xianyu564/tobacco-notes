@@ -11,6 +11,16 @@
   <meta name="author" content="Contributors" />
   <meta name="robots" content="index, follow" />
   
+  <!-- Language-specific meta tags -->
+  <meta name="language" content="zh-CN">
+  <meta name="geo.region" content="CN">
+  <meta name="geo.placename" content="China">
+  
+  <!-- Hreflang for bilingual SEO -->
+  <link rel="alternate" hreflang="zh-CN" href="./index.html" />
+  <link rel="alternate" hreflang="en-US" href="./index.html?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="./index.html" />
+
   <!-- Open Graph -->
   <meta property="og:title" content="Tobacco Notes｜烟草笔记" />
   <meta property="og:description" content="一句话投稿、轻量浏览、友好索引；为爱发电的烟草品鉴记录与分享。" />
@@ -20,6 +30,7 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="zh_CN" />
+  <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:site_name" content="Tobacco Notes" />
   
   <!-- Twitter Card -->
@@ -125,6 +136,7 @@
   <!-- 核心脚本 -->
   <script defer src="./js/performance.js"></script>
   <script defer src="./js/theme.js"></script>
+  <script defer src="./js/language-switcher.js"></script>
   <script defer src="./js/search.js"></script>
   <script defer src="./js/notes.js"></script>
   <script defer src="./js/image-optimization.js"></script>
@@ -214,23 +226,23 @@
 <body>
   <!-- 固定导航栏 -->
   <nav class="nav" role="navigation" aria-label="主导航">
-    <a href="./" class="nav-logo" aria-label="返回首页">Tobacco Notes</a>
+    <a href="./" class="nav-logo" aria-label="返回首页" data-i18n="nav-home">Tobacco Notes</a>
     <div class="nav-links">
       <button class="btn theme-toggle" aria-label="切换主题">🌓</button>
-      <a href="#latest" class="btn" aria-label="查看最新笔记">最新笔记</a>
+      <a href="#latest" class="btn" aria-label="查看最新笔记" data-i18n="latest-notes">最新笔记</a>
       <a href="#categories" class="btn" aria-label="按分类浏览笔记">分类浏览</a>
       <a href="#tags" class="btn" aria-label="按标签浏览笔记">标签聚合</a>
       <button class="btn share-button" data-platform="native" aria-label="分享页面">分享</button>
-      <a id="link-one" class="btn primary" href="#" aria-label="快速提交一句话笔记">一句话投稿</a>
+      <a id="link-one" class="btn primary" href="#" aria-label="快速提交一句话笔记" data-i18n="quick-submit">一句话投稿</a>
     </div>
   </nav>
 
   <header class="site-header animate">
-    <h1>Tobacco Notes｜烟草笔记</h1>
-    <p>记录每一次品鉴，分享独特体验</p>
+    <h1 class="bilingual-text" data-bilingual="Tobacco Notes｜烟草笔记">Tobacco Notes｜烟草笔记</h1>
+    <p data-i18n="site-description">记录每一次品鉴，分享独特体验</p>
     <div class="cta">
-      <a id="link-quick" class="btn primary" href="#">一句话投稿</a>
-      <a id="link-form" class="btn" href="#">标准表单</a>
+      <a id="link-quick" class="btn primary" href="#" data-i18n="quick-submit">一句话投稿</a>
+      <a id="link-form" class="btn" href="#" data-i18n="standard-submit">标准表单</a>
       <a id="link-repo" class="btn" href="#" target="_blank" rel="noopener">在 GitHub 查看</a>
     </div>
   </header>
@@ -243,7 +255,7 @@
       data-lazy-scripts="./js/shortcuts.js,./js/share.js"
     >
       <h2 id="latest-title">
-        <span>最新笔记</span>
+        <span data-i18n="latest-notes">最新笔记</span>
         <span class="shortcut-hint" aria-label="使用快捷键 Command+K 打开搜索">⌘K 搜索</span>
       </h2>
       <div class="search" role="search">
@@ -255,15 +267,16 @@
           aria-expanded="false"
           aria-controls="search-results"
           aria-describedby="search-desc" 
+          data-i18n="search-placeholder"
         />
         <div id="search-desc" class="sr-only">输入关键词搜索笔记，使用上下箭头键选择结果，回车键确认</div>
         
         <!-- 搜索筛选器 -->
         <div class="search-filters" aria-label="搜索筛选选项">
           <div class="filter-group">
-            <label for="category-filter" class="filter-label">分类：</label>
+            <label for="category-filter" class="filter-label" data-i18n="filter-by-category">分类：</label>
             <select id="category-filter" class="filter-select" aria-label="按分类筛选">
-              <option value="">全部分类</option>
+              <option value="" data-i18n="all-categories">全部分类</option>
               <option value="cigars">雪茄 (Cigars)</option>
               <option value="cigarettes">纸烟 (Cigarettes)</option>
               <option value="pipe">烟斗 (Pipe)</option>
@@ -437,7 +450,7 @@
       aria-labelledby="templates-title"
       data-lazy-scripts="./js/mobile.js"
     >
-      <h2 id="templates-title">模板与指引</h2>
+      <h2 id="templates-title" data-i18n="templates-title">模板与指引</h2>
       <div 
         class="template-grid"
         role="list"
