@@ -3,6 +3,19 @@ class PerformanceManager {
   constructor() {
     this.metrics = {};
     this.observers = {};
+    this.cache = new Map();
+    this.loadStartTime = performance.now();
+    this.validationThresholds = {
+      lcp: 2500,        // Largest Contentful Paint
+      fid: 100,         // First Input Delay
+      cls: 0.1,         // Cumulative Layout Shift
+      fcp: 1800,        // First Contentful Paint
+      ttfb: 800,        // Time to First Byte
+      memoryUsage: 50,  // MB
+      bundleSize: 500,  // KB
+      imageSize: 200    // KB per image
+    };
+    this.validationResults = [];
     this.init();
   }
 
@@ -12,6 +25,7 @@ class PerformanceManager {
     this.initLazyLoad();
     this.initCache();
     this.initMonitoring();
+    this.initPerformanceValidation();
   }
 
   initMetrics() {
@@ -259,6 +273,353 @@ class PerformanceManager {
     // 这里可以实现具体的日志记录逻辑
     // 例如发送到分析服务器或保存到本地存储
     console.log(`[${type}]`, data);
+  }
+
+  initPerformanceValidation() {
+    // 初始化性能验证
+    this.performanceValidation = {
+      checkWebVitals: () => this.validateWebVitals(),
+      checkResourceSizes: () => this.validateResourceSizes(),
+      checkMemoryUsage: () => this.validateMemoryUsage(),
+      checkNetworkEfficiency: () => this.validateNetworkEfficiency(),
+      generateReport: () => this.generatePerformanceReport()
+    };
+
+    // 页面加载完成后进行验证
+    window.addEventListener('load', () => {
+      setTimeout(() => this.runPerformanceValidation(), 2000);
+    });
+  }
+
+  runPerformanceValidation() {
+    console.log('🚀 开始性能验证...');
+    
+    this.validationResults = [];
+    
+    // 运行所有验证
+    this.validateWebVitals();
+    this.validateResourceSizes();
+    this.validateMemoryUsage();
+    this.validateNetworkEfficiency();
+    
+    // 生成报告
+    const report = this.generatePerformanceReport();
+    
+    // 触发性能验证完成事件
+    document.dispatchEvent(new CustomEvent('performanceValidated', {
+      detail: report
+    }));
+    
+    return report;
+  }
+
+  validateWebVitals() {
+    const results = [];
+    
+    // LCP 验证
+    if (this.metrics.lcp !== undefined) {
+      const isValid = this.metrics.lcp <= this.validationThresholds.lcp;
+      results.push({
+        metric: 'LCP',
+        value: this.metrics.lcp,
+        threshold: this.validationThresholds.lcp,
+        status: isValid ? 'pass' : 'fail',
+        message: isValid ? 
+          `LCP 优秀 (${Math.round(this.metrics.lcp)}ms)` : 
+          `LCP 需要优化 (${Math.round(this.metrics.lcp)}ms, 应 < ${this.validationThresholds.lcp}ms)`
+      });
+    }
+    
+    // FID 验证
+    if (this.metrics.fid !== undefined) {
+      const isValid = this.metrics.fid <= this.validationThresholds.fid;
+      results.push({
+        metric: 'FID',
+        value: this.metrics.fid,
+        threshold: this.validationThresholds.fid,
+        status: isValid ? 'pass' : 'fail',
+        message: isValid ? 
+          `FID 优秀 (${Math.round(this.metrics.fid)}ms)` : 
+          `FID 需要优化 (${Math.round(this.metrics.fid)}ms, 应 < ${this.validationThresholds.fid}ms)`
+      });
+    }
+    
+    // CLS 验证
+    if (this.metrics.cls !== undefined) {
+      const isValid = this.metrics.cls <= this.validationThresholds.cls;
+      results.push({
+        metric: 'CLS',
+        value: this.metrics.cls,
+        threshold: this.validationThresholds.cls,
+        status: isValid ? 'pass' : 'fail',
+        message: isValid ? 
+          `CLS 优秀 (${this.metrics.cls.toFixed(3)})` : 
+          `CLS 需要优化 (${this.metrics.cls.toFixed(3)}, 应 < ${this.validationThresholds.cls})`
+      });
+    }
+    
+    this.validationResults.push(...results);
+    return results;
+  }
+
+  validateResourceSizes() {
+    const results = [];
+    const resources = performance.getEntriesByType('resource');
+    
+    // 验证单个资源大小
+    resources.forEach(resource => {
+      if (resource.transferSize) {
+        const sizeKB = resource.transferSize / 1024;
+        
+        // 检查图片大小
+        if (resource.name.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+          const isValid = sizeKB <= this.validationThresholds.imageSize;
+          if (!isValid) {
+            results.push({
+              metric: 'Image Size',
+              resource: resource.name,
+              value: sizeKB,
+              threshold: this.validationThresholds.imageSize,
+              status: 'warning',
+              message: `图片文件较大: ${Math.round(sizeKB)}KB (建议 < ${this.validationThresholds.imageSize}KB)`
+            });
+          }
+        }
+        
+        // 检查JavaScript文件大小
+        if (resource.name.match(/\.js$/i) && sizeKB > 100) {
+          results.push({
+            metric: 'JS Bundle Size',
+            resource: resource.name,
+            value: sizeKB,
+            threshold: 100,
+            status: 'warning',
+            message: `JavaScript文件较大: ${Math.round(sizeKB)}KB (建议拆分或压缩)`
+          });
+        }
+        
+        // 检查CSS文件大小
+        if (resource.name.match(/\.css$/i) && sizeKB > 50) {
+          results.push({
+            metric: 'CSS Size',
+            resource: resource.name,
+            value: sizeKB,
+            threshold: 50,
+            status: 'warning',
+            message: `CSS文件较大: ${Math.round(sizeKB)}KB (建议优化)`
+          });
+        }
+      }
+    });
+    
+    // 检查总传输大小
+    const totalSize = resources.reduce((sum, r) => sum + (r.transferSize || 0), 0) / 1024;
+    const isValidTotal = totalSize <= this.validationThresholds.bundleSize;
+    results.push({
+      metric: 'Total Bundle Size',
+      value: totalSize,
+      threshold: this.validationThresholds.bundleSize,
+      status: isValidTotal ? 'pass' : 'fail',
+      message: isValidTotal ? 
+        `总体积良好 (${Math.round(totalSize)}KB)` : 
+        `总体积过大 (${Math.round(totalSize)}KB, 建议 < ${this.validationThresholds.bundleSize}KB)`
+    });
+    
+    this.validationResults.push(...results);
+    return results;
+  }
+
+  validateMemoryUsage() {
+    const results = [];
+    
+    if ('memory' in performance) {
+      const memoryMB = performance.memory.usedJSHeapSize / (1024 * 1024);
+      const isValid = memoryMB <= this.validationThresholds.memoryUsage;
+      
+      results.push({
+        metric: 'Memory Usage',
+        value: memoryMB,
+        threshold: this.validationThresholds.memoryUsage,
+        status: isValid ? 'pass' : 'warning',
+        message: isValid ? 
+          `内存使用正常 (${Math.round(memoryMB)}MB)` : 
+          `内存使用较高 (${Math.round(memoryMB)}MB, 建议 < ${this.validationThresholds.memoryUsage}MB)`
+      });
+    }
+    
+    this.validationResults.push(...results);
+    return results;
+  }
+
+  validateNetworkEfficiency() {
+    const results = [];
+    const resources = performance.getEntriesByType('resource');
+    
+    // 检查未压缩的资源
+    resources.forEach(resource => {
+      if (resource.transferSize && resource.decodedBodySize) {
+        const compressionRatio = resource.transferSize / resource.decodedBodySize;
+        
+        // 如果压缩比例太低，可能没有启用压缩
+        if (resource.decodedBodySize > 1024 && compressionRatio > 0.9) {
+          results.push({
+            metric: 'Compression',
+            resource: resource.name,
+            value: compressionRatio,
+            threshold: 0.9,
+            status: 'warning',
+            message: `资源可能未压缩: ${resource.name.split('/').pop()} (压缩比: ${(compressionRatio * 100).toFixed(1)}%)`
+          });
+        }
+      }
+    });
+    
+    // 检查DNS查找时间
+    if (this.metrics.navigation?.dnsLookup > 200) {
+      results.push({
+        metric: 'DNS Lookup',
+        value: this.metrics.navigation.dnsLookup,
+        threshold: 200,
+        status: 'warning',
+        message: `DNS查找时间较长 (${Math.round(this.metrics.navigation.dnsLookup)}ms)`
+      });
+    }
+    
+    // 检查服务器响应时间
+    if (this.metrics.navigation?.serverResponse > this.validationThresholds.ttfb) {
+      results.push({
+        metric: 'TTFB',
+        value: this.metrics.navigation.serverResponse,
+        threshold: this.validationThresholds.ttfb,
+        status: 'warning',
+        message: `服务器响应时间较长 (${Math.round(this.metrics.navigation.serverResponse)}ms)`
+      });
+    }
+    
+    this.validationResults.push(...results);
+    return results;
+  }
+
+  generatePerformanceReport() {
+    const passCount = this.validationResults.filter(r => r.status === 'pass').length;
+    const failCount = this.validationResults.filter(r => r.status === 'fail').length;
+    const warningCount = this.validationResults.filter(r => r.status === 'warning').length;
+    const totalChecks = this.validationResults.length;
+    
+    const score = totalChecks > 0 ? Math.round((passCount / totalChecks) * 100) : 0;
+    
+    const report = {
+      timestamp: new Date().toISOString(),
+      score,
+      summary: {
+        total: totalChecks,
+        passed: passCount,
+        failed: failCount,
+        warnings: warningCount
+      },
+      details: this.validationResults,
+      recommendations: this.generateRecommendations()
+    };
+    
+    this.logPerformanceReport(report);
+    return report;
+  }
+
+  generateRecommendations() {
+    const recommendations = [];
+    
+    // 基于验证结果生成建议
+    const failedChecks = this.validationResults.filter(r => r.status === 'fail');
+    const warningChecks = this.validationResults.filter(r => r.status === 'warning');
+    
+    if (failedChecks.some(r => r.metric === 'LCP')) {
+      recommendations.push({
+        priority: 'high',
+        category: 'LCP优化',
+        suggestion: '优化LCP: 使用更快的CDN、压缩图片、优化关键渲染路径'
+      });
+    }
+    
+    if (failedChecks.some(r => r.metric === 'FID')) {
+      recommendations.push({
+        priority: 'high',
+        category: 'FID优化',
+        suggestion: '优化FID: 减少JavaScript执行时间、使用Web Workers、优化事件处理'
+      });
+    }
+    
+    if (failedChecks.some(r => r.metric === 'CLS')) {
+      recommendations.push({
+        priority: 'medium',
+        category: 'CLS优化',
+        suggestion: '优化CLS: 为图片和广告预留空间、避免动态内容插入'
+      });
+    }
+    
+    if (warningChecks.some(r => r.metric === 'Image Size')) {
+      recommendations.push({
+        priority: 'medium',
+        category: '图片优化',
+        suggestion: '压缩图片: 使用WebP格式、响应式图片、适当的图片尺寸'
+      });
+    }
+    
+    if (warningChecks.some(r => r.metric === 'Compression')) {
+      recommendations.push({
+        priority: 'low',
+        category: '压缩优化',
+        suggestion: '启用Gzip/Brotli压缩、使用CDN、优化资源传输'
+      });
+    }
+    
+    return recommendations;
+  }
+
+  logPerformanceReport(report) {
+    console.group('🎯 性能验证报告');
+    console.log(`📊 评分: ${report.score}/100`);
+    console.log(`✅ 通过: ${report.summary.passed}`);
+    console.log(`❌ 失败: ${report.summary.failed}`);
+    console.log(`⚠️ 警告: ${report.summary.warnings}`);
+    
+    if (report.summary.failed > 0) {
+      console.group('❌ 需要修复');
+      report.details.filter(r => r.status === 'fail').forEach(result => {
+        console.error(result.message);
+      });
+      console.groupEnd();
+    }
+    
+    if (report.summary.warnings > 0) {
+      console.group('⚠️ 建议优化');
+      report.details.filter(r => r.status === 'warning').forEach(result => {
+        console.warn(result.message);
+      });
+      console.groupEnd();
+    }
+    
+    if (report.recommendations.length > 0) {
+      console.group('💡 优化建议');
+      report.recommendations.forEach(rec => {
+        console.log(`${rec.priority === 'high' ? '🔴' : rec.priority === 'medium' ? '🟡' : '🟢'} ${rec.category}: ${rec.suggestion}`);
+      });
+      console.groupEnd();
+    }
+    
+    console.groupEnd();
+  }
+
+  // 公共API方法
+  getMetrics() {
+    return this.metrics;
+  }
+
+  getValidationResults() {
+    return this.validationResults;
+  }
+
+  validatePerformance() {
+    return this.runPerformanceValidation();
   }
 
   // 性能优化工具方法
