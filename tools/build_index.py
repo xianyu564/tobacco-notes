@@ -262,6 +262,21 @@ def main() -> None:
     repo_root = Path(__file__).resolve().parents[1]
     entries = collect_notes(repo_root)
     write_index(repo_root, entries)
+    
+    # Also build tag aggregation data
+    try:
+        import subprocess
+        import sys
+        result = subprocess.run([
+            sys.executable, 
+            str(repo_root / "tools" / "build_tags.py")
+        ], capture_output=True, text=True)
+        if result.returncode == 0:
+            print("Tag aggregation data built successfully")
+        else:
+            print(f"Warning: Tag building failed: {result.stderr}")
+    except Exception as e:
+        print(f"Warning: Could not build tag data: {e}")
 
 
 if __name__ == "__main__":

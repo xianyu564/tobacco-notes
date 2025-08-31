@@ -219,6 +219,7 @@
       <button class="btn theme-toggle" aria-label="切换主题">🌓</button>
       <a href="#latest" class="btn" aria-label="查看最新笔记">最新笔记</a>
       <a href="#categories" class="btn" aria-label="按分类浏览笔记">分类浏览</a>
+      <a href="#tags" class="btn" aria-label="按标签浏览笔记">标签聚合</a>
       <button class="btn share-button" data-platform="native" aria-label="分享页面">分享</button>
       <a id="link-one" class="btn primary" href="#" aria-label="快速提交一句话笔记">一句话投稿</a>
     </div>
@@ -340,6 +341,94 @@
         role="region"
         aria-label="分类笔记列表"
       ></div>
+    </section>
+
+    <section 
+      id="tags" 
+      class="animate" 
+      aria-labelledby="tags-title"
+      data-lazy-scripts="./js/tags.js"
+    >
+      <h2 id="tags-title">标签聚合｜Tag Aggregation</h2>
+      <div 
+        class="tag-summary"
+        role="region"
+        aria-label="标签统计信息"
+      >
+        <div id="tag-stats" class="tag-stats">
+          <span class="stat-item">
+            <span class="stat-number" id="total-tags">-</span>
+            <span class="stat-label">个标签</span>
+          </span>
+          <span class="stat-item">
+            <span class="stat-number" id="tagged-notes">-</span>
+            <span class="stat-label">篇笔记</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="tag-sections">
+        <!-- Featured tag collections -->
+        <div 
+          id="featured-tags" 
+          class="featured-tags"
+          role="region"
+          aria-label="精选标签集合"
+        >
+          <h3>精选标签 | Featured Tags</h3>
+          <div id="featured-collections" class="featured-collections">
+            <!-- Dynamic content loaded by JS -->
+          </div>
+        </div>
+
+        <!-- Popular tags cloud -->
+        <div 
+          id="popular-tags" 
+          class="popular-tags"
+          role="region"
+          aria-label="热门标签云"
+        >
+          <h3>热门标签 | Popular Tags</h3>
+          <div id="tag-cloud" class="tag-cloud">
+            <!-- Dynamic content loaded by JS -->
+          </div>
+        </div>
+
+        <!-- Tag filtering and browsing -->
+        <div 
+          id="tag-filter" 
+          class="tag-filter"
+          role="region"
+          aria-label="按标签筛选"
+        >
+          <h3>按标签浏览 | Browse by Tags</h3>
+          <div class="tag-filter-controls">
+            <input 
+              type="text" 
+              id="tag-search"
+              placeholder="搜索标签..."
+              aria-label="搜索标签"
+              class="tag-search-input"
+            />
+            <select 
+              id="tag-category-filter"
+              aria-label="按分类筛选标签"
+              class="tag-category-select"
+            >
+              <option value="">全部分类</option>
+              <option value="cigars">雪茄 (Cigars)</option>
+              <option value="cigarettes">纸烟 (Cigarettes)</option>
+              <option value="pipe">烟斗 (Pipe)</option>
+              <option value="ryo">手卷 (RYO)</option>
+              <option value="snus">鼻烟 (Snus)</option>
+              <option value="ecig">电子烟 (E-cig)</option>
+            </select>
+          </div>
+          <div id="filtered-tag-results" class="filtered-tag-results">
+            <!-- Dynamic content loaded by JS -->
+          </div>
+        </div>
+      </div>
     </section>
 
     <section 
