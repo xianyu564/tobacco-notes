@@ -1,0 +1,20 @@
+{
+  "thresholds": {
+    "lcp": 2500,
+    "fid": 100,
+    "cls": 0.1,
+    "fcp": 1800,
+    "ttfb": 800
+  },
+  "monitoring": {
+    "enabled": true,
+    "interval": 30,
+    "alerts": true
+  },
+  "optimization": {
+    "image_compression": 0.8,
+    "css_minification": true,
+    "js_minification": true,
+    "lazy_loading": true
+  }
+}
