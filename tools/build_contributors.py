@@ -252,7 +252,7 @@ def main():
     
     # Update notes with contributor data
     contributors_dict = {contrib['username']: contrib for contrib in contributors_data['contributors']}
-    update_notes_with_contributors(contributors_dict)
+    update_notes_with_contributors(contributors_dict, str(repo_root / "notes/index.json"))
     
     # Update contributors.md with dynamic content
     update_contributors_md(docs_dir, contributors_data)
