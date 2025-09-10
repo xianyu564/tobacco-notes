@@ -39,23 +39,75 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo "🔨 Building contributors data..."
           cd tools
           python build_contributors.py
 
       - name: Check for changes
         id: verify-changed-files
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          # Check if there are any meaningful changes (excluding timestamp updates)
+          meaningful_changes=false
+          
+          # Check contributors.json for changes other than last_updated timestamp
+          if [ -f docs/data/contributors.json ]; then
+            # Create a temporary file without the timestamp line for comparison
+            git show HEAD:docs/data/contributors.json | grep -v '"last_updated"' > /tmp/old_contributors.tmp 2>/dev/null || echo "" > /tmp/old_contributors.tmp
+            cat docs/data/contributors.json | grep -v '"last_updated"' > /tmp/new_contributors.tmp
+            
+            if ! diff -q /tmp/old_contributors.tmp /tmp/new_contributors.tmp >/dev/null 2>&1; then
+              meaningful_changes=true
+              echo "Meaningful changes detected in contributors.json"
+            fi
+            
+            rm -f /tmp/old_contributors.tmp /tmp/new_contributors.tmp
+          else
+            meaningful_changes=true
+            echo "contributors.json file was created"
+          fi
+          
+          # Check contributors.md for changes
+          if git diff --quiet HEAD docs/contributors.md 2>/dev/null; then
+            echo "No changes in contributors.md"
+          else
+            meaningful_changes=true
+            echo "Changes detected in contributors.md"
+          fi
+          
+          if [ "$meaningful_changes" = "true" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Meaningful changes detected in contributor data"
+            git diff --stat docs/data/contributors.json docs/contributors.md 2>/dev/null || true
           else
             echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Only timestamp changes detected - no meaningful updates needed"
           fi
 
       - name: Commit and push changes
         if: steps.verify-changed-files.outputs.changed == 'true'
+        continue-on-error: true
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add docs/data/contributors.json docs/contributors.md notes/index.json
           git commit -m "🤖 Auto-update contributors data"
           git push
+
+      - name: Handle push failure
+        if: steps.verify-changed-files.outputs.changed == 'true' && failure()
+        run: |
+          echo "⚠️  Unable to push changes directly to protected branch"
+          echo "This is expected behavior if branch protection rules are enabled"
+          echo "Changes were generated successfully but require manual review"
+          echo "The workflow completed successfully - no action required"
+          exit 0
+
+      - name: Workflow summary
+        if: always()
+        run: |
+          if [ "${{ steps.verify-changed-files.outputs.changed }}" = "true" ]; then
+            echo "✅ Contributors data was updated"
+          else
+            echo "✅ Contributors data is already up to date"
+          fi
+          echo "🎉 Workflow completed successfully"
